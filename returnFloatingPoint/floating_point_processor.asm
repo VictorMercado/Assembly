@@ -19,10 +19,9 @@
 extern printf
 
 ; segment .data declares initialized arrays
-segemnt .data
+segment .data
 string_form db "%s" , 0
 message db "Please enter 2 float numbers: ", 0
-
 
 ; myinfo resq 50
 ; double myinfo[50]
