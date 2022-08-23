@@ -16,7 +16,7 @@ echo "Compile the C++ module main.cpp"
 g++ -c -m64 -Wall -o main.o main.cpp -fno-pie -no-pie -std=c++17
 
 echo "Link the two object files already created"
-g++ -m64 -o floating_point_processor.out main.o floating_point_processor.o -fno-pie -no-pie -std=c++17
+g++ -m64 -o floating_point_processor main.o floating_point_processor.o -fno-pie -no-pie -std=c++17
 
 echo "Run the program Basic Float Operations"
 ./floating_point_processor.out

@@ -41,4 +41,8 @@ floating_point_processor:
 mov rax, 0
 mov rdi, string_form
 mov rsi, message
+push rsi
+push rdi
 call printf
+mov rax, 1
+int 0x80

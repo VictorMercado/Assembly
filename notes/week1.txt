@@ -7,6 +7,14 @@ We will be using:
 -C++
 -C
 
+data
+d = define
+b = bytes
+w = words (2 bytes)
+d = double words (4 bytes)
+l = longwords (4 bytes)
+q = quadwords (8 bytes)
+
 Compiling 
 
 Hybrid Program:
@@ -26,4 +34,3 @@ Standard for parameters
 
 douvle fun(int, int, long)
     rdi
-    
