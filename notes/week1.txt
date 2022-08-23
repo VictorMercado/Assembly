@@ -1,0 +1,29 @@
+A program is a collection of source files. 
+We will be using:
+-ASM : x86 = 1980 was first 16 bit
+            -in 2005 64 bit processor was made
+
+-Bash
+-C++
+-C
+
+Compiling 
+
+Hybrid Program:
+    -driver is cpp main function
+    -the asm file contains a function that will call these cpp functions:
+        - scanf
+        - printf
+        -atof
+    the asm file will also call another asm function from a different file:
+        -isfloat
+
+Structure of a assembly function
+    - introductory comments (name, email address)
+
+
+Standard for parameters
+
+douvle fun(int, int, long)
+    rdi
+    
