@@ -10,7 +10,7 @@ rm *.out
 echo "This is program <Demonstrate Numeric IO>"
 
 echo "Assemble the module fp-io.asm"
-nasm -f elf64 -l floating_point_processor.lis -o floating_point_processor.o isfloat.o floating_point_processor.asm isfloat.asm
+nasm -f elf64 -l floating_point_processor.lis -o floating_point_processor.o floating_point_processor.asm
 
 echo "Compile the C++ module fp-io-driver.cpp"
 g++ -c -m64 -Wall -o main.o main.cpp -fno-pie -no-pie -std=c++17
