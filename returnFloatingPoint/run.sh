@@ -19,6 +19,6 @@ echo "Link the two object files already created"
 g++ -m64 -o floating_point_processor main.o floating_point_processor.o -fno-pie -no-pie -std=c++17
 
 echo "Run the program Basic Float Operations"
-./floating_point_processor.out
+./floating_point_processor
 
 echo "The bash script file is now closing."
