@@ -45,7 +45,7 @@
 
 ;===== Begin code area ========================================================================================================
 
-extern printf                                               ;External C++ function for writing to standard output device
+extern _printf                                               ;External C++ function for writing to standard output device
 
 extern scanf                                                ;External C++ function for reading from the standard input device
 
@@ -168,7 +168,7 @@ xsavenotsupported:
 mov        rax, 0
 mov        rdi, .stringformat
 mov        rsi, .notsupportedmessage                        ;"The xsave instruction is not suported in this microprocessor.
-call       printf
+call       _printf
 
 push qword 0                                                ;Set a flag (0 = false) to indicate that state component data were not backed up.
 
@@ -186,14 +186,14 @@ push qword 0                                                ;Get onto the 16-byt
 mov qword  rax, 0                                           ;No data from SSE will be printed
 mov        rdi, stringformat                                ;"%s"
 mov        rsi, initialmessage                              ;"This X86 program will demonstrate the input and output of 8-byte ... "
-call       printf                                           ;Call a library function to make the output
+call       _printf                                           ;Call a library function to make the output
 
 
 ;Prompt for floating point number
 mov qword  rax, 0                                           ;No data from SSE will be printed
 mov        rdi, stringformat                                ;"%s"
 mov        rsi, promptmessage                               ;"Enter a floating point number in base 10: "
-call       printf                                           ;Call a library function to make the output
+call       _printf                                           ;Call a library function to make the output
 pop rax                                                     ;Reverse an earlier push
 
 
@@ -221,13 +221,13 @@ movsd      [rsp], xmm2                                      ;Place a backup copy
 ;Show the result of the division operation
 mov        rax, 3                                           ;3 floating point numbers will be outputted
 mov        rdi, outputmessage                               ;"The value of %1.18lf divided by %1.18lf is %1.18lf"
-call       printf                                           ;Call a library function to do the hard work
+call       _printf                                           ;Call a library function to do the hard work
 
 ;Output the concluding message
 mov qword  rax, 0                                           ;No data from SSE will be printed
 mov        rdi, stringformat                                ;"%s"
 mov        rsi, goodbye                                     ;"This summation program will now return to the driver.  Have a nice day."
-call       printf                                           ;Call a llibrary function to do the hard work.
+call       _printf                                           ;Call a llibrary function to do the hard work.
 
 
 ;===== Retrieve a copy of the quotient that was backed up earlier =============================================================
