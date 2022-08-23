@@ -41,4 +41,4 @@ floating_point_processor:
 mov rax, 0
 mov rdi, string_form
 mov rsi, message
-call prinf
+call printf
