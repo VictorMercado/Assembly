@@ -18,6 +18,7 @@
 
 extern printf
 
+global floating_point_processor
 ; segment .data declares initialized arrays
 segment .data
 string_form db "%s" , 0
