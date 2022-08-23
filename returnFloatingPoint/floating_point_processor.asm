@@ -27,8 +27,7 @@ message db "Please enter 2 float numbers: ", 0
 ; myinfo resq 50
 ; double myinfo[50]
 
-section .text
-
+segment .text
 floating_point_processor:
 
 ; back up registers

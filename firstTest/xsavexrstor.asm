@@ -41,9 +41,9 @@
 ;
 ;===== Begin code area ======================================================================================================
 
-extern _printf                                     ;External C++ function for writing to standard output device
+extern printf                                     ;External C++ function for writing to standard output device
 
-global _xsavexrstormain                            ;This makes xsavexrstormain callable by functions outside of this file.
+global xsavexrstormain                            ;This makes xsavexrstormain callable by functions outside of this file.
 
 segment .data                                     ;Place initialized data here
 
@@ -68,7 +68,7 @@ goodbye db "This program will now return to the driver.  Have a nice day.", 10, 
 segment .bss                                      ;Place un-initialized data here.
 
 segment .text                                     ;Place executable instructions in this segment.
-_xsavexrstormain:                                  ;Entry point.  Execution begins here.
+xsavexrstormain:                                  ;Entry point.  Execution begins here.
 
 ;=========== Back up all the integer registers used in this program =======================================================
 ;Omitted from back up are rax, rip.
@@ -93,12 +93,12 @@ pushf                                             ;Back up rflags
 
 mov qword  rax, 0                                 ;Zero indicates no data from SSE will be outputted.
 mov        rdi, welcomemessage                    ;"Welcome to xsave and xrstor."
-call       _printf                                 ;Display the message using library function
+call       printf                                 ;Display the message using library function
 
 ;=========== Show the intent message ======================================================================================
 mov qword  rax, 0                                 ;Zero indicates no data from SSE will be outputted.
 mov        rdi, intentmessage                     ;"This program will demonstrate the use of xsave and xrstor."
-call       _printf                                 ;Display the message using library function
+call       printf                                 ;Display the message using library function
 
 ;=========== Test the current machine to determine if it supports xsave and xrstor. =======================================
 mov        rax,1
@@ -109,7 +109,7 @@ je         notsupported
 
 mov rax,0
 mov rdi,firstvalues
-call _printf
+call printf
 
 ;=========== Set up some values in 3 registers of SSE =====================================================================
 mov        rax, 0x4000000000000000      ;1.0
@@ -133,15 +133,15 @@ movsd xmm0,xmm5
 movsd xmm1,xmm10
 movsd xmm2,xmm14
 mov rdi,threenumberform
-call _printf
+call printf
 
 mov rax,0
 mov rdi,backup
-call _printf
+call printf
 
 mov rax,0
 mov rdi,secondvalues
-call _printf
+call printf
 
 ;========== Perform a back up using xsave =================================================================================
 ;Here is the setup for calling xsave
@@ -201,7 +201,7 @@ movsd xmm0,xmm5
 movsd xmm1,xmm10
 movsd xmm2,xmm14
 mov rdi, threenumberform
-call _printf
+call printf
 add rsp, 8                              ;Same as pop a quadword from the stack
 
 ;=========== End of the intended purpose of this module ===================================================================
@@ -221,7 +221,7 @@ add rsp, 8                              ;Same as pop a quadword from the stack
 ;========== Next restore the original values using xrstor =================================================================
 mov rax,0
 mov rdi,restoreall
-call _printf
+call printf
 
 ;Perform the setup block
 mov        rax, 0x000000000000000d
@@ -242,21 +242,21 @@ movsd xmm0,xmm5
 movsd xmm1,xmm10
 movsd xmm2,xmm14
 mov rdi, threenumberform
-call _printf
+call printf
 
 jmp conclusion
 
 notsupported:
 mov        rax, 0                                 ;Make sure printf does not attempt to output any floating point values.
 mov        rdi, unsupportedmessage                ;"The xsave and xrstor instructions are not supported by this CPU...."
-call       _printf
+call       printf
 jmp        done
 
 conclusion:
 push qword 0                                      ;Make rsp divisible by 16 for the benefit of printf
 mov qword  rax, 0                                 ;Zero indicates no data from SSE will be outputted.
 mov        rdi, goodbye                           ;"This program will now return to the driver.  Have a nice day."
-call       _printf                                 ;Display the message using library function
+call       printf                                 ;Display the message using library function
 add        rsp,8                                  ;Reverse the push of 5 lines earlier.
 
 done:

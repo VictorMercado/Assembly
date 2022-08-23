@@ -15,12 +15,12 @@ extern "C" string floating_point_processor();
 int main()
 {
 
-    double return_code = -1;
+    //double return_code = -1;
 
     //cout << "Welcome you will be entering 2 Floating Point numbers and its my job to see if you did just that." << endl;
     //assmebly function call to process the floating point numbers
     // return_code = 
     floating_point_processor();
-    cout <<"The driver received return code: " <<  return_code << ".  The driver will now exit.  GoodBye." << endl;
+    //cout <<"The driver received return code: " <<  return_code << ".  The driver will now exit.  GoodBye." << endl;
     return 0;
 }
