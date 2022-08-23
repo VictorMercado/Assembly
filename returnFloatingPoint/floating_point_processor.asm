@@ -20,9 +20,9 @@ extern printf
 
 global floating_point_processor
 ; segment .data declares initialized arrays
-segment .data
-string_form db "%s" , 0
-message db "Please enter 2 float numbers: ", 0
+; segment .data
+; string_form db "%s" , 0
+; message db "Please enter 2 float numbers: ", 0
 
 ; myinfo resq 50
 ; double myinfo[50]
@@ -38,11 +38,5 @@ floating_point_processor:
 
 ; output instructions for input
 
-mov rax, 0
-mov rdi, string_form
-mov rsi, message
-push rsi
-push rdi
-call printf
-mov rax, 1
-int 0x80
+mov rax, 12345
+ret
