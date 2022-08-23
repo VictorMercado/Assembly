@@ -9,10 +9,10 @@ rm *.out
 
 echo "This is program <Demonstrate Numeric IO>"
 
-echo "Assemble the module fp-io.asm"
+echo "Assemble the module floatin_point_processor.asm"
 nasm -f elf64 -l floating_point_processor.lis -o floating_point_processor.o floating_point_processor.asm
 
-echo "Compile the C++ module fp-io-driver.cpp"
+echo "Compile the C++ module main.cpp"
 g++ -c -m64 -Wall -o main.o main.cpp -fno-pie -no-pie -std=c++17
 
 echo "Link the two object files already created"

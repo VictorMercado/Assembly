@@ -16,16 +16,18 @@
 ; l = longwords (4 bytes)
 ; q = quadwords (8 bytes)
 
+extern printf
+
 ; segment .data declares initialized arrays
 segemnt .data
 string_form db "%s" , 0
 message db "Please enter 2 float numbers: ", 0
-welcome db "This is CS 240" , 10, 0
+
 
 ; myinfo resq 50
 ; double myinfo[50]
 
-segment .text
+section .text
 
 floating_point_processor:
 
