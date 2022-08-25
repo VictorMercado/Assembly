@@ -20,7 +20,7 @@ int main()
     //cout << "Welcome you will be entering 2 Floating Point numbers and its my job to see if you did just that." << endl;
     //assmebly function call to process the floating point numbers
     // return_code = 
-    cout << "this is the output" << floating_point_processor() << endl;
+    cout << "this is the output"<< endl << floating_point_processor() << endl;
     //cout <<"The driver received return code: " <<  return_code << ".  The driver will now exit.  GoodBye." << endl;
     return 0;
 }
