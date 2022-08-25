@@ -59,6 +59,8 @@ mov rdi, string_form
 mov rsi, message
 call printf
 
+pop rsi
+pop rdi
 mov rdi, string_form
 mov rsi, goodbye
 call printf
