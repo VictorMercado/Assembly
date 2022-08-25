@@ -26,8 +26,8 @@ global floating_point_processor
 segment .data
 one_k equ 1024
 string_form db "%s" , 0
-message db "Please enter 2 float numbers: ", 10, 0
-goodbye db "Goodbye! Thank you for using my program", 10, 0
+message db "ASM: Please enter 2 float numbers: ", 10, 0
+goodbye db "ASM: Goodbye! Thank you for using my program", 10, 0
 
 segment .bss
 ;empty
@@ -59,6 +59,9 @@ mov rdi, string_form
 mov rsi, message
 call printf
 
+mov rdi, string_form
+mov rsi, goodbye
+call printf
 ; read input
 ; mov rax, 0
 ; mov rdi, string_form
