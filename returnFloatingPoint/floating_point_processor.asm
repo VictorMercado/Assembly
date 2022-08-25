@@ -17,26 +17,72 @@
 ; q = quadwords (8 bytes)
 
 extern printf
+extern scanf
+extern isfloat
+extern atof
 
 global floating_point_processor
-; segment .data declares initialized arrays
-; segment .data
-; string_form db "%s" , 0
-; message db "Please enter 2 float numbers: ", 0
+; segment .data declares initialized data
+segment .data
+one_k equ 1024
+string_form db "%s" , 0
+message db "Please enter 2 float numbers: ", 10, 0
+goodbye db "Goodbye! Thank you for using my program", 10, 0
 
-; myinfo resq 50
-; double myinfo[50]
+segment .bss
+;empty
 
+; segment .text declares the code
 segment .text
+
+; invalid_input is a function that prints an error message and exits the program
+
+; invalid_input:
+; mov rax, 0
+; mov rdi, message
+; mov rsi, invalmess
+; call printf
+
+; xmm12 is our special location
+
+; push qword 0
+; movsd xmm12, [rsp]
+; pop rax
+
 floating_point_processor:
-
-; back up registers
-; segment .backup
-
-; push rbp
-; mov rbp, rsp
+; backup the registers(GRP)
+; print welcome message
 
 ; output instructions for input
+mov rax, 0
+mov rdi, string_form
+mov rsi, message
+call printf
+
+; read input
+; mov rax, 0
+; mov rdi, string_form
+; sub rsp, one_k
+; mov rsi, rsp
+; call scanf
+
+; check if input is a float
+; mov rax, 0
+; mov rdi, rsp
+; call isfloat
+
+; if input is not a float, print error message and exit
+; cmp rax, 0
+; je invalid_input
+; mov rax, 0
+; mov rdi, rsp
+; call atof
+; movsd xmm14, xmm0   ; xmm14 = first number
+
+; restore the registers(GRP)
+
+; movsd xmm0, xmm14
+; ret
 
 mov rax, 12345
 ret
