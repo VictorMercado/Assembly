@@ -59,8 +59,7 @@ mov rdi, string_form
 mov rsi, message
 call printf
 
-pop rsi
-pop rdi
+mov rax, 0
 mov rdi, string_form
 mov rsi, goodbye
 call printf
