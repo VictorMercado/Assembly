@@ -68,7 +68,7 @@ mov rsi, goodbye
 call printf ; printf("%s", "goodbye")
 
 mov rax, 0
-; mov rdi, string_form
+mov rdi, string_form
 ; mov rsi, textInput
 sub rsp, one_k
 mov rsi, rsp
