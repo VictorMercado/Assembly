@@ -69,12 +69,10 @@ mov rax, 0
 mov rdi, string_form
 sub rsp, one_k
 mov rsi, rsp
-mov r12, rsp
 call scanf
 
 mov rax, 0
 mov rdi, string_form
-push QWORD [r12]
 call printf
 
 ; read input

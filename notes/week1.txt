@@ -35,8 +35,8 @@ use these for passing into functions:
 rdx = 3rd parameter
 rcx = 4th parameter,
 rbx
-r8
-r9
+r8 = 5th parameter
+r9 = 6th parameter
 
 r10 = interger register
 r11 = interger register
