@@ -14,6 +14,32 @@ segments:
 .bss    ; uninitialized data
 .data   ; is for initializing constants
 
+commands: 
+loop
+mov
+movsd
+push
+pop
+call
+db
+edu
+add
+dec
+inc
+sub
+xchg
+ret
+neg
+cmp [reg/mem], [reg/mem/imm]: compares op1 to op2 sets flag
+jmp [reg/mem/label+offset]: jumps to label defined by a name and color Here:
+jxx : [label+offset]
+je  : jump equal
+jl  : jump if less
+jle : jump if less or equal
+jg  : jump if greater
+jge : jump if greater or equal
+jz  : jump if 0
+jnz : jump if not 0
 
 Registers:
 
