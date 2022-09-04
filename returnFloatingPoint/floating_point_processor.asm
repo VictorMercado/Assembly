@@ -72,6 +72,7 @@ call scanf
 
 mov rax, 0
 mov rdi, string_form
+push rsi
 call printf
 
 ; read input
