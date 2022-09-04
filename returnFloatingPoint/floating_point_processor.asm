@@ -29,9 +29,10 @@ string_form db "%s" , 0
 message db "ASM: Please enter 2 float numbers: ", 10, 0
 goodbye db "ASM: Goodbye! Thank you for using my program", 10, 0
 
+input db "%d", 0
 segment .bss
 ;empty
-
+var resb 4
 ; segment .text declares the code
 segment .text
 
@@ -65,14 +66,12 @@ mov rsi, goodbye
 call printf
 
 mov rax, 0
-mov rdi, string_form
-sub rsp, one_k
-mov rsi, rsp
+push var
+push input
 call scanf
 
-mov rax, 0
-mov rdi, string_form
-push rsi
+push dword [var]
+push input
 call printf
 
 ; read input
