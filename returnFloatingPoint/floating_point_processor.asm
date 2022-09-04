@@ -33,7 +33,8 @@ goodbye db "ASM: Goodbye! Thank you for using my program", 10, 0
 input db "%d", 0
 segment .bss
 
-number resb 4
+number resb 4           ; 4 bytes for number
+textInput resb 100      ; 100 bytes for textInput
 ; segment .text declares the code
 segment .text
 
@@ -66,9 +67,9 @@ mov rdi, string_form
 mov rsi, goodbye
 call printf ; printf("%s", "goodbye")
 
-mov eax, 0
-lea rdi, [number_form]
-lea rsi, [number]
+mov rax, 0
+lea rdi, [string_form]
+lea rsi, [textInput]
 call scanf ; scanf("%f", &number)
 
 ; mov rax, 0
