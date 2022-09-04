@@ -63,6 +63,17 @@ mov rax, 0
 mov rdi, string_form
 mov rsi, goodbye
 call printf
+
+mov rax, 0
+mov rdi, string_form
+sub rsp, one_k
+mov rsi, rsp
+call scanf
+
+mov rax, 0
+mov rdi, string_form
+call printf
+
 ; read input
 ; mov rax, 0
 ; mov rdi, string_form
@@ -82,11 +93,19 @@ call printf
 ; mov rdi, rsp
 ; call atof
 ; movsd xmm14, xmm0   ; xmm14 = first number
-
+; add rsp, one_k
 ; restore the registers(GRP)
 
 ; movsd xmm0, xmm14
 ; ret
+
+; get next number put into xmm13
+
+; float_form db "your number is %1.15lf", 10 , 0
+; mov rax,1
+; mov rdi, float_form
+; movsd xmm0, xmm12
+; call printf
 
 mov rax, 12345
 ret
