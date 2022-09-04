@@ -73,7 +73,7 @@ mov r12, rsp
 call scanf
 
 mov rdi, string_form
-push [r12]
+push QWORD [r12]
 call printf
 
 ; read input
