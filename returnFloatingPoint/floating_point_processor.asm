@@ -24,7 +24,7 @@ extern atof
 global floating_point_processor
 ; segment .data declares initialized data
 segment .data
-one_k equ 1024 ; bytes
+one_k equ 100 ; bytes
 string_form db "%s" , 0 ; string type
 number_form db "%f" , 0 ; float type
 message db "ASM: Please enter 2 float numbers: ", 10, 0
