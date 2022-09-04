@@ -71,10 +71,10 @@ sub rsp, one_k
 mov rsi, rsp
 call scanf
 
-mov rax, 0
-mov rdi, string_form
-mov rsi, rsp
-call printf
+; mov rax, 0
+; mov rdi, string_form
+; mov rsi, rsp
+; call printf
 
 ; read input
 ; mov rax, 0
