@@ -1,0 +1,10 @@
+; input a float
+mov rax, 0
+// rdi and rsi are being passed to scanf
+mov rdi, numericform
+push qword 0
+mov rsi, rsp
+call scanf
+// this is the clean up phase
+movsd xmm13, [rsp] // xmm is a safe register for floating point numbers
+pop rax // pop rax to remove junk

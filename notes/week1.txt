@@ -7,10 +7,45 @@ We will be using:
 -C++
 -C
 
-General Purpose registers
-rax, rbx, rcx
-rdi, rsp, rbp
-r8, r9, r10, r11, r12, r13, r14, r15
+extern to bring in functions from external libraries
+
+segments:
+.text   ; is for the code
+.bss    ; is for allocating dynamic variables
+.data   ; is for initializing constants
+
+
+Registers:
+
+rax 3 uses:
+- return register
+- throw junk away with pop
+- takes codes to certain purposes
+    mov 0 for no write
+    mov 1 for floating point write
+
+rsi 
+rdi 
+rsp = stack pointer 
+rbp = base pointer 
+
+General Purpose:
+use these for passing into functions:
+rbx 
+rcx
+rdx
+r8
+r9
+
+r10
+r11
+r12
+r13
+r14
+r15
+
+Parameter Passing:
+rdi, rsi, rdx, rcx, r8, r9
 
 floating point registers
 xmm0, xmm2, xmm3, ... , xmm15
