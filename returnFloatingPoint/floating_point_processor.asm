@@ -26,13 +26,14 @@ global floating_point_processor
 segment .data
 one_k equ 1024 ; bytes
 string_form db "%s" , 0 ; string type
+number_form db "%f" , 0 ; float type
 message db "ASM: Please enter 2 float numbers: ", 10, 0
 goodbye db "ASM: Goodbye! Thank you for using my program", 10, 0
 
 input db "%d", 0
 segment .bss
-;empty
-var equ 4
+
+number resb 4
 ; segment .text declares the code
 segment .text
 
@@ -65,11 +66,10 @@ mov rdi, string_form
 mov rsi, goodbye
 call printf ; printf("%s", "goodbye")
 
-mov rax, 0
-mov rdi, string_form
-sub rsp, one_k
-mov rsi, rsp
-call scanf
+mov eax, 0
+lea rdi, [number_form]
+lea rsi, [number]
+call scanf ; scanf("%f", &number)
 
 ; mov rax, 0
 ; mov rdi, string_form
