@@ -11,7 +11,7 @@ extern to bring in functions from external libraries
 
 segments:
 .text   ; is for the code
-.bss    ; is for allocating dynamic variables
+.bss    ; uninitialized data
 .data   ; is for initializing constants
 
 
@@ -24,25 +24,26 @@ rax 3 uses:
     mov 0 for no write
     mov 1 for floating point write
 
-rsi 
-rdi 
+rdi = 1st parameter, index register
+rsi = 2nd parameter, index register
 rsp = stack pointer 
 rbp = base pointer 
+rip = 
 
 General Purpose:
 use these for passing into functions:
-rbx 
-rcx
-rdx
+rdx = 3rd parameter
+rcx = 4th parameter,
+rbx
 r8
 r9
 
-r10
-r11
-r12
-r13
-r14
-r15
+r10 = interger register
+r11 = interger register
+r12 = interger register
+r13 = interger register
+r14 = interger register
+r15 = interger register
 
 Parameter Passing:
 rdi, rsi, rdx, rcx, r8, r9

@@ -32,7 +32,7 @@ goodbye db "ASM: Goodbye! Thank you for using my program", 10, 0
 input db "%d", 0
 segment .bss
 ;empty
-var resb 4
+var equ 4
 ; segment .text declares the code
 segment .text
 
@@ -66,12 +66,14 @@ mov rsi, goodbye
 call printf
 
 mov rax, 0
-push var
-push input
+mov rdi, string_form
+sub rsp, one_k
+mov rsi, rsp
+mov r12, rsp
 call scanf
 
-push dword [var]
-push input
+mov rdi, string_form
+push [r12]
 call printf
 
 ; read input
