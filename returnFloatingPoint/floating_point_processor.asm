@@ -24,8 +24,8 @@ extern atof
 global floating_point_processor
 ; segment .data declares initialized data
 segment .data
-one_k equ 1024
-string_form db "%s" , 0
+one_k equ 1024 ; bytes
+string_form db "%s" , 0 ; string type
 message db "ASM: Please enter 2 float numbers: ", 10, 0
 goodbye db "ASM: Goodbye! Thank you for using my program", 10, 0
 
@@ -63,7 +63,7 @@ call printf
 mov rax, 0
 mov rdi, string_form
 mov rsi, goodbye
-call printf
+call printf ; printf("%s", "goodbye")
 
 mov rax, 0
 mov rdi, string_form
@@ -72,6 +72,7 @@ mov rsi, rsp
 mov r12, rsp
 call scanf
 
+mov rax, 0
 mov rdi, string_form
 push QWORD [r12]
 call printf
