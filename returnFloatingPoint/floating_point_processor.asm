@@ -73,7 +73,7 @@ mov rdi, string_form
 sub rsp, one_k
 mov rsi, rsp
 call scanf ; scanf("%f", &number)
-
+add rsp, one_k
 ; mov rax, 0
 ; mov rdi, string_form
 ; mov rsi, rsp
