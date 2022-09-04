@@ -68,8 +68,10 @@ mov rsi, goodbye
 call printf ; printf("%s", "goodbye")
 
 mov rax, 0
-mov rdi, string_form
-mov rsi, textInput
+; mov rdi, string_form
+; mov rsi, textInput
+sub rsp, one_k
+mov rsi, rsp
 call scanf ; scanf("%f", &number)
 
 ; mov rax, 0
