@@ -88,6 +88,7 @@ call isfloat
 
 ;
 cmp rax, 0
+add rsp, one_k
 je noFloat
 
 noFloat:
@@ -96,8 +97,6 @@ mov rdi, string_form
 mov rsi, wrong_input
 call printf
 
-
-add rsp, one_k
 
 
 ; read input
