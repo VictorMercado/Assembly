@@ -17,7 +17,7 @@ int main()
 {
 
     double return_code = -1;
-    cout << "c++: Welcome to Floating Points Numbers programmed by Victor Mercado." << endl; 
+    cout << "\033[1;31m Welcome to Floating Points Numbers programmed by Victor Mercado. \033[0m\n";
     cout << "C++: You will be entering 2 Floating Point numbers and its my job to see if you did just that." << endl;
     
     //assmebly function call to process the floating point numbers
