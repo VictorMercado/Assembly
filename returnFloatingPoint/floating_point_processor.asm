@@ -27,7 +27,7 @@ segment .data
 one_k equ 100 ; bytes
 string_form db "%s" , 0 ; string type
 number_form db "%f" , 0 ; float type
-float_form db "You entered these numbers:\n %1.13lf \n %1.13lf", 10 , 0
+float_form db "You entered these numbers: %1.13f   %1.13f", 10 , 0
 message db "ASM: Please enter 2 float numbers: ", 10, 0
 goodbye db "ASM: Goodbye! Thank you for using my program", 10, 0
 wrong_input db "ASM: Invalid input. Please try again", 10, 0
