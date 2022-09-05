@@ -18,9 +18,10 @@ int main()
 
     double return_code = -1;
 
-    //cout << "Welcome you will be entering 2 Floating Point numbers and its my job to see if you did just that." << endl;
+    cout << "C++: Welcome you will be entering 2 Floating Point numbers and its my job to see if you did just that." << endl;
     //assmebly function call to process the floating point numbers
     return_code = floating_point_processor();
-    cout <<"The driver received return code: " <<  return_code << ".  The driver will now exit.  GoodBye." << endl;
+    cout <<"C++: The driver received this float number: " <<  return_code << ".  The driver will now exit.  GoodBye." << endl;
+    cout << "C++: The driver module will return integer 0 to the operating system." << endl;
     return 0;
 }
