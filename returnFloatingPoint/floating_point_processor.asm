@@ -138,3 +138,4 @@ add rsp, one_k
 ; call printf ; printf("%s", "goodbye")
 
 mov rax, 12345
+ret
