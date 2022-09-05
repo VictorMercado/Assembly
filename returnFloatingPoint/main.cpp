@@ -9,7 +9,7 @@
 using namespace std;
 
 // extern keyword is used to declare a variable that is defined in another file.
-extern "C" int floating_point_processor();
+extern "C" float floating_point_processor();
 
 // this is the driver function for the program
 int main()
