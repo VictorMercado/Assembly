@@ -55,7 +55,7 @@ mov rdi, greater_input
 movsd xmm0, xmm14
 call printf
 pop rax
-mov xmm0, xmm14
+movsd xmm0, xmm14
 ret
 
 less:
@@ -65,7 +65,7 @@ mov rdi, greater_input
 movsd xmm0, xmm13
 call printf
 pop rax
-mov xmm0, xmm13
+movsd xmm0, xmm13
 ret
 
 ; xmm12 is our special location
