@@ -34,8 +34,6 @@ wrong_input db "ASM: Invalid input. Please try again", 10, 0
 input db "%d", 0
 segment .bss
 
-number resb 4           ; 4 bytes for number
-textInput resb 100      ; 100 bytes for textInput
 ; segment .text declares the code
 segment .text
 
@@ -81,11 +79,6 @@ sub rsp, one_k
 mov rsi, rsp
 call scanf ; scanf("%f", &number)
 
-
-mov rax, 0
-mov rdi, string_form
-mov rsi, rsp
-call printf
 
 ;check if the input is a float, pass a block of memory to the function, if it is a float, return 1, else return 0, this will be stored in rax
 mov rax, 0
