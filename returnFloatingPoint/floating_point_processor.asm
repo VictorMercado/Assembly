@@ -97,11 +97,12 @@ call atof
 movsd xmm14, xmm0 
 add rsp, one_k
 
-
+push qword 0
 mov rax,1
 mov rdi, float_form
-movsd xmm0, qword [xmm14]
+movsd xmm0, [xmm14]
 call printf
+pop rax
 
 ; read input
 ; mov rax, 0
