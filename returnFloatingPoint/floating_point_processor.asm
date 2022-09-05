@@ -27,39 +27,30 @@ segment .data
 one_k equ 100 ; bytes
 string_form db "%s" , 0 ; string type
 number_form db "%f" , 0 ; float type
-float_form db "your number is %1.15lf", 10 , 0
+float_form db "You entered these numbers:\n %1.13lf \n %1.13lf", 10 , 0
 message db "ASM: Please enter 2 float numbers: ", 10, 0
 goodbye db "ASM: Goodbye! Thank you for using my program", 10, 0
 wrong_input db "ASM: Invalid input. Please try again", 10, 0
 
-input db "%d", 0
+
 segment .bss
 
 ; segment .text declares the code
 segment .text
 
 ; invalid_input is a function that prints an error message and exits the program
-
-; invalid_input:
-; mov rax, 0
-; mov rdi, message
-; mov rsi, invalmess
-; call print
-
-; xmm12 is our special location
-
-; push qword 0
-; movsd xmm12, [rsp]
-; pop rax
-
-noFloat:
+invalid_input:
 add rsp, one_k
 mov rax, 0
 mov rdi, string_form
 mov rsi, wrong_input
 call printf
 
+; xmm12 is our special location
 
+; push qword 0
+; movsd xmm12, [rsp]
+; pop rax
 
 
 floating_point_processor:
@@ -72,7 +63,6 @@ mov rdi, string_form
 mov rsi, message
 call printf
 
-; mov rsi, textInput
 ; setup for scanf, to read a string
 mov rax, 0
 mov rdi, string_form
@@ -88,7 +78,7 @@ call isfloat
 
 ;
 cmp rax, 0
-je noFloat
+je invalid_input
 
 ; atof will convert the string to a float, and store it in xmm0
 mov rax, 0
@@ -97,10 +87,37 @@ call atof
 movsd xmm14, xmm0 
 add rsp, one_k
 
+; second input
+
+; setup for scanf, to read a string
+mov rax, 0
+mov rdi, string_form
+sub rsp, one_k
+mov rsi, rsp
+call scanf ; scanf("%f", &number)
+
+
+;check if the input is a float, pass a block of memory to the function, if it is a float, return 1, else return 0, this will be stored in rax
+mov rax, 0
+mov rdi, rsp
+call isfloat
+
+;
+cmp rax, 0
+je invalid_input
+
+; atof will convert the string to a float, and store it in xmm0
+mov rax, 0
+mov rdi, rsp
+call atof
+movsd xmm13, xmm0 
+add rsp, one_k
+
 push qword 0
 mov rax,1
 mov rdi, float_form
 movsd xmm0, xmm14
+movsd xmm1, xmm13
 call printf
 pop rax
 
