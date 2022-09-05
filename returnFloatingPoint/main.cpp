@@ -17,8 +17,9 @@ int main()
 {
 
     double return_code = -1;
-
-    cout << "C++: Welcome you will be entering 2 Floating Point numbers and its my job to see if you did just that." << endl;
+    cout << "c++: Welcome to Floating Points Numbers programmed by Victor Mercado." << endl; 
+    cout << "C++: You will be entering 2 Floating Point numbers and its my job to see if you did just that." << endl;
+    
     //assmebly function call to process the floating point numbers
     return_code = floating_point_processor();
     cout <<"C++: The driver received this float number: " <<  return_code << ".  The driver will now exit.  GoodBye." << endl;

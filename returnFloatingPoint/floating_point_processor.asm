@@ -4,17 +4,8 @@
 ;  Author information
 ;   Author name: Victor Mercado
 ;   Author email: vmercado29@csu.fullerton.edu
-
-
-; this is a nasm assembly file
-
-; data
-; d = define
-; b = bytes
-; w = words (2 bytes)
-; d = double words (4 bytes)
-; l = longwords (4 bytes)
-; q = quadwords (8 bytes)
+;   Date Completed: 9/4/2022
+; This is the main executable file for the program.  It is written in Assembly language for the Intel 8086 microprocessor.
 
 extern printf
 extern scanf
@@ -24,7 +15,7 @@ extern atof
 global floating_point_processor
 ; segment .data declares initialized data
 segment .data
-one_k equ 100 ; bytes
+one_hun equ 100 ; 100 bytes
 string_form db "%s" , 0 ; string type
 number_form db "%f" , 0 ; float type
 goodbye_form db "%s %s" , 0 ; string type
@@ -42,25 +33,14 @@ segment .text
 
 ; invalid_input is a function that prints an error message and exits the program
 invalid_input:
-add rsp, one_k
+; adding 
+add rsp, one_hun
 mov rax, 0
 mov rdi, string_form
 mov rsi, wrong_input
 call printf
 
-; function that prints the greater number
-
-; xmm12 is our special location
-
-; push qword 0
-; movsd xmm12, [rsp]
-; pop rax
-
-
 floating_point_processor:
-; backup the registers(GRP)
-
-
 ; output instructions for input
 mov rax, 0
 mov rdi, string_form
@@ -70,7 +50,7 @@ call printf
 ; setup for scanf, to read a string
 mov rax, 0
 mov rdi, string_form
-sub rsp, one_k
+sub rsp, one_hun
 mov rsi, rsp
 call scanf ; scanf("%f", &number)
 
@@ -80,7 +60,7 @@ mov rax, 0
 mov rdi, rsp
 call isfloat
 
-;
+; conditional jump, if rax is 0, jump to invalid_input
 cmp rax, 0
 je invalid_input
 
@@ -89,14 +69,14 @@ mov rax, 0
 mov rdi, rsp
 call atof
 movsd xmm14, xmm0 
-add rsp, one_k
+add rsp, one_hun
 
-; second input
+; -------------------------------------------second input
 
 ; setup for scanf, to read a string
 mov rax, 0
 mov rdi, string_form
-sub rsp, one_k
+sub rsp, one_hun
 mov rsi, rsp
 call scanf ; scanf("%f", &number)
 
@@ -106,7 +86,7 @@ mov rax, 0
 mov rdi, rsp
 call isfloat
 
-;
+; conditional jump
 cmp rax, 0
 je invalid_input
 
@@ -115,8 +95,9 @@ mov rax, 0
 mov rdi, rsp
 call atof
 movsd xmm13, xmm0 
-add rsp, one_k
+add rsp, one_hun
 
+; push bytes to the stack to make room for the return address
 push qword 0
 mov rax,1
 mov rdi, float_form
@@ -129,15 +110,19 @@ movsd xmm0, xmm14
 movsd xmm1, xmm13
 ucomisd xmm0, xmm1
 
+; conditional jump instructions
 ja greater
 
+; conditional jump instructions
 jb less
 
+; function that prints the greater number if xmm0 is greater than xmm1
 greater: 
 mov rax,1
 mov rdi, greater_input
 movsd xmm0, xmm14
 call printf
+; print goodbye message
 mov rax, 0
 mov rdi, string_form
 mov rsi, return
@@ -147,11 +132,13 @@ movsd xmm0, xmm13
 pop rax
 ret
 
+; function that prints the greater number if xmm0 is less than xmm1
 less:
 mov rax,1
 mov rdi, greater_input
 movsd xmm0, xmm13
 call printf
+; print goodbye message
 mov rax, 0
 mov rdi, string_form
 mov rsi, return
@@ -160,50 +147,5 @@ call printf
 movsd xmm0, xmm14
 pop rax
 
-
-; mov rax, 0
-; mov rdi, string_form
-; mov rsi, return
-; mov rdx, goodbye
-; call printf
-
-
-; read input
-; mov rax, 0
-; mov rdi, string_form
-; sub rsp, one_k
-; mov rsi, rsp
-; call scanf
-
-; check if input is a float
-; mov rax, 0
-; mov rdi, rsp
-; call isfloat
-
-; if input is not a float, print error message and exit
-; cmp rax, 0
-; je invalid_input
-; mov rax, 0
-; mov rdi, rsp
-; call atof
-; movsd xmm14, xmm0   ; xmm14 = first number
-; add rsp, one_k
-; restore the registers(GRP)
-
-; movsd xmm0, xmm14
-; ret
-
-; get next number put into xmm13
-
-; float_form db "your number is %1.15lf", 10 , 0
-; mov rax,1
-; mov rdi, float_form
-; movsd xmm0, xmm12
-; call printf
-
-; mov rax, 0
-; mov rdi, string_form
-; mov rsi, goodbye
-; call printf ; printf("%s", "goodbye")
 
 ret

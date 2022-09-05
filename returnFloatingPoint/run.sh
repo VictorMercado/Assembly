@@ -1,8 +1,7 @@
 #!/bin/bash
 
-
-#Author: Floyd Holliday
-#Program name: Basic Float Operations
+#Author: Victor Mercado
+#Program name: Float Processer
 
 rm *.o
 rm *.out
