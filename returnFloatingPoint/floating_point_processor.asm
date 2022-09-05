@@ -27,6 +27,7 @@ segment .data
 one_k equ 100 ; bytes
 string_form db "%s" , 0 ; string type
 number_form db "%f" , 0 ; float type
+float_form db "your number is %1.15lf", 10 , 0
 message db "ASM: Please enter 2 float numbers: ", 10, 0
 goodbye db "ASM: Goodbye! Thank you for using my program", 10, 0
 wrong_input db "ASM: Invalid input. Please try again", 10, 0
@@ -43,7 +44,7 @@ segment .text
 ; mov rax, 0
 ; mov rdi, message
 ; mov rsi, invalmess
-; call printf
+; call print
 
 ; xmm12 is our special location
 
@@ -89,16 +90,17 @@ call isfloat
 cmp rax, 0
 je noFloat
 
+; atof will convert the string to a float, and store it in xmm0
 mov rax, 0
 mov rdi, rsp
 call atof
 movsd xmm14, xmm0 
 add rsp, one_k
 
-float_form db "your number is %1.15lf", 10 , 0
+
 mov rax,1
 mov rdi, float_form
-movsd xmm0, xmm14
+movsd xmm0, qword [xmm14]
 call printf
 
 ; read input
