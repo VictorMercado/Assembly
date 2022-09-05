@@ -31,6 +31,7 @@ float_form db "You entered these numbers: %1.13f   %1.13f", 10 , 0
 message db "ASM: Please enter 2 float numbers: ", 10, 0
 goodbye db "ASM: Goodbye! Thank you for using my program", 10, 0
 wrong_input db "ASM: Invalid input. Please try again", 10, 0
+greater_input db "ASM: This number is greater: %1.13f", 10, 0
 
 
 segment .bss
@@ -45,6 +46,27 @@ mov rax, 0
 mov rdi, string_form
 mov rsi, wrong_input
 call printf
+
+; function that prints the greater number
+greater: 
+push qword 0
+mov rax,1
+mov rdi, greater_input
+movsd xmm0, xmm14
+call printf
+pop rax
+mov xmm0, xmm14
+ret
+
+less:
+push qword 0
+mov rax,1
+mov rdi, greater_input
+movsd xmm0, xmm13
+call printf
+pop rax
+mov xmm0, xmm13
+ret
 
 ; xmm12 is our special location
 
@@ -119,6 +141,15 @@ mov rdi, float_form
 movsd xmm0, xmm14
 movsd xmm1, xmm13
 call printf
+
+; compare the two floats
+movsd xmm0, xmm14
+movsd xmm1, xmm13
+ucomisd xmm0, xmm1
+jg greater
+
+jl less
+
 pop rax
 
 ; read input
@@ -159,5 +190,4 @@ pop rax
 ; mov rsi, goodbye
 ; call printf ; printf("%s", "goodbye")
 
-mov rax, 12345
 ret
