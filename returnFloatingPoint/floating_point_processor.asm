@@ -28,11 +28,11 @@ one_k equ 100 ; bytes
 string_form db "%s" , 0 ; string type
 number_form db "%f" , 0 ; float type
 goodbye_form db "%s %s" , 0 ; string type
-float_form db "You entered these numbers: %.13f   %.13f", 10 , 0
+float_form db "You entered these numbers: %1.13f   %1.13f", 10 , 0
 message db "ASM: Please enter 2 float numbers: ", 10, 0
 goodbye db "ASM: Goodbye! Thank you for using my program", 10, 0
 wrong_input db "ASM: Invalid input. Please try again", 10, 0
-greater_input db "ASM: This number is greater: %.13f", 10, 0
+greater_input db "ASM: This number is greater: %1.13f", 10, 0
 return db "ASM: This assembly module will now return. The smaller number will now be accessible to the driver.", 10, 0
 
 segment .bss
@@ -154,6 +154,8 @@ mov rdi, string_form
 mov rsi, return
 mov rdx, goodbye
 call printf
+
+
 ; read input
 ; mov rax, 0
 ; mov rdi, string_form

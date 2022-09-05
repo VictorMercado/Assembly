@@ -10,13 +10,13 @@
 using namespace std;
 
 // extern keyword is used to declare a variable that is defined in another file.
-extern "C" float floating_point_processor();
+extern "C" double floating_point_processor();
 
 // this is the driver function for the program
 int main()
 {
 
-    float return_code = -1;
+    double return_code = -1;
 
     cout << "C++: Welcome you will be entering 2 Floating Point numbers and its my job to see if you did just that." << endl;
     //assmebly function call to process the floating point numbers
