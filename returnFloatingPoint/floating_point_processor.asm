@@ -92,7 +92,6 @@ call isfloat
 
 ;
 cmp rax, 0
-add rsp, one_k
 je noFloat
 
 
