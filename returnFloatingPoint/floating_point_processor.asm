@@ -126,7 +126,7 @@ call printf
 ; compare the two floats
 movsd xmm0, xmm14
 movsd xmm1, xmm13
-ucomisd xmm0, xmm1
+ucomisd xmm1, xmm0
 jg greater
 
 jl less
