@@ -128,6 +128,7 @@ call printf
 movsd xmm0, xmm14
 movsd xmm1, xmm13
 ucomisd xmm0, xmm1
+
 ja greater
 
 jb less
@@ -144,6 +145,7 @@ mov rdx, goodbye
 call printf
 movsd xmm0, xmm13
 pop rax
+ret
 
 less:
 mov rax,1
