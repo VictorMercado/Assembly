@@ -29,6 +29,7 @@ string_form db "%s" , 0 ; string type
 number_form db "%f" , 0 ; float type
 message db "ASM: Please enter 2 float numbers: ", 10, 0
 goodbye db "ASM: Goodbye! Thank you for using my program", 10, 0
+wrong_input db "ASM: Invalid input. Please try again", 10, 0
 
 input db "%d", 0
 segment .bss
@@ -52,9 +53,17 @@ segment .text
 ; movsd xmm12, [rsp]
 ; pop rax
 
+noFloat:
+mov rax, 0
+mov rdi, string_form
+mov rsi, wrong_input
+call printf
+
+
+
 floating_point_processor:
 ; backup the registers(GRP)
-; print welcome message
+
 
 ; output instructions for input
 mov rax, 0
@@ -62,14 +71,10 @@ mov rdi, string_form
 mov rsi, message
 call printf
 
-mov rax, 0
-mov rdi, string_form
-mov rsi, goodbye
-call printf ; printf("%s", "goodbye")
-
-mov rax, 0
-mov rdi, string_form
 ; mov rsi, textInput
+; setup for scanf, to read a string
+mov rax, 0
+mov rdi, string_form
 sub rsp, one_k
 mov rsi, rsp
 call scanf ; scanf("%f", &number)
@@ -79,6 +84,16 @@ mov rax, 0
 mov rdi, string_form
 mov rsi, rsp
 call printf
+
+;check if the input is a float, pass a block of memory to the function, if it is a float, return 1, else return 0, this will be stored in rax
+mov rax, 0
+mov rdi, rsp
+call isfloat
+
+;
+cmp rax, 0
+je noFloat
+
 
 add rsp, one_k
 ; read input
@@ -113,6 +128,11 @@ add rsp, one_k
 ; mov rdi, float_form
 ; movsd xmm0, xmm12
 ; call printf
+
+; mov rax, 0
+; mov rdi, string_form
+; mov rsi, goodbye
+; call printf ; printf("%s", "goodbye")
 
 mov rax, 12345
 ret
