@@ -100,7 +100,7 @@ add rsp, one_k
 push qword 0
 mov rax,1
 mov rdi, float_form
-movsd xmm0, [xmm14]
+movsd xmm0, xmm14
 call printf
 pop rax
 
