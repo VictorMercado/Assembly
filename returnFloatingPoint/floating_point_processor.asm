@@ -53,11 +53,7 @@ segment .text
 ; movsd xmm12, [rsp]
 ; pop rax
 
-noFloat:
-mov rax, 0
-mov rdi, string_form
-mov rsi, wrong_input
-call printf
+
 
 
 
@@ -94,8 +90,16 @@ call isfloat
 cmp rax, 0
 je noFloat
 
+noFloat:
+mov rax, 0
+mov rdi, string_form
+mov rsi, wrong_input
+call printf
+
 
 add rsp, one_k
+
+
 ; read input
 ; mov rax, 0
 ; mov rdi, string_form
