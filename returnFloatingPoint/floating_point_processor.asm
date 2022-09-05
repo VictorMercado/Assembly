@@ -89,9 +89,18 @@ call isfloat
 cmp rax, 0
 je noFloat
 
-
-
+mov rax, 0
+mov rdi, rsp
+call atof
+movsd xmm14, xmm0 
 add rsp, one_k
+
+float_form db "your number is %1.15lf", 10 , 0
+mov rax,1
+mov rdi, float_form
+movsd xmm0, xmm14
+call printf
+
 ; read input
 ; mov rax, 0
 ; mov rdi, string_form

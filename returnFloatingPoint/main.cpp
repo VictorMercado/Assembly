@@ -6,6 +6,7 @@
 
 #include <stdio.h>
 #include <iostream>
+#include <stdlib.h>
 using namespace std;
 
 // extern keyword is used to declare a variable that is defined in another file.
