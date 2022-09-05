@@ -137,6 +137,11 @@ mov rax,1
 mov rdi, greater_input
 movsd xmm0, xmm14
 call printf
+mov rax, 0
+mov rdi, string_form
+mov rsi, return
+mov rdx, goodbye
+call printf
 movsd xmm0, xmm13
 pop rax
 
@@ -145,14 +150,20 @@ mov rax,1
 mov rdi, greater_input
 movsd xmm0, xmm13
 call printf
+mov rax, 0
+mov rdi, string_form
+mov rsi, return
+mov rdx, goodbye
+call printf
 movsd xmm0, xmm14
 pop rax
 
 
-mov rax, 0
-mov rdi, string_form
-mov rsi, return
-call printf
+; mov rax, 0
+; mov rdi, string_form
+; mov rsi, return
+; mov rdx, goodbye
+; call printf
 
 
 ; read input
