@@ -1,7 +1,8 @@
 #!/bin/bash
 
 #Author: Victor Mercado
-#Program name: Float Processer
+#Program name: Floating Point Processer
+# To execute: ./run.sh (this will run all the statements below)
 
 rm *.o
 rm *.out

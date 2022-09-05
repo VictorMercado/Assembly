@@ -1,4 +1,4 @@
-// Program name: "Float Processer".  This program demonstrates input and output float numbers, check for invalid inputs, and
+// Program name: "Floating Point Processer".  This program demonstrates input and output float numbers, check for invalid inputs, and
 // compare two float numbers.  Copyright(C) 2022 Victor Mercado.
 //  Author information
 //    Author name: Victor Mercado
