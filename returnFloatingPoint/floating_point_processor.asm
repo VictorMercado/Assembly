@@ -48,25 +48,6 @@ mov rsi, wrong_input
 call printf
 
 ; function that prints the greater number
-greater: 
-push qword 0
-mov rax,1
-mov rdi, greater_input
-movsd xmm0, xmm14
-call printf
-pop rax
-movsd xmm0, xmm14
-ret
-
-less:
-push qword 0
-mov rax,1
-mov rdi, greater_input
-movsd xmm0, xmm13
-call printf
-pop rax
-movsd xmm0, xmm13
-ret
 
 ; xmm12 is our special location
 
@@ -150,6 +131,20 @@ jg greater
 
 jl less
 
+greater: 
+mov rax,1
+mov rdi, greater_input
+movsd xmm0, xmm14
+call printf
+movsd xmm0, xmm13
+pop rax
+
+less:
+mov rax,1
+mov rdi, greater_input
+movsd xmm0, xmm13
+call printf
+movsd xmm0, xmm14
 pop rax
 
 ; read input
