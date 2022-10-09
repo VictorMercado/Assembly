@@ -15,7 +15,7 @@ extern atof
 global floating_point_processor
 ; segment .data declares initialized data
 segment .data
-one_hun equ 100 ; 100 bytes
+one_hun equ 16 ; 100 bytes
 string_form db "%s" , 0 ; string type
 number_form db "%f" , 0 ; float type
 goodbye_form db "%s %s" , 0 ; string type
