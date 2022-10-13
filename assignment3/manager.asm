@@ -1,6 +1,7 @@
 extern printf
 extern display_Array
 extern scanf
+extern sum
 
 global manager
 
@@ -40,7 +41,8 @@ mov dword [rsp + 16], 5
 
 mov rdi, rsp
 mov rsi, 5
-call display_Array
+call sum
+; call display_Array
 
 add rsp, 24
 
