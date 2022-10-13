@@ -65,22 +65,24 @@ beginLoop:
   cmp r14, r13 ; we want to exit loop when we hit the size of array
   je outOfLoop
   mov rax, 0
-  mov rdi, float_format
-;   mov rdi, string_form
+;   mov rdi, float_format
+  mov rdi, string_form
   push qword 0
   mov rsi, rsp
   call scanf
-  cdqe
-;   mov r11, rax          ; r11 holds the if input is good 
+;   cdqe
+  mov r11, rax          ; r11 holds the if input is good 
 
-;   mov rax, 0
-;   mov rdi, rsp
-;   call isfloat          ; is expecting a string
-;   cmp rax, 0
-;   je beginLoop
+  mov rax, 0
+  mov rdi, rsp
+  call isfloat          ; is expecting a string
+  cmp rax, 0
+  je beginLoop
   
-;   mov rdi, good_input
-;   call printf
+  mov rdi, good_input
+  call printf
+
+
 ;   mov rax, 0
 ;   mov rdi, rsp
 ;   call atof
