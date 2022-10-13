@@ -15,7 +15,7 @@ segment .data
 
 enter_prompt db "Please enter integers separated by ws and press <enter><control+d> to terminate inputs.", 10, 0
 good_input db "Good input.", 10, 0
-
+string_form db "%s" , 0 ; string type
 float_format db "%lf", 0
 
 segment .bss  ;Reserved for uninitialized data
@@ -66,24 +66,27 @@ beginLoop:
   cmp r14, r13 ; we want to exit loop when we hit the size of array
   je outOfLoop
   mov rax, 0
-  mov rdi, float_format
+;   mov rdi, float_format
+  mov rdi, string_format
   push qword 0
   mov rsi, rsp
   call scanf
   cdqe
-  mov r11, rax
+  mov r11, rax          ; r11 holds the if input is good 
 
-  push qword 0
   mov rax, 0
   mov rdi, rsp
-  call isfloat
+  call isfloat          ; is expecting a string
   cmp rax, 0
-  pop r12
-  pop rdx
-  mov rdi, good_input
-  call printf
   je beginLoop
-
+  
+  mov rax, 0
+  mov rdi, rsp
+  call atof
+  movsd xmm14, xmm0 
+  pop r12
+  cvtsd2si r12, xmm14
+  
   cmp rax, r11  ; loop termination condition: user enters cntrl + d.
   je outOfLoop
   mov [r15 + 8*r13], r12  ;at array[counter], place the input number
