@@ -19,6 +19,7 @@ good_input db "Good input.", 10, 0
 string_form db "%s" , 0 ; string type
 float_format db "%lf", 0
 color_code db "\e[37m", 0
+last_code db "\e[0m", 0
 
 segment .bss  ;Reserved for uninitialized data
 
