@@ -55,33 +55,39 @@ pushf
 
 
 sub rsp, 8
-mov qword rsp, NUMBERS
+mov rax, NUMBERS
+push rax
 
 
-; push qword 0
+push qword 0
 
 
-; mov rax, 0
-; mov rdi, welcome_control
-; call printf
+mov rax, 0
+mov rdi, welcome_control
+call printf
 
 
-; mov rax, 0
-; mov rdi, arrayA ; array passed in as first param
-; mov rsi, MAX         ; array size passed in as second param
-; call input_array
-; mov r15, rax
+mov rax, 0
+mov rdi, arrayA ; array passed in as first param
+mov rsi, MAX         ; array size passed in as second param
+call input_array
+mov r15, rax
 
-; mov rax, 0
-; mov rdi, present_numbers
-; call printf
+mov rax, 0
+mov rdi, present_numbers
+call printf
+
+push qword 0
+mov rax, 0
+mov rdi, arrayA
+mov rsi, r15
+call display_Array
+pop rax
 
 
 
+pop rax ; pop at the beginning of the program
 
-; pop rax ; pop at the beginning of the program
-
-mov rax, rsp
 
 popf                                                        ;Restore rflags
 pop rbx                                                     ;Restore rbx

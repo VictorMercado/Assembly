@@ -19,5 +19,4 @@ void display_Array(int arr[], int size)
     printf("\n");
     printf("\e[0m");
     printf("\e[1;33m");
-    // size = 6;
 }

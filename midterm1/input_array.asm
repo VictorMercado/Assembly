@@ -26,20 +26,20 @@ input_array:
 ;Any future program calling this module that the data in the caller's GPRs will not be modified.
 push rbp
 mov  rbp,rsp
-push rdi                                                    ;Backup rdi
-push rsi                                                    ;Backup rsi
-push rdx                                                    ;Backup rdx
-push rcx                                                    ;Backup rcx
-push r8                                                     ;Backup r8
-push r9                                                     ;Backup r9
-push r10                                                    ;Backup r10
-push r11                                                    ;Backup r11
-push r12                                                    ;Backup r12
-push r13                                                    ;Backup r13
-push r14                                                    ;Backup r14
-push r15                                                    ;Backup r15
-push rbx                                                    ;Backup rbx
-pushf                                                       ;Backup rflags
+push rdi                                             
+push rsi                                             
+push rdx                                             
+push rcx                                             
+push r8                                              
+push r9                                              
+push r10                                             
+push r11                                             
+push r12                                             
+push r13                                             
+push r14                                            
+push r15                                             
+push rbx                                             
+pushf                                                
 
 push qword 0 ;staying on the boundary
 

@@ -13,13 +13,13 @@ echo "Bash: This is program <Demonstrate Numeric IO>"
 echo "Bash: Assemble the asm files"
 nasm -f elf64 -l manager.lis -o manager.o manager.asm
 # nasm -f elf64 -l reverse.lis -o reverse.o reverse.asm
-# nasm -f elf64 -l input_array.lis -o input_array.o input_array.asm
+nasm -f elf64 -l input_array.lis -o input_array.o input_array.asm
 
 echo "Bash: Compile the C driver main.c"
 gcc -c -m64 -Wall -o main.o main.c -fno-pie -no-pie -std=c11
 
 echo "Bash: Compile the C++ module display_Array.cpp"
-# g++ -c -m64 -Wall -o display_Array.o display_Array.cpp -fno-pie -no-pie -std=c++17
+g++ -c -m64 -Wall -o display_Array.o display_Array.cpp -fno-pie -no-pie -std=c++17
 
 echo "Bash: Link the object files already created"
 g++ -m64 -o arrayIO main.o manager.o  -fno-pie -no-pie -std=c++17      #  input_array.o display_Array.o sum.o
