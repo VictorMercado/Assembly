@@ -54,6 +54,7 @@ mov dword [rsp + 8], 3
 mov dword [rsp + 12], 4
 mov dword [rsp + 16], 5
 
+; moving rsp which holds the address where the array is stored 
 mov rdi, rsp
 mov rsi, 5
 call display_Array
@@ -63,6 +64,7 @@ mov rax, 0
 mov rdi, rsp
 mov rsi, 5
 call sum
+;rax has the return value
 
 mov rdi, sum_message
 mov rsi, rax
