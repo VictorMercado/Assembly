@@ -16,7 +16,7 @@ section .text
 
 manager:
 
-mov rdi, message
+mov rdi, [aCoolNumber]
 call printf
 
 ret
