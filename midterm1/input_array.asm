@@ -80,6 +80,8 @@ beginLoop:
   cmp rax, 0
   pop r12
   pop rdx
+  mov rdi, good_input
+  call printf
   je beginLoop
 
   cmp rax, r11  ; loop termination condition: user enters cntrl + d.
