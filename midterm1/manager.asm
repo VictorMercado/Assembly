@@ -95,7 +95,7 @@ pop rax
 
 
 pop rax ; pop at the beginning of the program
-mov rax, arrrayB
+mov rax, arrayB
 
 
 

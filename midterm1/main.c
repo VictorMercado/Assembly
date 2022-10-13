@@ -16,7 +16,7 @@ extern double * manager();
 
 int main()
 {
-    double * array;
+    double * array = NULL;
     printf("\e[1;33mWelcome to the Great Reverse by Victor Mercado. \n\e[33m");
     array = manager();
     printf("\e[1;33mThe driver function received an array whose first 3 numbers are: \n\e[0m");
