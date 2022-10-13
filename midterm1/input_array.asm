@@ -1,9 +1,9 @@
-;// ;Program name: "SumArrayIO".
+; ;// ;Program name: "SumArrayIO".
 
-// Author name: Victor Mercado
-// Author email: vmercado29@csu.fullerton.edu
-//     October 13, 2022
-//     Section ID : Section 7  | Section TuTh 8 - 10am
+; // Author name: Victor Mercado
+; // Author email: vmercado29@csu.fullerton.edu
+; //     October 13, 2022
+; //     Section ID : Section 7  | Section TuTh 8 - 10am
 
 extern printf
 extern scanf

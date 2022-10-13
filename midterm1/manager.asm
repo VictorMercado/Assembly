@@ -1,9 +1,9 @@
-// ;Program name: "SumArrayIO".
+; // ;Program name: "SumArrayIO".
 
-// Author name: Victor Mercado
-// Author email: vmercado29@csu.fullerton.edu
-//     October 13, 2022
-//     Section ID : Section 7  | Section TuTh 8 - 10am
+; // Author name: Victor Mercado
+; // Author email: vmercado29@csu.fullerton.edu
+; //     October 13, 2022
+; //     Section ID : Section 7  | Section TuTh 8 - 10am
 
 extern printf
 extern scanf
@@ -58,11 +58,13 @@ mov rdi, welcome_control
 call printf
 
 
+push qword 0
 mov rax, 0
 mov rdi, arrayA ; array passed in as first param
-mov rsi, MAX         ; array size passed in as second param
+mov rsi, 10         ; array size passed in as second param
 call input_array
 mov r15, rax
+pop rax
 
 mov rax, 0
 mov rdi, present_numbers
