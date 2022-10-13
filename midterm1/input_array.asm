@@ -71,7 +71,8 @@ beginLoop:
   mov rsi, rsp
   call scanf
 ;   cdqe
-  mov r11, rax          ; r11 holds the if input is good 
+  cmp rax, -1  ; loop termination condition: user enters cntrl + d.
+  je outOfLoop
 
   mov rax, 0
   mov rdi, rsp
@@ -89,9 +90,6 @@ beginLoop:
 ;   movsd xmm14, xmm0 
 ;   cvtsd2si r12, xmm14
   pop r12
-
-  cmp rax, -1  ; loop termination condition: user enters cntrl + d.
-  je outOfLoop
   mov [r15 + 8*r13], r12  ;at array[counter], place the input number
   inc r13  ;increment loop counter
   jmp beginLoop
