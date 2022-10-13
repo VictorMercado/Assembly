@@ -58,7 +58,7 @@ loop2:
 
     pop qword [r12 + r13 * 8]
     inc r13
-jmp loop
+jmp loop2
 
 
 done2:
