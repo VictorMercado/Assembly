@@ -8,7 +8,7 @@
 extern printf
 extern scanf
 
-global fill
+global input_array
 
 segment .data
 

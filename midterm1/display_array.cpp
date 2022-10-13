@@ -7,9 +7,9 @@
 
 #include <stdio.h>
 
-extern "C" void display_Array(int arr[], int size);
+extern "C" void display_array(int arr[], int size);
 
-void display_Array(int arr[], int size)
+void display_array(int arr[], int size)
 {
     printf("\e[32m");
     for (int i = 0; i < size; i++)
