@@ -18,6 +18,7 @@ enter_prompt db "Please enter integers separated by ws and press <enter><control
 good_input db "Good input.", 10, 0
 string_form db "%s" , 0 ; string type
 float_format db "%lf", 0
+color_code db "\e[37m", 0
 
 segment .bss  ;Reserved for uninitialized data
 
@@ -50,6 +51,8 @@ push qword 0 ;staying on the boundary
 mov r15, rdi  ; This holds the first parameter (the array address)
 mov r14, rsi  ; This holds the second parameter (the size of array)
 
+mov rdi, color_code
+call printf
 ;Prompts:
 ;"Please enter floating point numbers separated by ws,"
 ;"When finished press enter followed by Cntrl+D."
@@ -96,6 +99,9 @@ beginLoop:
   inc r13  ;increment loop counter
   jmp beginLoop
 outOfLoop:
+
+mov rdi , last_code
+call printf
 
 pop rax ; counter push at the beginning
 mov rax, r13  ; store the number of things in the aray from the counter of for loop
