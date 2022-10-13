@@ -93,7 +93,10 @@ mov rsi, r15            ; array size passed in as second param
 call display_array
 pop rax
 
+
 pop rax ; pop at the beginning of the program
+mov rax, arrrayB
+
 
 
 popf                                                        ;Restore rflags

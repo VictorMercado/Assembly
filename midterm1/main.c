@@ -7,7 +7,7 @@
 
 #include <stdio.h>
 
-extern void manager();
+extern double * manager();
 // Color codes
 // Yellow: driver
 // Gold: manager
@@ -16,8 +16,9 @@ extern void manager();
 
 int main()
 {
+    double * array;
     printf("\e[1;33mWelcome to the Great Reverse by Victor Mercado. \n\e[33m");
-    manager();
+    array = manager();
     printf("\e[1;33mThe driver function received an array whose first 3 numbers are: \n\e[0m");
     // for (int i = 0; i < 3; i++)
     // {
