@@ -7,7 +7,6 @@
 
 extern printf
 extern scanf
-extern atof
 extern isfloat
 
 global input_array
@@ -78,7 +77,7 @@ beginLoop:
   call isfloat
   cmp rax, 0
   je beginLoop
-  
+
   cmp rax, -1  ; loop termination condition: user enters cntrl + d.
   je outOfLoop
   mov [r15 + 8*r13], r12  ;at array[counter], place the input number
