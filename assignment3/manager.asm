@@ -24,11 +24,14 @@ section .bss
 section .text
 
 manager:
-push qword 0
+
+mov rax, 0
+mov rdi, welcome_message
+call printf
+
 mov rax, 0
 mov rdi, digit_form
 mov rsi, [aCoolNumber]
 call printf
-pop rax
 
 ret
