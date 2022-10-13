@@ -15,7 +15,7 @@ global manager
 
 segment .data
 welcome_control db "Welcome to Great Reverse. The accuracy and reliability of this program is guaranteed by Victor Mercado.",10,0
-present_numbers db "The numbers you entered are these: ",10,0
+numbers_message db "The numbers you entered are these: ",10,0
 the_sum_is db "The sum of these values: %.10lf.", 10 ,0
 exit_message db "The control module will now return the sum to the caller module.",10,0
 MAX equ 10
@@ -63,21 +63,35 @@ mov rax, 0
 mov rdi, arrayA ; array passed in as first param
 mov rsi, 10         ; array size passed in as second param
 call input_array
-mov r15, rax
+mov r15, rax        ; save the size returned by input_array
 pop rax
 
 mov rax, 0
-mov rdi, present_numbers
+mov rdi, numbers_message
 call printf
 
 push qword 0
 mov rax, 0
 mov rdi, arrayA
-mov rsi, r15
+mov rsi, r15            ; array size passed in as second param
 call display_array
 pop rax
 
+push qword 0
+mov rax, 0
+mov rdi, arrayB
+mov rsi, arrayA
+mov rdx, r15
+call reverse                ;The sum will be in xmm0
+movsd xmm15, xmm0
+pop rax
 
+push qword 0
+mov rax, 0
+mov rdi, arrayB
+mov rsi, r15            ; array size passed in as second param
+call display_array
+pop rax
 
 pop rax ; pop at the beginning of the program
 

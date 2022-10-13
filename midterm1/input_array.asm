@@ -44,7 +44,7 @@ pushf
 push qword 0 ;staying on the boundary
 
 ; Taking information from parameters
-mov r15, rdi  ; This holds the first parameter (the array)
+mov r15, rdi  ; This holds the first parameter (the array address)
 mov r14, rsi  ; This holds the second parameter (the size of array)
 
 ;Prompts:

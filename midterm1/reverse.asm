@@ -32,21 +32,32 @@ push rbx                                                    ;Backup rbx
 pushf                                                       ;Backup rflags
 
 
-mov r12, 0
-mov rax, 0
-mov r13, rsi
+push qword 0
+
+sub rsp, 16
+
+mov r12, rdi    ; holds arrayB address
+mov r14, rsi    ; holds arrayA address
+mov r15, rdx    ; holds arrayA size
+
+mov r13, 0
 
 loop:
-    cmp r12, r13
+    cmp r13, r15
     je done
 
-    add rax, [rdi + r12 * 4]
-    inc r12
+    push [r14 + r13 * 8]
+    pop [r12 + r13 * 8]
+    inc r13
 jmp loop
 
 
 
 done:
+add rsp, 16
+
+pop rax
+
 
 popf                                                        ;Restore rflags
 pop rbx                                                     ;Restore rbx
@@ -66,5 +77,3 @@ pop rbp                                                     ;Restore rbp
 
 ret
 
-
-ret
