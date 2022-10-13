@@ -10,7 +10,7 @@ section .data
 
 welcome_message db "Hello, this program will add your floats!", 10, 0
 show_numbers db "Your numbers are: ", 10, 0
-sum_message db "The sum of your numbers is: ", 10, 0
+sum_message db "The sum of your numbers is: %d", 10, 0
 exit_message db "This program will now exit back to the driver.", 10, 0
 aCoolNumber dd 150
 
@@ -41,8 +41,10 @@ mov dword [rsp + 16], 5
 
 mov rdi, rsp
 mov rsi, 5
-call sum
-; call display_Array
+call display_Array
+
+mov rdi, sum_message
+printf
 
 add rsp, 24
 
