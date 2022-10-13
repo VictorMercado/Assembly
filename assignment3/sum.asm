@@ -13,7 +13,7 @@ section .text
 ; sum up all elements of array and return result in rax
 mov r12, 0
 mov rax, 0
-sub rsi, 1
+sub [rsi], 1
 sum:
 cmp r12, rsi
 je done
