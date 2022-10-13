@@ -7,7 +7,7 @@
 
 #include <stdio.h>
 
-extern long * manager();
+extern double * manager();
 // Color codes
 // Yellow: driver
 // Gold: manager
