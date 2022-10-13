@@ -22,9 +22,9 @@ echo "Bash: Compile the C++ module display_Array.cpp"
 g++ -c -m64 -Wall -o display_Array.o display_Array.cpp -fno-pie -no-pie -std=c++17
 
 echo "Bash: Link the object files already created"
-g++ -m64 -o arrayIO main.o manager.o  -fno-pie -no-pie -std=c++17      #  input_array.o display_Array.o sum.o
+g++ -m64 -o SumArrayIO main.o manager.o nput_array.o display_Array.o -fno-pie -no-pie -std=c++17      # reverse.o
 
 echo "Bash: Run the program ArrayIO"
-./arrayIO
+./SumArrayIO
 
 echo "Bash: The bash script file is now closing."
