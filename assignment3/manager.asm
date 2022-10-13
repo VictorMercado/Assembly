@@ -41,7 +41,11 @@ mov dword [rsp + 16], 5
 
 mov rdi, rsp
 mov rsi, 5
+call sum
 
+mov rdi, sum_message
+mov rsi, rax
+call printf
 
 ; call display_Array
 
