@@ -18,7 +18,7 @@ section .text
 manager:
 mov rax, 0
 mov rdi, number_form
-mov rsi, aCoolNumber
+mov rsi, [aCoolNumber]
 call printf
 
 ret
