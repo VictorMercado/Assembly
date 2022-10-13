@@ -73,7 +73,7 @@ beginLoop:
   push qword 0
   mov rsi, rsp
   call scanf    ; if user enters a non-integer, scanf will return 0
-;   cdqe
+  cdqe
   cmp rax, -1  ; loop termination condition: user enters cntrl + d.
   je outOfLoop
 
