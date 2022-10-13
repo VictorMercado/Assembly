@@ -26,7 +26,7 @@ section .text
 manager:
 push qword 0
 mov rax, 0
-mov rdi, number_form
+mov rdi, digit_form
 mov rsi, [aCoolNumber]
 call printf
 
