@@ -32,7 +32,7 @@ pushf                                                       ;Backup rflags
 
 push qword 0
 
-sub rsp, 16
+sub rsp, 80
 
 mov r12, rdi    ; holds arrayB address
 mov r14, rsi    ; holds arrayA address
@@ -62,7 +62,7 @@ jmp loop
 
 
 done2:
-add rsp, 16
+add rsp, 80
 
 pop rax
 
