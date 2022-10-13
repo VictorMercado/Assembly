@@ -18,13 +18,11 @@ welcome_control db "Welcome to Great Reverse. The accuracy and reliability of th
 present_numbers db "The numbers you entered are these: ",10,0
 the_sum_is db "The sum of these values: %.10lf.", 10 ,0
 exit_message db "The control module will now return the sum to the caller module.",10,0
-NUMBERS	dq  34.7,  45.45,  56.7,  67.3,  75.2, 89.6
-
 MAX equ 10
 
 segment .bss  ;Reserved for uninitialized data
-arrayA resq MAX
-arrayB resq MAX
+arrayA resq 10
+arrayB resq 10
 segment .text ;Reserved for executing instructions.
 
 ; Color codes
@@ -52,12 +50,6 @@ push r14                                                    ;Backup r14
 push r15                                                    ;Backup r15
 push rbx                                                    ;Backup rbx
 pushf  
-
-
-sub rsp, 8
-mov rax, NUMBERS
-push rax
-
 
 push qword 0
 
