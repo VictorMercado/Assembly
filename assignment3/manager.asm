@@ -16,7 +16,7 @@ section .text
 
 manager:
 mov rax, 0
-mov rdi, aCoolNumber
+mov rdi, [aCoolNumber]
 call display_Array
 
 ret
