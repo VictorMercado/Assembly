@@ -8,7 +8,7 @@ section .data
 
 message db "Hello, World!", 10, 0
 string_form db "%s", 0
-aCoolNumber db 150
+aCoolNumber dd 100
 number_form db "%d", 10, 0
 
 section .bss
