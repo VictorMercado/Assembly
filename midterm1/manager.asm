@@ -23,7 +23,7 @@ MAX equ 10
 segment .bss  ;Reserved for uninitialized data
 arrayA resq 10
 arrayB resq 10
-segment .text ;Reserved for executing instructions.
+
 
 ; Color codes
 ; Yellow: driver
@@ -31,9 +31,8 @@ segment .text ;Reserved for executing instructions.
 ; Green: display_array
 ; White: input_array
 
-
+segment .text ;Reserved for executing instructions.
 manager:
-
 push rbp
 mov  rbp,rsp
 push rdi                                                    ;Backup rdi
