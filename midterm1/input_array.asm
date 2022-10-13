@@ -70,14 +70,16 @@ beginLoop:
   mov rsi, rsp
   call scanf
   cdqe
-  pop r12
   
   mov rax, 0
-  mov rdi, r12
+  mov rdi, rsp
   call isfloat
   cmp rax, 0
   je beginLoop
+  
+  
 
+  pop r12
   cmp rax, -1  ; loop termination condition: user enters cntrl + d.
   je outOfLoop
   mov [r15 + 8*r13], r12  ;at array[counter], place the input number
