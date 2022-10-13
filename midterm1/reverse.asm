@@ -44,8 +44,8 @@ loop:
     cmp r13, r15
     je done
 
-    push [r14 + r13 * 8]
-    pop [r12 + r13 * 8]
+    push qword [r14 + r13 * 8]
+    pop qword [r12 + r13 * 8]
     inc r13
 jmp loop
 
