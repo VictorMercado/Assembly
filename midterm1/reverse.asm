@@ -45,13 +45,23 @@ loop:
     je done
 
     push qword [r14 + r13 * 8]
+
+    inc r13
+jmp loop
+
+done:
+
+mov r13, 0
+loop2:
+    cmp r13, r15
+    je done
+
     pop qword [r12 + r13 * 8]
     inc r13
 jmp loop
 
 
-
-done:
+done2:
 add rsp, 16
 
 pop rax
