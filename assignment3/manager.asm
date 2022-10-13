@@ -27,6 +27,9 @@ manager:
 
 push rbp
 mov rbp, rsp
+
+push qword 0
+
 sub rsp, 20
 
 mov dword [rsp + 4], 1
