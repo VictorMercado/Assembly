@@ -30,7 +30,7 @@ mov rbp, rsp
 
 push qword 0
 
-sub rsp, 20
+sub rsp, 24
 
 mov dword [rsp + 4], 1
 mov dword [rsp + 8], 2
@@ -41,6 +41,8 @@ mov rdi, rsp
 mov rsi, 5
 call display_Array
 
+pop eax
+pop rax
 
 
 ret
