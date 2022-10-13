@@ -41,13 +41,11 @@ mov dword [rsp + 16], 5
 
 mov rdi, rsp
 mov rsi, 5
-push rsi
-call display_Array
 
 
-mov rdi, sum_message
-pop rsi
-call printf
+; call display_Array
+
+
 
 add rsp, 24
 
