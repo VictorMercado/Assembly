@@ -18,8 +18,7 @@ enter_prompt db "Please enter integers separated by ws and press <enter><control
 good_input db "Good input.", 10, 0
 string_form db "%s" , 0 ; string type
 float_format db "%lf", 0
-color_code db "\e[37m", 10, 0
-last_code db "\e[0m", 0
+
 
 segment .bss  ;Reserved for uninitialized data
 
@@ -27,8 +26,7 @@ segment .text ;Reserved for executing instructions.
 
 input_array:
 
-;Prolog ===== Insurance for any caller of this assembly module ========================================================
-;Any future program calling this module that the data in the caller's GPRs will not be modified.
+; backup
 push rbp
 mov  rbp,rsp
 push rdi                                             
@@ -46,17 +44,13 @@ push r15
 push rbx                                             
 pushf                                                
 
-push qword 0 ;staying on the boundary
+push qword 0 ; boundry
 
 ; Taking information from parameters
 mov r15, rdi  ; This holds the first parameter (the array address)
 mov r14, rsi  ; This holds the second parameter (the size of array)
 
-mov rdi, color_code
-call printf
-;Prompts:
-;"Please enter floating point numbers separated by ws,"
-;"When finished press enter followed by Cntrl+D."
+
 push qword 0
 mov rax, 0
 mov rdi, enter_prompt
@@ -65,7 +59,7 @@ pop rax
 
 
 ; let user enter numbers until cntrl + d is entered
-; this for loop will go to 6, the chosen array size, or end once cntrl d is pressed.
+
 mov r13, 0 ; for loop counter
 beginLoop:
   cmp r14, r13 ; we want to exit loop when we hit the size of array
@@ -101,13 +95,11 @@ beginLoop:
   jmp beginLoop
 outOfLoop:
 
-mov rdi , last_code
-call printf
-
 pop rax ; counter push at the beginning
-mov rax, r13  ; store the number of things in the aray from the counter of for loop
 
-;===== Restore original values to integer registers ===================================================================
+mov rax, r13  
+
+
 popf                                                        ;Restore rflags
 pop rbx                                                     ;Restore rbx
 pop r15                                                     ;Restore r15
