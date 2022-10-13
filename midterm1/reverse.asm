@@ -8,8 +8,6 @@ global reverse
 
 section .data
 
-
-
 section .text
 
 reverse:
