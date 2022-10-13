@@ -55,7 +55,7 @@ pushf
 
 
 sub rsp, 8
-mov rsp, NUMBERS
+mov qword rsp, NUMBERS
 
 
 ; push qword 0
