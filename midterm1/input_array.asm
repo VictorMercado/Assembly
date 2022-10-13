@@ -7,6 +7,8 @@
 
 extern printf
 extern scanf
+extern atof
+extern isfloat
 
 global input_array
 
@@ -69,8 +71,15 @@ beginLoop:
   mov rsi, rsp
   call scanf
   cdqe
-  cmp rax, -1  ; loop termination condition: user enters cntrl + d.
   pop r12
+  
+  mov rax, 0
+  mov rdi, r12
+  call isfloat
+  cmp rax, 0
+  je beginLoop
+  
+  cmp rax, -1  ; loop termination condition: user enters cntrl + d.
   je outOfLoop
   mov [r15 + 8*r13], r12  ;at array[counter], place the input number
   inc r13  ;increment loop counter
