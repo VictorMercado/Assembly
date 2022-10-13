@@ -13,9 +13,10 @@ section .text
 ; sum up all elements of array and return result in rax
 mov r12, 0
 mov rax, 0
-sub dword [rsi], 1
+mov r13, rsi
+dec r13
 sum:
-cmp r12, rsi
+cmp r12, r13
 je done
 
 add rax, [rdi + r12 * 4]
