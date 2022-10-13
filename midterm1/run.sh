@@ -19,10 +19,10 @@ echo "Bash: Compile the C driver main.c"
 gcc -c -m64 -Wall -o main.o main.c -fno-pie -no-pie -std=c11
 
 echo "Bash: Compile the C++ module display_Array.cpp"
-g++ -c -m64 -Wall -o display_Array.o display_Array.cpp -fno-pie -no-pie -std=c++17
+g++ -c -m64 -Wall -o display_array.o display_array.cpp -fno-pie -no-pie -std=c++17
 
 echo "Bash: Link the object files already created"
-g++ -m64 -o SumArrayIO main.o manager.o nput_array.o display_Array.o -fno-pie -no-pie -std=c++17      # reverse.o
+g++ -m64 -o SumArrayIO main.o manager.o input_array.o display_array.o -fno-pie -no-pie -std=c++17      # reverse.o
 
 echo "Bash: Run the program ArrayIO"
 ./SumArrayIO
