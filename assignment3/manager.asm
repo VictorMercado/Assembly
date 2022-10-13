@@ -54,11 +54,9 @@ mov dword [rsp + 8], 3
 mov dword [rsp + 12], 4
 mov dword [rsp + 16], 5
 
-push qword 0
 mov rdi, rsp
 mov rsi, 5
 call display_Array
-pop rax
 
 push qword 0
 mov rax, 0
