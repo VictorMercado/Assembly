@@ -20,10 +20,10 @@ int main()
     printf("\e[1;33mWelcome to the Great Reverse by Victor Mercado. \n\e[33m");
     array = manager();
     printf("\e[1;33mThe driver function received an array whose first 3 numbers are: \n\e[0m");
-    // for (int i = 0; i < 3; i++)
-    // {
-    //     printf("\e[1;33m%lf \n\e[0m", arrayPtr[i]);
-    // }
+    for (int i = 0; i < 3; i++)
+    {
+        printf("\e[1;33m%lf \n\e[0m", array[i]);
+    }
     printf("\e[1;31mThis program is done and will now return 0 to the OS. \n\e[0m");
     return 0;
 }
