@@ -41,7 +41,7 @@ mov rdi, rsp
 mov rsi, 5
 call display_Array
 
-pop eax
+pop rax
 pop rax
 
 
