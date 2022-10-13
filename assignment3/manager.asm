@@ -29,5 +29,6 @@ mov rax, 0
 mov rdi, digit_form
 mov rsi, [aCoolNumber]
 call printf
+pop rax
 
 ret
