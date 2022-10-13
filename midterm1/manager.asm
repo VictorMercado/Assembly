@@ -77,7 +77,7 @@ pushf
 
 ; pop rax ; pop at the beginning of the program
 
-mov rax, NUMBERS
+movsd xmm0, NUMBERS
 
 popf                                                        ;Restore rflags
 pop rbx                                                     ;Restore rbx
