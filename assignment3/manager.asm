@@ -7,7 +7,7 @@ global manager
 
 section .data
 
-welcome_message db "\e[1\;33m Hello, this program will add your floats!", 10, 0
+welcome_message db "Hello, this program will add your floats!", 10, 0
 show_numbers db "Your numbers are: ", 10, 0
 sum_message db "The sum of your numbers is: ", 10, 0
 exit_message db "This program will now exit back to the driver.", 10, 0
