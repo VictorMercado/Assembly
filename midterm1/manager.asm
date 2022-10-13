@@ -54,6 +54,10 @@ push rbx                                                    ;Backup rbx
 pushf  
 
 
+sub rsp, 8
+mov rsp, NUMBERS
+
+
 ; push qword 0
 
 
@@ -77,7 +81,7 @@ pushf
 
 ; pop rax ; pop at the beginning of the program
 
-movsd xmm0, NUMBERS
+mov rax, rsp
 
 popf                                                        ;Restore rflags
 pop rbx                                                     ;Restore rbx
