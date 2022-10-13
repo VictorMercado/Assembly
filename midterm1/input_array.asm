@@ -61,6 +61,9 @@ pop rax
 ; let user enter numbers until cntrl + d is entered
 
 mov r13, 0 ; for loop counter
+jmp beginLoop
+topop:
+pop rax
 beginLoop:
   cmp r14, r13 ; we want to exit loop when we hit the size of array
   je outOfLoop
@@ -78,7 +81,7 @@ beginLoop:
   mov rdi, rsp
   call isfloat          ; is expecting a string
   cmp rax, 0
-  je beginLoop
+  je topop
   
   mov rdi, good_input
   call printf
