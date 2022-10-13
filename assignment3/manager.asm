@@ -16,7 +16,7 @@ section .text
 
 manager:
 
-mov rdi, [aCoolNumber]
-call display_Array
+mov rdi, "Dude no way sicko mode"
+call printf
 
 ret
