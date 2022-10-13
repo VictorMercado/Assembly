@@ -56,15 +56,18 @@ mov dword [rsp + 16], 5
 
 mov rdi, rsp
 mov rsi, 5
-push rsi
 call display_Array
 
+push qword 0
+mov rax, 0
 mov rdi, rsp
-pop rsi
+mov rsi, 5
 call sum
+mov r12, rax
+pop rax
 
 mov rdi, sum_message
-mov rsi, rax
+mov rsi, r12
 call printf
 
 ; call display_Array
