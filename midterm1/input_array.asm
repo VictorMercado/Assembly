@@ -14,6 +14,7 @@ global input_array
 segment .data
 
 enter_prompt db "Please enter integers separated by ws and press <enter><control+d> to terminate inputs.", 10, 0
+good_input db "Good input.", 10, 0
 
 float_format db "%lf", 0
 
@@ -75,13 +76,12 @@ beginLoop:
   mov rdi, rsp
   call isfloat
   cmp rax, 0
-  je beginLoop
-  
-  
-
   pop r12
-  cmp rax, -1  ; loop termination condition: user enters cntrl + d.
-  je outOfLoop
+  je beginLoop
+  jl outOfLoop
+
+;   cmp rax, -1  ; loop termination condition: user enters cntrl + d.
+;   je outOfLoop
   mov [r15 + 8*r13], r12  ;at array[counter], place the input number
   inc r13  ;increment loop counter
   jmp beginLoop
