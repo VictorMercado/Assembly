@@ -58,13 +58,12 @@ mov rdi, rsp
 mov rsi, 5
 call display_Array
 
-push qword 0
+
 mov rax, 0
 mov rdi, rsp
 mov rsi, 5
 call sum
 mov r12, rax
-pop rax
 
 mov rdi, sum_message
 mov rsi, r12
