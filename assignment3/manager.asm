@@ -16,7 +16,7 @@ section .bss
 section .text
 
 manager:
-
+mov rax, 0
 mov rdi, number_form
 mov rsi, [aCoolNumber]
 call printf
