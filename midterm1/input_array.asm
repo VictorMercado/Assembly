@@ -69,7 +69,7 @@ beginLoop:
   mov rdi, string_form
   push qword 0
   mov rsi, rsp
-  call scanf
+  call scanf    ; if user enters a non-integer, scanf will return 0
 ;   cdqe
   cmp rax, -1  ; loop termination condition: user enters cntrl + d.
   je outOfLoop
@@ -83,14 +83,12 @@ beginLoop:
   mov rdi, good_input
   call printf
 
+  mov rax, 0
+  mov rdi, rsp
+  call atof             ; convert string to double
+  pop rax
 
-;   mov rax, 0
-;   mov rdi, rsp
-;   call atof
-;   movsd xmm14, xmm0 
-;   cvtsd2si r12, xmm14
-  pop r12
-  mov [r15 + 8*r13], r12  ;at array[counter], place the input number
+  movsd [r15 + 8*r13], xmm0  ;at array[counter], place the input number
   inc r13  ;increment loop counter
   jmp beginLoop
 outOfLoop:
