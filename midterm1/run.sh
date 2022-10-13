@@ -8,7 +8,7 @@
 rm *.o
 rm *.out
 
-echo "Bash: This is program <Demonstrate Numeric IO>"
+echo "Bash: This is program SumArrayIO"
 
 echo "Bash: Assemble the asm files"
 nasm -f elf64 -l manager.lis -o manager.o manager.asm

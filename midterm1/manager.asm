@@ -74,7 +74,7 @@ push qword 0
 mov rax, 0
 mov rdi, arrayA
 mov rsi, r15
-call display_Array
+call display_array
 pop rax
 
 
