@@ -25,13 +25,19 @@ section .text
 
 manager:
 
-mov rax, 0
-mov rdi, welcome_message
-call printf
+push rbp
+mov rbp, rsp
+sub rsp, 20
 
-mov rax, 0
-mov rdi, digit_form
-mov rsi, [aCoolNumber]
-call printf
+mov [rsp + 4], 1
+mov [rsp + 8], 2
+mov [rsp + 12], 3
+mov [rsp + 16], 4
+mov [rsp + 20], 5
+mov rdi, rsp
+mov rsi, 5
+call display_Array
+
+
 
 ret
