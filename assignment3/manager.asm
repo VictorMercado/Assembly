@@ -32,11 +32,12 @@ push qword 0
 
 sub rsp, 24
 
-mov dword [rsp + 4], 1
-mov dword [rsp + 8], 2
-mov dword [rsp + 12], 3
-mov dword [rsp + 16], 4
-mov dword [rsp + 20], 5
+mov dword [rsp], 1
+mov dword [rsp + 4], 2
+mov dword [rsp + 8], 3
+mov dword [rsp + 12], 4
+mov dword [rsp + 16], 5
+
 mov rdi, rsp
 mov rsi, 5
 call display_Array
