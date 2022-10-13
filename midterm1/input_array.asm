@@ -73,11 +73,13 @@ beginLoop:
   cdqe
   mov r11, rax
 
+  push qword 0
   mov rax, 0
   mov rdi, rsp
   call isfloat
   cmp rax, 0
   pop r12
+  pop rdx
   je beginLoop
 
   cmp rax, r11  ; loop termination condition: user enters cntrl + d.
