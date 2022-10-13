@@ -12,13 +12,11 @@ section .text
 
 ; sum up all elements of array
 sum:
-push rsi
 mov rdi, start_code
 call printf
 
 mov rax, 0
 mov rdi, digit_form
-pop rsi
 call printf
 
 mov rdi, end_code
