@@ -29,11 +29,11 @@ push rbp
 mov rbp, rsp
 sub rsp, 20
 
-mov [rsp + 4], 1
-mov [rsp + 8], 2
-mov [rsp + 12], 3
-mov [rsp + 16], 4
-mov [rsp + 20], 5
+mov dword [rsp + 4], 1
+mov dword [rsp + 8], 2
+mov dword [rsp + 12], 3
+mov dword [rsp + 16], 4
+mov dword [rsp + 20], 5
 mov rdi, rsp
 mov rsi, 5
 call display_Array
