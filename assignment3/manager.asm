@@ -16,7 +16,7 @@ section .text
 
 manager:
 
-mov rdi, "Dude no way sicko mode"
+mov rdi, message
 call printf
 
 ret
