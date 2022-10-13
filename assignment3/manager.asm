@@ -63,10 +63,9 @@ mov rax, 0
 mov rdi, rsp
 mov rsi, 5
 call sum
-mov r12, rax
 
 mov rdi, sum_message
-mov rsi, r12
+mov rsi, rax
 call printf
 
 ; call display_Array
