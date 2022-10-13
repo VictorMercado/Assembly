@@ -10,5 +10,5 @@ void display_Array(int arr[], int size) {
     }
     printf("\n");
     printf("\e[0m");
-    size = 6;
+    // size = 6;
 }
