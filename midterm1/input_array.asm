@@ -81,6 +81,8 @@ beginLoop:
   cmp rax, 0
   je beginLoop
   
+  mov rdi, good_input
+  call printf
   mov rax, 0
   mov rdi, rsp
   call atof
