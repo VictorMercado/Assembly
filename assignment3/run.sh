@@ -11,13 +11,13 @@ nasm -f elf64 -l manager.lis -o manager.o manager.asm
 echo "Bash: Compile the C driver main.c"
 gcc -c -m64 -Wall -o main.o main.c -fno-pie -no-pie -std=c11
 
-echo "Bash: Compile the C++ module pythagoras.cpp"
+echo "Bash: Compile the C++ module display_Array.cpp"
 g++ -c -m64 -Wall -o display_Array.o display_Array.cpp -fno-pie -no-pie -std=c++17
 
-echo "Bash: Link the two object files already created"
+echo "Bash: Link the object files already created"
 g++ -m64 -o arrayIO main.o manager.o display_Array.o -fno-pie -no-pie -std=c++17      # sum.o input_array.o 
 
-echo "Bash: Run the program Basic Float Operations"
+echo "Bash: Run the program ArrayIO"
 ./arrayIO
 
 echo "Bash: The bash script file is now closing."
