@@ -1,21 +1,30 @@
 extern printf
 extern display_Array
+extern scanf
 
 global manager
 
 
 section .data
 
-message db "Hello, World!", 10, 0
+welcome_message db "Hello, this program will add your floats!", 10, 0
+show_numbers db "Your numbers are: ", 10, 0
+sum_message db "The sum of your numbers is: ", 10, 0
+exit_message db "This program will now exit back to the driver.", 10, 0
+
+
 string_form db "%s", 0
-aCoolNumber dd 100
-number_form db "%d", 10, 0
+; d is 32-bit
+digit_form db "%d", 0
+
+
 
 section .bss
 
 section .text
 
 manager:
+push qword 0
 mov rax, 0
 mov rdi, number_form
 mov rsi, [aCoolNumber]
