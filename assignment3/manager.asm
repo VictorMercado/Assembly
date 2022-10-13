@@ -41,8 +41,8 @@ mov dword [rsp + 16], 5
 mov rdi, rsp
 mov rsi, 5
 call display_Array
+add rsp, 24
 
-pop rax
 pop rax
 
 
