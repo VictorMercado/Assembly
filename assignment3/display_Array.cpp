@@ -5,7 +5,8 @@ extern "C" void display_Array(int arr[], int size);
 
 void display_Array(int arr[], int size) {
     for (int i = 0; i < size; i++) {
-        printf("%d", arr[i]);
+        int x = arr[i];
+        printf("%d", x);
     }
     printf("\n");
 }
