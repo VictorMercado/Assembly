@@ -52,16 +52,16 @@ jmp loop
 done:
 
 mov r13, 0
-loop2:
+loopp:
     cmp r13, r15
-    je done
+    je finished
 
     pop qword [r12 + r13 * 8]
     inc r13
-jmp loop2
+jmp loopp
 
 
-done2:
+finished:
 add rsp, 80
 
 pop rax
