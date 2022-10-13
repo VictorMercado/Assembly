@@ -62,7 +62,7 @@ pop rax
 
 mov r13, 0 ; for loop counter
 jmp beginLoop
-topop:
+topop:              ; this label can only be hit if the user enters a non-float
 pop rax
 beginLoop:
   cmp r14, r13 ; we want to exit loop when we hit the size of array
@@ -72,18 +72,18 @@ beginLoop:
   mov rdi, string_form
   push qword 0
   mov rsi, rsp
-  call scanf    ; if user enters a non-integer, scanf will return 0
-  cdqe
+  call scanf    ; scanf is loading into mempry where rsp is pointing
+  cdqe          ; scanf returns a value in rax, we need to convert it to a 64 bit value
   cmp rax, -1  ; loop termination condition: user enters cntrl + d.
   je outOfLoop
 
   mov rax, 0
   mov rdi, rsp
   call isfloat          ; is expecting a string
-  cmp rax, 0
+  cmp rax, 0            ; if 0 then bad input jump to topop to undo push squidword
   je topop
   
-  mov rdi, good_input
+  mov rdi, good_input       ; if good input doesnt show then that means it went back to beingloop
   call printf
 
   mov rax, 0
@@ -94,7 +94,10 @@ beginLoop:
   movsd [r15 + 8*r13], xmm0  ;at array[counter], place the input number
   inc r13  ;increment loop counter
   jmp beginLoop
+done:
+pop rax                 ; this pop is when user enters cntrl + d so stack must be aligned
 outOfLoop:
+
 
 pop rax ; counter push at the beginning
 
