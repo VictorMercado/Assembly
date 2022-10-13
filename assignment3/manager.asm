@@ -43,8 +43,9 @@ mov rdi, rsp
 mov rsi, 5
 call display_Array
 
+
 mov rdi, sum_message
-printf
+call printf
 
 add rsp, 24
 
