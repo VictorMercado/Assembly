@@ -52,7 +52,7 @@ mov rax, 0
 mov rdi, string_form
 sub rsp, one_hun
 mov rsi, rsp
-call scanf ; scanf("%f", &number)
+call scanf ; scanf("%s", &number)
 
 
 ;check if the input is a float, pass a block of memory to the function, if it is a float, return 1, else return 0, this will be stored in rax
