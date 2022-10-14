@@ -75,7 +75,7 @@ beginLoop:
   call scanf    ; scanf is loading into mempry where rsp is pointing
   cdqe          ; scanf returns a value in rax, we need to convert it to a 64 bit value
   cmp rax, -1  ; loop termination condition: user enters cntrl + d.
-  je outOfLoop
+  je done
 
   mov rax, 0
   mov rdi, rsp
