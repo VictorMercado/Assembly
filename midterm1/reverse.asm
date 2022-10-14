@@ -1,4 +1,4 @@
-; // ;Program name: "Great Reverse".
+; // ;Program name: "ReverseArrayIO".
 
 ; // Author name: Victor Mercado
 ; // Author email: vmercado29@csu.fullerton.edu
