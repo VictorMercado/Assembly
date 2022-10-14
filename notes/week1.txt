@@ -15,18 +15,29 @@ segments:
 .data   ; is for initializing constants
 
 commands: 
+s = scalar = 1 number
+p = packed = multiple numbers
+d = 64 bits
 loop
 mov
-movsd
-push
-pop
-call
-db
+movsd       ; move       
+push        ; push onto the stack
+pop         ; pop from the stack
+call        ; call functions
+db          ; define data using bytes
 edu
-add
-dec
-inc
-sub
+add         ; add 2 ints
+addsd       ; add 2 floats
+sub         ; subtract 2 ints
+subsd       ; subtrack 2 floats
+dec         ; decrement int by 1
+inc         ; increment int by 1
+mul         ; multiply 2 ints
+mulsd       ; multiply 2 floats
+div         ; divide 2 ints
+divsd       ; divide 2 floats
+sqrt        ; square root a number
+sqrtsd      ; square root a scalar double number
 xchg
 ret
 neg
@@ -40,8 +51,13 @@ jg  : jump if greater
 jge : jump if greater or equal
 jz  : jump if 0
 jnz : jump if not 0
+ja  : compare > with op1 op2 for unsigned numbers
+jb  : compare < with op1 op2 for unsigned numbers
+
 
 Registers:
+
+r registers are 64 bit
 
 rax 3 uses:
 - return register
@@ -83,6 +99,10 @@ xmm0-xmm7
 stable
 xmm8-xmm15
 
+xmm0 = 1st parameter
+xmm1 = 2nd parameter
+xmm2 = 3rd parameter
+xmm3 = 4th prameter
 
 data
 d = define

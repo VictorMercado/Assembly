@@ -1,3 +1,4 @@
+week 8 for midterm
 # make sure to know chap 1,2
 ### von neumann questions
 ### Little & Big Endian
@@ -12,3 +13,6 @@
 ### 2 Hex digits = 8 bits = 1 byte
 ### One GPR is 64 bits = 8 bytes
 ### rbx = 64 bit register
+
+
+What is the smallest (negative) integer in 64 bits using two's complement

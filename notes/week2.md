@@ -48,9 +48,9 @@ A Quantum computer is not a Von Neumann machine
 ## Data Size
 
 C++         Asm        Bytes    Bit
-char        Byte        1       
-short       Word        2
-float, int  Double      4
+char        Byte        1       8 bit
+short       Word        2       16 bit
+float, int  Double      4       32 bit
 double long Quad        8       64 bit
 ?           Octal       16      128 bit
 
@@ -182,3 +182,7 @@ execute
 ; mov rdi, string_form
 ; mov rsi, goodbye
 ; call printf ; printf("%s", "goodbye")
+
+1029 to hex: 0x405 to binary: 0b10000000001
+
+277 to binary: 0b 10001 0101
