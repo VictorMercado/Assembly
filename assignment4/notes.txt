@@ -1,0 +1,24 @@
+cosx function 
+welcome 
+get time
+input a float #
+output
+cosx
+output cosxbye
+no driver
+
+cos = 1 term = 1
+for k = 0; k<10_000_000; k++
+term = term * (-1) * x * x / 2k + 1 / 2k + 2 ;
+cos = cos + term;
+
+
+Time in cpu
+cpuid <--- pause 
+rdtsc < ----- read time stamp counter
+
+          high                low
+[0000000|\\\\\\\] [00000000|\\\\\\\\\\]
+    rdx                     rax
+
+shl rdx 32 
