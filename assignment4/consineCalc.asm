@@ -1,3 +1,4 @@
+global _start
 
 section .data
 welcomeMsg db "Welcome to Cosine Calc!", 0
@@ -24,28 +25,30 @@ lenOutputCosineMsg equ $ - outputCosineMsg
 goodbyeMsg db "Goodbye!", 0
 lenGoodbyeMsg equ $ - goodbyeMsg
 
+STDIN equ 0
 STDOUT equ 1
+
+SYS_read equ 0
 SYS_write equ 1
 SYS_exit equ 60
+
+SYS_time equ 201
+
 EXIT_SUCCESS equ 0
 
 section .text
 
-global _start
-
-
 _start:
 
-mov rax, SYS_write
+mov rax, 4
 mov rdi, STDOUT
 mov rsi, welcomeMsg
-mov rdx, qword [lenWelcomeMsg]
-syscall
+mov rdx, 23
+int 0x80
 
 
-exit:
-   mov	rax, SYS_exit
-   mov	rdi, EXIT_SUCCESS
-   syscall
+mov	rax, 1
+mov	rdi, EXIT_SUCCESS
+int 0x80
 
 
