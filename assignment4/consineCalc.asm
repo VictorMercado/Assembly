@@ -2,28 +2,28 @@ global _start
 
 section .data
 welcomeMsg db "Welcome to Cosine Calc!", 0
-lenWelcomeMsg equ $ - welcomeMsg
+lenWelcomeMsg equ $-welcomeMsg
 
 timeNow db "This is the time now in ticks is: ", 0
-lenTimeNow equ $ - timeNow
+lenTimeNow equ $-timeNow
 
 inputMsg db "Please enter an angle in degress and press enter: ", 0
-lenInputMsg equ $ - inputMsg
+lenInputMsg equ $-inputMsg
 
 outputAngleMsg db "You entered this angle: ", 0
-lenOutputMsg equ $ - outputAngleMsg
+lenOutputMsg equ $-outputAngleMsg
 
 outputInputMsg db "You entered: ", 0
-lenOutputInputMsg equ $ - outputInputMsg
+lenOutputInputMsg equ $-outputInputMsg
 
 outputRadiansMsg db "The angle in radians is: ", 0
-lenOutputRadiansMsg equ $ - outputRadiansMsg
+lenOutputRadiansMsg equ $-outputRadiansMsg
 
 outputCosineMsg db "The cosine of the angle in radians is: ", 0
-lenOutputCosineMsg equ $ - outputCosineMsg
+lenOutputCosineMsg equ $-outputCosineMsg
 
 goodbyeMsg db "Goodbye!", 0
-lenGoodbyeMsg equ $ - goodbyeMsg
+lenGoodbyeMsg equ $-goodbyeMsg
 
 STDIN equ 0
 STDOUT equ 1
@@ -40,8 +40,8 @@ section .text
 
 _start:
 
-mov rax, 4
-mov rdi, STDOUT
+mov rax, 1
+mov rdi, 1
 mov rsi, welcomeMsg
 mov rdx, 23
 int 0x80
