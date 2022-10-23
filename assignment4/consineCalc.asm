@@ -27,15 +27,22 @@ goodbyeMsg db "Goodbye!", 0
 lenGoodbyeMsg equ $ - goodbyeMsg
 
 STDOUT equ 1
+SYS_write equ 1
+SYS_exit equ 1
 
-
+section .text
 _start:
 
-mov rax, 4
-mov rbx, 1
+mov rax, SYS_write
+mov rbx, STDOUT
 mov rcx, welcomeMsg
-mov rdx, lenWelcomeMsg
+mov rdx, qword [lenWelcomeMsg]
 syscall
 
+
+exit:
+   mov	rax, SYS_exit
+   xor	rbx, rbx
+   int	80h
 
 
