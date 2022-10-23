@@ -43,12 +43,12 @@ _start:
 mov rax, 1
 mov rdi, 1
 mov rsi, welcomeMsg
-mov rdx, 23
-int 0x80
+mov rdx, lenWelcomeMsg
+syscall
 
 
-mov	rax, 1
+mov	rax, SYS_exit
 mov	rdi, EXIT_SUCCESS
-int 0x80
+syscall
 
 
