@@ -1,7 +1,7 @@
 global _start
 
 section .data
-welcomeMsg db "Welcome to Cosine Calc!", 0
+welcomeMsg db "Welcome to Cosine Calc!", 10, 0
 lenWelcomeMsg equ $-welcomeMsg
 
 timeNow db "This is the time now in ticks is: ", 0
