@@ -10,7 +10,7 @@ nasm -f elf64 -l consineCalc.lis -o consineCalc.o consineCalc.asm
 # nasm -f elf64 -l ftoa.lis -o ftoa.o ftoa.asm
 
 
-ld -m elf_x86_64 -o consineCalc consineCalc.o -fno-pie -no-pie -std=c++17  #cosine.o atof.o ftoa.o 
+ld -m elf_x86_64 -o consineCalc consineCalc.o #cosine.o atof.o ftoa.o 
 
 ./consineCalc
 

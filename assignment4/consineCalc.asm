@@ -1,4 +1,4 @@
-global manager
+global _start
 
 
 section .data
@@ -26,7 +26,10 @@ lenOutputCosineMsg equ $ - outputCosineMsg
 goodbyeMsg db "Goodbye!", 0
 lenGoodbyeMsg equ $ - goodbyeMsg
 
-manager:
+STDOUT equ 1
+
+
+_start:
 
 mov rax, 4
 mov rbx, 1
