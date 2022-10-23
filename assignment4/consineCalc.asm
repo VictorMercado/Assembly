@@ -1,5 +1,3 @@
-global _start
-
 
 section .data
 welcomeMsg db "Welcome to Cosine Calc!", 0
@@ -28,21 +26,26 @@ lenGoodbyeMsg equ $ - goodbyeMsg
 
 STDOUT equ 1
 SYS_write equ 1
-SYS_exit equ 1
+SYS_exit equ 60
+EXIT_SUCCESS equ 0
 
 section .text
+
+global _start
+
+
 _start:
 
 mov rax, SYS_write
-mov rbx, STDOUT
-mov rcx, welcomeMsg
+mov rdi, STDOUT
+mov rsi, welcomeMsg
 mov rdx, qword [lenWelcomeMsg]
 syscall
 
 
 exit:
    mov	rax, SYS_exit
-   xor	rbx, rbx
-   int	80h
+   mov	rdi, EXIT_SUCCESS
+   syscall
 
 
