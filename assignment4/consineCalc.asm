@@ -1,5 +1,6 @@
 global _start
 
+
 section .data
 welcomeMsg db "Welcome to Cosine Calc!", 10, 0
 lenWelcomeMsg equ $-welcomeMsg
@@ -25,6 +26,10 @@ lenOutputCosineMsg equ $-outputCosineMsg
 goodbyeMsg db "Goodbye!", 0
 lenGoodbyeMsg equ $-goodbyeMsg
 
+STRLEN equ 50
+newLine db LF, 0
+
+;  system codes 
 STDIN equ 0
 STDOUT equ 1
 
@@ -36,15 +41,24 @@ SYS_time equ 201
 
 EXIT_SUCCESS equ 0
 
+; reserve space for string 
+section .bss
+character resb 1
+inputStr resb STRLEN+2
+
 section .text
 
 _start:
 
-mov rax, 1
-mov rdi, 1
+mov rax, SYS_write
+mov rdi, STDOUT
 mov rsi, welcomeMsg
 mov rdx, lenWelcomeMsg
 syscall
+
+loop:
+
+
 
 
 mov	rax, SYS_exit
@@ -52,3 +66,4 @@ mov	rdi, EXIT_SUCCESS
 syscall
 
 
+printString:
