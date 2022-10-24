@@ -5,7 +5,7 @@ section .data
 welcomeMsg db "Welcome to Cosine Calc!", 10, 0
 lenWelcomeMsg equ $-welcomeMsg
 
-aNumToPrint dw 12345
+aNumToPrint db 52, 0
 lenANumToPrint equ $-aNumToPrint
 
 timeNow db "This is the time now in ticks: ", 0
@@ -65,6 +65,18 @@ mov rdi, STDOUT                     ; file descriptor 1 is standard output
 mov rsi, welcomeMsg                 ; address of string to write
 mov rdx, lenWelcomeMsg              ; length of string
 syscall
+
+; cpuid
+; rdtsc
+; shl rdx, 32
+; add rdx, rax
+; mov r8, rdx
+
+; mov rax, sys_write
+; mov rdi, stdout
+; mov rsi, r8     
+; mov rdx, 6
+; syscall
 
 mov rax, SYS_write               
 mov rdi, STDOUT                     ; file descriptor 1 is standard output
