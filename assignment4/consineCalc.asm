@@ -113,14 +113,7 @@ exampleDone:
 printString:
     push rbx
     mov rbx, rdi                        ; move rdi pointer of input string to rbx
-
-    mov rax, SYS_write
-    mov rdi, STDOUT
-    mov rsi, enterPrintString
-    mov rdx, lenEnterPrintString
-    syscall
     
-
     mov r15, 0
     loop2:
         cmp byte [rbx], 0               ; check if it is a null terminator
@@ -132,12 +125,12 @@ printString:
         jmp loop2                       ; jump back to loop
     endLoop2:
 
-    ;cmp r15, 0                          ; check if the string is empty
-    ;je printDone                        ; if it is empty, dont print anything
+    cmp r15, 0                          ; check if the string is empty
+    je printDone                        ; if it is empty, dont print anything
 
     mov rax, SYS_write
-    mov rdi, STDOUT
     mov rsi, rdi                
+    mov rdi, STDOUT
     mov rdx, r15                            ; rdx is already set to the length of the string
     syscall
 
