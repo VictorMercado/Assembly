@@ -132,8 +132,8 @@ printString:
         jmp loop2                       ; jump back to loop
     endLoop2:
 
-    cmp r15, 0                          ; check if the string is empty
-    je printDone                        ; if it is empty, dont print anything
+    ;cmp r15, 0                          ; check if the string is empty
+    ;je printDone                        ; if it is empty, dont print anything
 
     mov rax, SYS_write
     mov rdi, STDOUT
