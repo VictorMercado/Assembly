@@ -23,8 +23,11 @@ lenOutputRadiansMsg equ $-outputRadiansMsg
 outputCosineMsg db "The cosine of the angle in radians is: ", 0
 lenOutputCosineMsg equ $-outputCosineMsg
 
+inputLabel db "Input: ", 0
+lenInputLabel equ $-inputLabel
+
 enterPrintString db "Entered Print string call", 10, 0
-enterPrintStringLen equ $-enterPrintString
+lenEnterPrintString equ $-enterPrintString
 
 goodbyeMsg db "Goodbye!", 10, 0
 lenGoodbyeMsg equ $-goodbyeMsg
@@ -58,6 +61,12 @@ mov rax, SYS_write
 mov rdi, STDOUT                     ; file descriptor 1 is standard output
 mov rsi, welcomeMsg                 ; address of string to write
 mov rdx, lenWelcomeMsg              ; length of string
+syscall
+
+mov rax, SYS_write
+mov rdi, STDOUT
+mov rsi, inputLabel
+mov rdx, lenInputLabel
 syscall
 
 mov r12, 0                          ; our counter for the loop
@@ -108,7 +117,7 @@ printString:
     mov rax, SYS_write
     mov rdi, STDOUT
     mov rsi, enterPrintString
-    mov rdx, enterPrintStringLen
+    mov rdx, lenEnterPrintString
     syscall
     
 
