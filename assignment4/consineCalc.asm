@@ -1,5 +1,5 @@
 global _start
-
+global printString
 
 section .data
 welcomeMsg db "Welcome to Cosine Calc!", 10, 0
