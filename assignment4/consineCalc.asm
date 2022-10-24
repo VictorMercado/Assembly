@@ -23,7 +23,10 @@ lenOutputRadiansMsg equ $-outputRadiansMsg
 outputCosineMsg db "The cosine of the angle in radians is: ", 0
 lenOutputCosineMsg equ $-outputCosineMsg
 
-goodbyeMsg db "Goodbye!", 0
+enterPrintString db "Entered Print string call", 10, 0
+enterPrintStringLen equ $-enterPrintString
+
+goodbyeMsg db "Goodbye!", 10, 0
 lenGoodbyeMsg equ $-goodbyeMsg
 
 STRLEN equ 50                   ; max length of string for this program only
@@ -83,7 +86,7 @@ loop:
 endLoop:
 
 mov byte [rbx], 0                   ; add null terminator to end of string
-mov rdi, inputStr                   ; pointer to input string
+mov rdi, inputStr                   ; pointer to the beginning of input string
 call printString                    ; call printString to print the string/ print string will count the string and pass to syscall
 
 
@@ -98,11 +101,17 @@ exampleDone:
     mov rdi, EXIT_SUCCESS
     syscall
 
-
 printString:
     push rbx
+    mov rbx, rdi                        ; move rdi pointer of input string to rbx
 
-    mov rbx, rdi
+    mov rax, SYS_write
+    mov rdi, STDOUT
+    mov rsi, enterPrintString
+    mov rdx, enterPrintStringLen
+    syscall
+    
+
     mov rdx, 0
     loop2:
         cmp byte [rbx], 0               ; check if it is a null terminator
@@ -126,3 +135,4 @@ printString:
     printDone:
     pop rbx
     ret
+
