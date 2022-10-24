@@ -86,36 +86,43 @@ mov byte [rbx], 0                   ; add null terminator to end of string
 mov rdi, inputStr                   ; pointer to input string
 call printString                    ; call printString to print the string/ print string will count the string and pass to syscall
 
-mov	rax, SYS_exit
-mov	rdi, EXIT_SUCCESS
-syscall
+
+exampleDone:
+    mov rax, SYS_write
+    mov rdi, STDOUT
+    mov rsi, goodbyeMsg
+    mov rdx, lenGoodbyeMsg
+    syscall
+
+    mov rax, SYS_exit
+    mov rdi, EXIT_SUCCESS
+    syscall
 
 
 printString:
-push rbx
+    push rbx
 
-mov rbx, rdi
-mov rdx, 0
-loop2:
-    mov al, byte [rbx]              ; move the character into low byte of rax
-    cmp al, 0                       ; check if it is a null terminator
-    je endLoop2                     ; if it is a null terminator, jump to endLoop2 cause were done
+    mov rbx, rdi
+    mov rdx, 0
+    loop2:
+        cmp byte [rbx], 0               ; check if it is a null terminator
+        je endLoop2                     ; if it is a null terminator, jump to endLoop2 cause were done
 
-    inc rdx                         ; increment counter
-    inc rbx                         ; increment pointer to next byte
+        inc rdx                         ; increment counter
+        inc rbx                         ; increment pointer to next byte
 
-    jmp loop2                       ; jump back to loop
-endLoop2:
+        jmp loop2                       ; jump back to loop
+    endLoop2:
 
-cmp rdx, 0                          ; check if the string is empty
-je printDone                        ; if it is empty, dont print anything
+    cmp rdx, 0                          ; check if the string is empty
+    je printDone                        ; if it is empty, dont print anything
 
-mov rax, SYS_write
-mov rdi, STDOUT
-mov rsi, rdi                
-                                    ; rdx is already set to the length of the string
-syscall
+    mov rax, SYS_write
+    mov rdi, STDOUT
+    mov rsi, rdi                
+                                        ; rdx is already set to the length of the string
+    syscall
 
-printDone:
-pop rbx
-ret
+    printDone:
+    pop rbx
+    ret
