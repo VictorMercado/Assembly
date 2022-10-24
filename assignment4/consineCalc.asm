@@ -5,7 +5,7 @@ section .data
 welcomeMsg db "Welcome to Cosine Calc!", 10, 0
 lenWelcomeMsg equ $-welcomeMsg
 
-aNumToPrint db 52, 0
+aNumToPrint db 52
 lenANumToPrint equ $-aNumToPrint
 
 timeNow db "This is the time now in ticks: ", 0
