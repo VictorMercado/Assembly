@@ -27,7 +27,7 @@ goodbyeMsg db "Goodbye!", 0
 lenGoodbyeMsg equ $-goodbyeMsg
 
 STRLEN equ 50
-newLine db LF, NULL
+newLine db 0xA, NULL
 
 ;  system codes 
 STDIN equ 0
