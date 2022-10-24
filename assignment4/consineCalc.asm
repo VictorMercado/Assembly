@@ -112,24 +112,24 @@ printString:
     syscall
     
 
-    mov rdx, 0
+    mov r15, 0
     loop2:
         cmp byte [rbx], 0               ; check if it is a null terminator
         je endLoop2                     ; if it is a null terminator, jump to endLoop2 cause were done
 
-        inc rdx                         ; increment counter
+        inc r15                         ; increment counter
         inc rbx                         ; increment pointer to next byte
 
         jmp loop2                       ; jump back to loop
     endLoop2:
 
-    cmp rdx, 0                          ; check if the string is empty
+    cmp r15, 0                          ; check if the string is empty
     je printDone                        ; if it is empty, dont print anything
 
     mov rax, SYS_write
     mov rdi, STDOUT
     mov rsi, rdi                
-                                        ; rdx is already set to the length of the string
+    mov rdx, r15                            ; rdx is already set to the length of the string
     syscall
 
     printDone:
