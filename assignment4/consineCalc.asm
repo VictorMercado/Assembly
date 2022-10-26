@@ -153,9 +153,9 @@ exampleDone:
     mov rdx, lenTimeNow
     syscall
 
-    xor rax, rax
-    xor rdx, rdx
-    xor rdi, rdi
+    mov rax, 0
+    mov rdx, 0
+    mov rdi, 0
     cpuid
     rdtsc
     shl rdx, 32
