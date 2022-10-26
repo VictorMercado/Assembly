@@ -88,6 +88,7 @@ syscall
 xor rax, rax
 xor rdi, rdi
 xor rdx, rdx
+xor rsi, rsi
 
 cpuid
 rdtsc
@@ -154,6 +155,8 @@ exampleDone:
     xor rax, rax
     xor rdx, rdx
     xor rdi, rdi
+    xor rsi, rsi
+    
     cpuid
     rdtsc
     shl rdx, 32
