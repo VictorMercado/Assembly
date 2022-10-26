@@ -82,7 +82,8 @@ jne main_loop                 ;Continue iteration if the quotient is not zero
     mov rdi, 0                ;rdi will be the index of the array rsi
 
 ;If the original number was negative then place '-' in position 0 of the array.
-    cmp r15,0
+    ; cmp r15,0
+    jmp begin_copy
     je begin_copy             ;if original number was positive skip to begin_copy
     mov byte [rsi+rdi],' '
     inc rdi
