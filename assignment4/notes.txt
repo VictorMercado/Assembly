@@ -16,9 +16,26 @@ cos = cos + term;
 Time in cpu
 cpuid <--- pause 
 rdtsc < ----- read time stamp counter
+will place in 2 registers 
+low half of rdx, which is edx
+low half of rax, which is eax
 
           high                low
 [0000000|\\\\\\\] [00000000|\\\\\\\\\\]
     rdx                     rax
+edx = low half of rdx
+eax = low half of rax
 
-shl rdx 32 
+rdx = [///////////|00000000]
+rax = [0000000000|//////////]
+
+shl rdx, 32 
+add rdx, rax
+
+functions needed
+cos(x).asm
+atof.asm
+ftoa.asm
+ltoa.asm
+consineCalc.asm
+run.sh

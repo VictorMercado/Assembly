@@ -1,5 +1,13 @@
+; functions needed
+; cos(x).asm
+; atof.asm
+; ftoa.asm
+; ltoa.asm
+; consineCalc.asm
+; run.sh
 global _start
 global printString
+extern ltoa
 
 section .data
 welcomeMsg db "Welcome to Cosine Calc!", 10, 0
@@ -55,6 +63,7 @@ EXIT_SUCCESS equ 0              ; exit code to indicate success
 section .bss
 character resb 1                ; reserve space for character on low address stack
 inputStr resb STRLEN+2          ; reserve space for input string on low address stack 50 + 2 for newline and null terminator
+ticksStr resb 64
 
 section .text
 
@@ -66,11 +75,15 @@ mov rsi, welcomeMsg                 ; address of string to write
 mov rdx, lenWelcomeMsg              ; length of string
 syscall
 
-; cpuid
-; rdtsc
-; shl rdx, 32
-; add rdx, rax
-; mov r8, rdx
+cpuid
+rdtsc
+shl rdx, 32
+add rdx, rax
+mov r8, rdx
+
+mov rdi, r8
+mov rsi, ticksStr
+mov r8, rax
 
 ; mov rax, sys_write
 ; mov rdi, stdout
@@ -78,7 +91,7 @@ syscall
 ; mov rdx, 6
 ; syscall
 
-mov rdi, aNumToPrint
+mov rdi, r8
 call printString
 
 ; mov rax, SYS_write               
