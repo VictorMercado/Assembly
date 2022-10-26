@@ -172,6 +172,12 @@ printString:
     mov rdx, r15                            ; rdx is already set to the length of the string
     syscall
 
+    mov rax, SYS_write
+    mov rdi, STDOUT
+    mov rsi, newLine
+    mov rdx, 1 
+    syscall
+    
     printDone:
     pop rbx
     ret
