@@ -66,6 +66,7 @@ section .bss
 character resb 1                ; reserve space for character on low address stack
 inputStr resb STRLEN+2          ; reserve space for input string on low address stack 50 + 2 for newline and null terminator
 ticksStr resq 1
+ticksStr2 resq 1
 
 section .text
 
@@ -161,7 +162,7 @@ exampleDone:
 
 
     mov rdi, rdx
-    mov rsi, ticksStr
+    mov rsi, ticksStr2
     call ltoa
 
 
