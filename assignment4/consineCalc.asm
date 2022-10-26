@@ -175,9 +175,9 @@ printString:
     mov rax, SYS_write
     mov rdi, STDOUT
     mov rsi, newLine
-    mov rdx, 1 
+    mov rdx, 2 
     syscall
-    
+
     printDone:
     pop rbx
     ret
