@@ -85,6 +85,10 @@ mov rsi, timeNow
 mov rdx, lenTimeNow
 syscall
 
+xor rax, rax
+xor rdi, rdi
+xor rdx, rdx
+
 cpuid
 rdtsc
 shl rdx, 32
@@ -94,12 +98,6 @@ add rdx, rax
 mov rdi, rdx
 mov rsi, ticksStr
 call ltoa
-
-; mov rax, sys_write
-; mov rdi, stdout
-; mov rsi, r8     
-; mov rdx, 6
-; syscall
 
 mov rdi, rax
 call printString
@@ -153,9 +151,9 @@ exampleDone:
     mov rdx, lenTimeNow
     syscall
 
-    mov rax, 0
-    mov rdx, 0
-    mov rdi, 0
+    xor rax, rax
+    xor rdx, rdx
+    xor rdi, rdi
     cpuid
     rdtsc
     shl rdx, 32
