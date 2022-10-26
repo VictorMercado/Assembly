@@ -43,6 +43,8 @@ lenEnterPrintString equ $-enterPrintString
 goodbyeMsg db "Goodbye!", 10, 0
 lenGoodbyeMsg equ $-goodbyeMsg
 
+newLineData db 10, 0
+
 STRLEN equ 50                   ; max length of string for this program only
 CHARLEN equ 1                   ; 1 byte per character
 newLine equ 0xA                 ; newline character ascii code
@@ -169,13 +171,13 @@ printString:
     mov rax, SYS_write
     mov rsi, rdi                
     mov rdi, STDOUT
-    mov rdx, r15                            ; rdx is already set to the length of the string
+    mov rdx, r15                            ; length of string
     syscall
 
     mov rax, SYS_write
     mov rdi, STDOUT
-    mov rsi, newLine
-    mov rdx, 2 
+    mov rsi, newLineData
+    mov rdx, 1 
     syscall
 
     printDone:
