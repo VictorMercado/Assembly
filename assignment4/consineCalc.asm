@@ -155,16 +155,15 @@ exampleDone:
 
     xor rax, rax
     xor rdx, rdx
+    xor rdi, rdi
     cpuid
     rdtsc
     shl rdx, 32
     add rdx, rax
 
-
     mov rdi, rdx
     mov rsi, ticksStr2
     call ltoa
-
 
     mov rdi, rax
     call printString    
