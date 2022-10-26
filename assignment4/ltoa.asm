@@ -8,9 +8,10 @@
 ;available here:  <https://www.gnu.org/licenses/>.                                                                      *
 ;************************************************************************************************************************
 
+extern ltoa
 
 ;Declarations
-global itoa
+global ltoa
 Null equ 0
 true equ -1
 false equ 0
@@ -23,7 +24,7 @@ segment .bss
 
 segment .text
 
-itoa:
+ltoa:
 
 ;Back up the GPRs
 push       rbp                          ;Save a copy of the stack base pointer
