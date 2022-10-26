@@ -43,7 +43,7 @@ lenEnterPrintString equ $-enterPrintString
 goodbyeMsg db "Goodbye!", 10, 0
 lenGoodbyeMsg equ $-goodbyeMsg
 
-newLineData db 10, 0
+newLineData db 10
 
 STRLEN equ 50                   ; max length of string for this program only
 CHARLEN equ 1                   ; 1 byte per character
@@ -75,6 +75,13 @@ mov rax, SYS_write
 mov rdi, STDOUT                     ; file descriptor 1 is standard output
 mov rsi, welcomeMsg                 ; address of string to write
 mov rdx, lenWelcomeMsg              ; length of string
+syscall
+
+
+mov rax, SYS_write
+mov rdi, STDOUT
+mov rsi, timeNow
+mov rdx, lenTimeNow
 syscall
 
 cpuid
@@ -140,6 +147,10 @@ call printString                    ; call printString to print the string/ prin
 
 
 exampleDone:
+    
+    
+    
+    
     mov rax, SYS_write
     mov rdi, STDOUT
     mov rsi, goodbyeMsg
@@ -176,7 +187,7 @@ printString:
 
     mov rax, SYS_write
     mov rdi, STDOUT
-    mov rsi, newLineData
+    mov rsi, newLineData                 ; syscall needs an address to newline character
     mov rdx, 1 
     syscall
 
