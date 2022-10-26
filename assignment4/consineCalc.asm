@@ -63,7 +63,7 @@ EXIT_SUCCESS equ 0              ; exit code to indicate success
 section .bss
 character resb 1                ; reserve space for character on low address stack
 inputStr resb STRLEN+2          ; reserve space for input string on low address stack 50 + 2 for newline and null terminator
-ticksStr resb 64
+ticksStr resq 1
 
 section .text
 
