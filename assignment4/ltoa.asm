@@ -8,7 +8,6 @@
 ;available here:  <https://www.gnu.org/licenses/>.                                                                      *
 ;************************************************************************************************************************
 
-extern ltoa
 
 ;Declarations
 global ltoa
