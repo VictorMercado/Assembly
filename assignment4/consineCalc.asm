@@ -147,9 +147,26 @@ call printString                    ; call printString to print the string/ prin
 
 
 exampleDone:
-    
-    
-    
+
+    mov rax, SYS_write
+    mov rdi, STDOUT
+    mov rsi, timeNow
+    mov rdx, lenTimeNow
+    syscall
+
+    cpuid
+    rdtsc
+    shl rdx, 32
+    add rdx, rax
+
+
+    mov rdi, rdx
+    mov rsi, ticksStr
+    call ltoa
+
+
+    mov rdi, rax
+    call printString    
     
     mov rax, SYS_write
     mov rdi, STDOUT
