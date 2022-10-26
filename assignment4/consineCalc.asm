@@ -83,7 +83,7 @@ add rdx, rax
 
 mov rdi, rdx
 mov rsi, ticksStr
-
+call ltoa
 
 ; mov rax, sys_write
 ; mov rdi, stdout
