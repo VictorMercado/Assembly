@@ -79,11 +79,11 @@ cpuid
 rdtsc
 shl rdx, 32
 add rdx, rax
-mov r8, rdx
 
-mov rdi, r8
+
+mov rdi, rdx
 mov rsi, ticksStr
-mov r8, rax
+
 
 ; mov rax, sys_write
 ; mov rdi, stdout
@@ -91,7 +91,7 @@ mov r8, rax
 ; mov rdx, 6
 ; syscall
 
-mov rdi, r8
+mov rdi, rax
 call printString
 
 ; mov rax, SYS_write               
