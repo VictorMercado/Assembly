@@ -153,6 +153,8 @@ exampleDone:
     mov rdx, lenTimeNow
     syscall
 
+    xor rax, rax
+    xor rdx, rdx
     cpuid
     rdtsc
     shl rdx, 32
