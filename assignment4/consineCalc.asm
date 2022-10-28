@@ -157,8 +157,8 @@ endLoop:
 mov byte [rbx], 0                   ; add null terminator to end of string
 mov rdi, inputStr                   ; pointer to the beginning of input string
 call atof
-
-addsd xmm0, 1.0
+mov xmm2, 10.0
+addsd xmm0, xmm2
 call printString                    ; call printString to print the string/ print string will count the string and pass to syscall
 
 
