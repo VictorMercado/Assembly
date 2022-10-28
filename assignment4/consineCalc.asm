@@ -44,6 +44,8 @@ lenEnterPrintString equ $-enterPrintString
 goodbyeMsg db "Goodbye!", 10, 0
 lenGoodbyeMsg equ $-goodbyeMsg
 
+testAdd dd 10.0
+
 newLineData db 10
 
 STRLEN equ 50                   ; max length of string for this program only
@@ -157,7 +159,8 @@ endLoop:
 mov byte [rbx], 0                   ; add null terminator to end of string
 mov rdi, inputStr                   ; pointer to the beginning of input string
 call atof
-movsd xmm2, 10.0
+
+movsd xmm2, dword [testAdd]
 addsd xmm0, xmm2
 call printString                    ; call printString to print the string/ print string will count the string and pass to syscall
 
