@@ -72,6 +72,7 @@ EXIT_SUCCESS equ 0              ; exit code to indicate success
 section .bss
 character resb 1                ; reserve space for character on low address stack
 inputStr resb STRLEN+2          ; reserve space for input string on low address stack 50 + 2 for newline and null terminator
+inputStr2 resb STRLEN+2
 ticksStr resq 1
 ticksStr2 resq 1
 
@@ -167,8 +168,8 @@ call atof
 movsd xmm2, qword [testAdd]
 addsd xmm0, xmm2
 
-mov rdi, inputStr
-mov rsi, r12
+mov rdi, inputStr2
+mov rsi, STRLEN
 call ftoa
 
 mov rdi, outputInputMsg
