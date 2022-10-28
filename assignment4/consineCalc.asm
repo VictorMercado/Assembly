@@ -9,6 +9,7 @@ global _start
 global printString
 extern ltoa
 extern atof
+extern ftoa
 
 section .data
 welcomeMsg db "Welcome to Cosine Calc!", 10, 0
@@ -46,7 +47,10 @@ lenGoodbyeMsg equ $-goodbyeMsg
 
 testAdd dq 10.0
 
+lenOfBuffer db 50
+
 newLineData db 10
+
 
 STRLEN equ 50                   ; max length of string for this program only
 CHARLEN equ 1                   ; 1 byte per character
@@ -162,6 +166,12 @@ call atof
 
 movsd xmm2, qword [testAdd]
 addsd xmm0, xmm2
+
+mov rdi, inputStr
+mov rsi, lenOfBuffer
+call ftoa
+
+mov rdi, rax
 call printString                    ; call printString to print the string/ print string will count the string and pass to syscall
 
 
