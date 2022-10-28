@@ -5,7 +5,7 @@ minus equ '-'
 decimal_point equ '.'
 
 ;Global declaration for linking files.
-global stringtof                          ;This makes atolong callable by functions outside of this file.
+global atof                          ;This makes atolong callable by functions outside of this file.
 
 segment .data                           ;Place initialized data here
    ;This segment is empy
@@ -18,7 +18,7 @@ segment .bss                            ;Declare pointers to un-initialized spac
 ;==============================================================================================================================
 segment .text                           ;Place executable instructions in this segment.
 
-stringtof:                                ;Entry point.  Execution begins here.
+atof:                                ;Entry point.  Execution begins here.
 
 ;The next two instructions should be performed at the start of every assembly program.
 push rbp                                ;This marks the start of a new stack frame belonging to this execution of this function.

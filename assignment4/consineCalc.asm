@@ -8,6 +8,7 @@
 global _start
 global printString
 extern ltoa
+extern atof
 
 section .data
 welcomeMsg db "Welcome to Cosine Calc!", 10, 0
@@ -109,6 +110,20 @@ call printString
 ; mov rdx, lenANumToPrint              ; length of number
 ; syscall
 
+; change decimal to radians
+; save in put value in xmm9
+; mov xmm9, rdi
+; mov rax, 180
+; cvtsi2sd xmm10, rax
+; pie = 4009 21fb 5444 2d18 for xmm registers
+
+; mov rax, 0x4009 21fb 5444 2d18
+; push rax
+; movsd xmm15, [rsp]
+; pop rax
+
+; 
+
 mov rax, SYS_write
 mov rdi, STDOUT
 mov rsi, inputLabel
@@ -141,10 +156,14 @@ loop:
 endLoop:
 mov byte [rbx], 0                   ; add null terminator to end of string
 mov rdi, inputStr                   ; pointer to the beginning of input string
+call atof
+
+addsd xmm0, 1.0
 call printString                    ; call printString to print the string/ print string will count the string and pass to syscall
 
 
 exampleDone:
+
 
     mov rax, SYS_write
     mov rdi, STDOUT
@@ -156,7 +175,7 @@ exampleDone:
     xor rdx, rdx
     xor rdi, rdi
     xor rsi, rsi
-    
+
     cpuid
     rdtsc
     shl rdx, 32
