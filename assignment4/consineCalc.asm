@@ -169,7 +169,7 @@ movsd xmm2, qword [testAdd]
 addsd xmm0, xmm2
 
 mov rdi, inputStr2
-mov rsi, STRLEN
+mov rsi, r12
 call ftoa
 
 mov rdi, outputInputMsg
