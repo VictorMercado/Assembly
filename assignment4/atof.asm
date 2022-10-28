@@ -125,7 +125,7 @@ loop_finished:
 ; TODO: Place 123445 into GPR
 
 ; TODO: Convert GPR to XMM register
-cvtsisd xmm15, r10
+cvtsi2sd xmm15, r10
 
 ; TODO: Divide the XMM register the number of decimal places
 ; if r12 doesnt work use r15
