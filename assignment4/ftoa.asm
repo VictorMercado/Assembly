@@ -1,7 +1,7 @@
 global ftoa
 
 extern ltoa
-itoa
+
 section .text
 
 ftoa:
