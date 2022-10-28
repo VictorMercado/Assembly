@@ -9,6 +9,8 @@ global ftoaa                          ;This makes atolong callable by functions 
 
 segment .data                           ;Place initialized data here
    ;This segment is empy
+inputLabel db "Input: ", 0
+lenInputLabel equ $-inputLabel
 
 segment .bss                            ;Declare pointers to un-initialized space in this segment.
    ;This segment is empty
@@ -69,6 +71,12 @@ whileLoop:
     inc r11
     jmp whileLoop
 OutOfLoop:
+
+mov rax, 1
+mov rdi, 1
+mov rsi, inputLabel
+mov rdx, lenInputLabel
+syscall
 ; 15623 as integer, r11 = 2
 ; 15623/10 = 1562 R3
 ; 1562/10 = 156 R2
