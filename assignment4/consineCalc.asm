@@ -166,7 +166,7 @@ call atof
 
 movsd xmm2, qword [testAdd]
 addsd xmm0, xmm2
-inc r12
+
 mov rdi, inputStr
 mov rsi, r12
 call ftoa
