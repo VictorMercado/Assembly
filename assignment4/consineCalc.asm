@@ -9,7 +9,7 @@ global _start
 global printString
 extern ltoa
 extern atof
-extern ftoa
+extern ftoaa
 
 section .data
 welcomeMsg db "Welcome to Cosine Calc!", 10, 0
@@ -137,7 +137,7 @@ mov rsi, inputLabel
 mov rdx, lenInputLabel
 syscall
 
-mov r12, 0                          ; our counter for the loop
+mov r14, 0                          ; our counter for the loop
 mov rbx, inputStr                   ; pointer to input string storage buffer
 
 loop:
@@ -152,10 +152,10 @@ loop:
     cmp al, newLine                     ; check if it is a new line
     je endLoop                      ; if it is a new line, jump to endLoop cause were done
 
-    cmp r12, STRLEN                  ; check if we have reached the max length of the string
+    cmp r14, STRLEN                  ; check if we have reached the max length of the string
     jae loop                        ; if we have reached STRLEN, jump to loop to cut off any input except for newLine
 
-    inc r12                     ; increment counter
+    inc r14                     ; increment counter
     mov byte [rbx], al          ; store character in string stack address
     inc rbx                     ; increment pointer to next byte
 
@@ -169,8 +169,7 @@ movsd xmm2, qword [testAdd]
 addsd xmm0, xmm2
 
 mov rdi, inputStr2
-mov rsi, r12
-call ftoa
+call ftoaa
 
 mov rdi, outputInputMsg
 call printString                    ; call printString to print the string/ print string will count the string and pass to syscall
