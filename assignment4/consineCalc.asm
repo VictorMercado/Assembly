@@ -171,7 +171,7 @@ addsd xmm0, xmm2
 mov rdi, inputStr2
 call ftoaa
 
-mov rdi, outputInputMsg
+mov rdi, rax
 call printString                    ; call printString to print the string/ print string will count the string and pass to syscall
 
 
