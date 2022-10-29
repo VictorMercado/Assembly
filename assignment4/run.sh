@@ -12,7 +12,7 @@ nasm -f elf64 -l itoa.lis -o itoa.o itoa.asm
 nasm -f elf64 -l ftoa.lis -o ftoa.o ftoa.asm
 
 
-ld -o consineCalc consineCalc.o ltoa.o atof.o ftoa.o itoa.o  #cosine.o  
+ld -o consineCalc consineCalc.o ltoa.o atof.o ftoa.o itoa.o #cosine.o  
 
 ./consineCalc
 

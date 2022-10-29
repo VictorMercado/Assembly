@@ -185,7 +185,8 @@ mov rsi, outputRadiansMsg                 ; address of string to write
 mov rdx, lenOutputRadiansMsg              ; length of string
 syscall
 
-mulsd xmm15, qword [radians]
+movsd xmm2, qword [radians]
+mulsd xmm15, xmm2
 
 movsd xmm0, xmm15
 mov rdi, inputStr2
