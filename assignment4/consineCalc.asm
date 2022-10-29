@@ -165,10 +165,11 @@ mov byte [rbx], 0                   ; add null terminator to end of string
 mov rdi, inputStr                   ; pointer to the beginning of input string
 call atof
 
+movsd xmm9, xmm0
 movsd xmm2, qword [testAdd]
-addsd xmm0, xmm2
+addsd xmm9, xmm2
 
-
+movsd xmm0, xmm9
 mov rdi, inputStr2
 mov rsi, qword [lenOfBuffer]
 call ftoa
