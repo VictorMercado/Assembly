@@ -167,13 +167,13 @@ call atof
 
 movsd xmm2, qword [testAdd]
 addsd xmm0, xmm2
-sub r14, 1
+
 
 mov rdi, inputStr2
 mov rsi, 52
 call ftoa
 
-mov rdi, outputInputMsg
+mov rdi, rax
 call printString                    ; call printString to print the string/ print string will count the string and pass to syscall
 
 

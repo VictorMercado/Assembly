@@ -1,0 +1,17 @@
+rm *.o
+rm *.out
+
+echo "Bash: This is program <Cosine Calc>"
+
+echo "Bash: Assemble the asm files"
+nasm -f elf64 -l consineCalc.lis -o consineCalc.o consineCalc.asm -gdwarf
+nasm -f elf64 -l ltoa.lis -o ltoa.o ltoa.asm -gdwarf
+# nasm -f elf64 -l cosine.lis -o cosine.o cosine.asm
+nasm -f elf64 -l atof.lis -o atof.o atof.asm -gdwarf
+nasm -f elf64 -l itoa.lis -o itoa.o itoa.asm -gdwarf
+nasm -f elf64 -l ftoa.lis -o ftoa.o ftoa.asm -gdwarf
+
+
+ld -o consineCalc consineCalc.o ltoa.o atof.o ftoa.o itoa.o #cosine.o  
+
+gdb ./consineCalc
