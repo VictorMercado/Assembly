@@ -106,33 +106,12 @@ rdtsc
 shl rdx, 32
 add rdx, rax
 
-
 mov rdi, rdx
 mov rsi, ticksStr
 call ltoa
 
 mov rdi, rax
 call printString
-
-; mov rax, SYS_write               
-; mov rdi, STDOUT                     ; file descriptor 1 is standard output
-; mov rsi, aNumToPrint                 ; address of number to write
-; mov rdx, lenANumToPrint              ; length of number
-; syscall
-
-; change decimal to radians
-; save in put value in xmm9
-; mov xmm9, rdi
-; mov rax, 180
-; cvtsi2sd xmm10, rax
-; pie = 4009 21fb 5444 2d18 for xmm registers
-
-; mov rax, 0x4009 21fb 5444 2d18
-; push rax
-; movsd xmm15, [rsp]
-; pop rax
-
-; 
 
 mov rax, SYS_write
 mov rdi, STDOUT
