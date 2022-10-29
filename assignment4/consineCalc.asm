@@ -171,7 +171,7 @@ addsd xmm9, xmm2
 
 movsd xmm0, xmm9
 mov rdi, inputStr2
-mov rsi, qword [lenOfBuffer]
+mov rsi, 50
 call ftoa
 
 mov rdi, rax
