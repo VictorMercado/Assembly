@@ -174,7 +174,7 @@ mov rdi, inputStr2
 mov rsi, 50
 call ftoa
 
-mov rdi, rax
+mov rdi, inputStr2
 call printString                    ; call printString to print the string/ print string will count the string and pass to syscall
 
 
