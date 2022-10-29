@@ -47,7 +47,7 @@ lenGoodbyeMsg equ $-goodbyeMsg
 
 testAdd dq 10.0
 
-lenOfBuffer db 50
+lenOfBuffer dq 50
 
 newLineData db 10
 
@@ -170,7 +170,7 @@ addsd xmm0, xmm2
 
 
 mov rdi, inputStr2
-mov rsi, STRLEN
+mov rsi, qword [lenOfBuffer]
 call ftoa
 
 mov rdi, rax
