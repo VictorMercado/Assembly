@@ -170,7 +170,7 @@ addsd xmm0, xmm2
 sub r14, 1
 
 mov rdi, inputStr2
-mov rsi, r14
+mov rsi, 50
 call ftoa
 
 mov rdi, outputInputMsg
