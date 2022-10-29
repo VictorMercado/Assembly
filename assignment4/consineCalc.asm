@@ -10,6 +10,7 @@ global printString
 extern ltoa
 extern atof
 extern ftoa
+extern cosine
 
 section .data
 welcomeMsg db "Welcome to Cosine Calc!", 10, 0
@@ -192,6 +193,23 @@ movsd xmm0, xmm15
 mov rdi, inputStr2
 mov rsi, 50
 call ftoa
+
+mov rdi, inputStr2
+call printString 
+
+mov rax, SYS_write
+mov rdi, STDOUT
+mov rsi, outputCosineMsg
+mov rdx, lenOutputCosineMsg
+syscall
+
+movsd xmm0, xmm15
+call cosine
+
+mov rdi, inputStr2
+mov rsi, 50
+call ftoa
+
 
 mov rdi, inputStr2
 call printString                    ; call printString to print the string/ print string will count the string and pass to syscall
