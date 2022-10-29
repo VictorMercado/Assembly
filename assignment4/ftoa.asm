@@ -1,6 +1,6 @@
 global ftoa
 
-extern ltoa
+extern itoa
 
 section .text
 
@@ -37,7 +37,7 @@ ftoa:
         movsd     qword [rbp-48H], xmm0
         movsxd    rdi, eax
         mov       r15d, eax
-        call      ltoa
+        call      itoa
         test      rax, rax
         jz        .001
         cvtsi2sd  xmm1, r15d
@@ -61,7 +61,7 @@ ftoa:
         mov       r15, rax
         cvttsd2si r14, xmm0
         mov       rdi, r14
-        call      ltoa
+        call      itoa
         test      rax, rax
         je        .013
         xor       ecx, ecx
