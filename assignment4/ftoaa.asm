@@ -50,6 +50,7 @@ mov rdi, 1
 mov rsi, inputLabel
 mov rdx, lenInputLabel
 syscall
+
 xor rax, rax
 xor rdi, rdi
 xor rsi, rsi
