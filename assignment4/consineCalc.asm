@@ -9,7 +9,7 @@ global _start
 global printString
 extern ltoa
 extern atof
-extern ftoaa
+extern ftoa
 
 section .data
 welcomeMsg db "Welcome to Cosine Calc!", 10, 0
