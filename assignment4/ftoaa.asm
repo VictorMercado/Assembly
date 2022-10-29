@@ -45,6 +45,16 @@ push r14
 push r15
 pushf
 ; save the arguments
+mov rax, 1
+mov rdi, 1
+mov rsi, inputLabel
+mov rdx, lenInputLabel
+syscall
+xor rax, rax
+xor rdi, rdi
+xor rsi, rsi
+xor rdx, rdx
+
 movsd xmm15, xmm0
 ; multiply by 10 until we get this -> 15623
 
@@ -72,11 +82,7 @@ whileLoop:
     jmp whileLoop
 OutOfLoop:
 
-mov rax, 1
-mov rdi, 1
-mov rsi, inputLabel
-mov rdx, lenInputLabel
-syscall
+
 ; 15623 as integer, r11 = 2
 ; 15623/10 = 1562 R3
 ; 1562/10 = 156 R2
