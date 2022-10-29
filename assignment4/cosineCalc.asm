@@ -1,4 +1,6 @@
-; functions needed
+; name: Victor Mercado
+; email: vmercado29@csu.fullerton.edu
+
 ; cos(x).asm
 ; atof.asm
 ; ftoa.asm

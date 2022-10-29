@@ -1,3 +1,6 @@
+; name: Victor Mercado
+; email: vmercado29@csu.fullerton.edu
+
 base_number equ 10                      ;10 base of the decimal number system
 ascii_zero equ 48                       ;48 is the ascii value of '0'
 null equ 0

@@ -1,3 +1,5 @@
+; name: Victor Mercado
+; email: vmercado29@csu.fullerton.edu
 global cosine
 segment .data
 

@@ -1,3 +1,7 @@
+; name: Victor Mercado
+; email: vmercado29@csu.fullerton.edu
+
+
 ;************************************************************************************************************************
 ;Program name: "ltoa".  This program accepts a long integer and converts it to the corresponding string representation. *
 ;This is a library function not specific to any one program.  Copyright (C) 2018  Floyd Holliday                        *
