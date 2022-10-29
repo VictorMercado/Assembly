@@ -126,8 +126,7 @@ loop:
     ; syscall calls read(int filedescriptor, void *buf, size_t count)  since SYS_read is in rax
     mov rax, SYS_read
     mov rdi, STDIN
-    ; 
-    lea rsi, byte [character]       ; pointer to character address
+    mov rsi, character       ; pointer to character address
     mov rdx, CHARLEN                ; read 1 byte
     syscall
 
