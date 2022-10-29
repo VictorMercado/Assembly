@@ -45,7 +45,7 @@ lenEnterPrintString equ $-enterPrintString
 goodbyeMsg db "Goodbye!", 10, 0
 lenGoodbyeMsg equ $-goodbyeMsg
 
-testAdd dq 10.0
+radians dq 0.0174533
 
 lenOfBuffer dq 50
 
@@ -133,8 +133,8 @@ call printString
 
 mov rax, SYS_write
 mov rdi, STDOUT
-mov rsi, inputLabel
-mov rdx, lenInputLabel
+mov rsi, inputMsg
+mov rdx, lenInputMsg
 syscall
 
 mov r14, 0                          ; our counter for the loop
@@ -164,12 +164,30 @@ endLoop:
 mov byte [rbx], 0                   ; add null terminator to end of string
 mov rdi, inputStr                   ; pointer to the beginning of input string
 call atof
+movsd xmm15, xmm0
 
-movsd xmm9, xmm0
-movsd xmm2, qword [testAdd]
-addsd xmm9, xmm2
+mov rdi, inputStr2
+mov rsi, 50
+call ftoa
 
-movsd xmm0, xmm9
+mov rax, SYS_write               
+mov rdi, STDOUT                     ; file descriptor 1 is standard output
+mov rsi, outputInputMsg                 ; address of string to write
+mov rdx, lenOutputInputMsg              ; length of string
+syscall 
+
+mov rdi, inputStr2
+call printString
+
+mov rax, SYS_write               
+mov rdi, STDOUT                     ; file descriptor 1 is standard output
+mov rsi, outputRadiansMsg                 ; address of string to write
+mov rdx, lenOutputRadiansMsg              ; length of string
+syscall
+
+mulsd xmm15, radians
+
+movsd xmm0, xmm15
 mov rdi, inputStr2
 mov rsi, 50
 call ftoa
