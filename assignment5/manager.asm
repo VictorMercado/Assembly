@@ -26,6 +26,8 @@ integer_Format db "%lld"
 timed_massage db "The time taken to sort the array is: ", 0
 timed_massageLen equ $ - timed_massage
 
+anum dq 5
+
 msg db "You entered: %d", 10 , 0
 msgLen equ $ - msg
 
@@ -51,7 +53,7 @@ call scanf
 
 
 ; this will be the counter
-mov r14, 5
+mov r14, qword [anum]
 
 loop:
 cmp input, r14
