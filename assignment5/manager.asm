@@ -23,7 +23,7 @@ integer_Format db "%lld"
 timed_massage db "The time taken to sort the array is: ", 0
 timed_massageLen equ $ - timed_massage
 
-msg db "You entered: %d", 0
+msg db "You entered: %d dude", 0
 msgLen equ $ - msg
 
 aNumber equ 5
