@@ -3,7 +3,7 @@ extern printf
 extern scanf
 extern isnan
 extern fsort
-extern getfreq
+extern clock_speed
 
 
 section .data
@@ -82,7 +82,7 @@ call printf
 
 
 mov rax, 0
-call getfreq
+call clock_speed
 
 mov rax, 0
 mov rdi, displayFrequencyMessage
