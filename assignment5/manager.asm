@@ -4,7 +4,8 @@ extern scanf
 extern isnan
 extern fsort
 extern clock_speed
-
+extern randFillArray
+extern display
 
 section .data
 inputPrompt db "Enter how many numbers you want to create not exceeding 10 million: ", 0
@@ -57,23 +58,17 @@ mov rdi, integer_Format
 mov rsi, input
 call scanf
 
-
-; this will be the counter
-mov r14, qword [anum]
-mov r15, qword [input]
-loop:
-cmp r15, r14
-je endLoop
-; mov rax, 0
-; mov rdi, msg
-; mov rsi, msgLen
-; call printf
 mov rax, 0
-mov rdi, msg
-mov rsi, qword [input]
-call printf
+mov rdi, array
+mov rsi, input
+call randFillArray
 
-endLoop: 
+mov rax, 0
+mov rdi, array
+mov rsi, 0
+mov rdx, input
+call display
+
 mov rax, 0
 mov rdi, msg2
 mov rsi, msg2Len
@@ -83,10 +78,11 @@ call printf
 mov rax, 0
 call clock_speed
 
-mov rax, 0
-mov rdi, displayFrequencyMessage
-movq rsi, xmm0 
-call printf
+
+; mov rax, 0
+; mov rdi, displayFrequencyMessage
+; movq rsi, xmm0 
+; call printf
 
 ; mov rax, 0
 ; mov rdi, double_Format
