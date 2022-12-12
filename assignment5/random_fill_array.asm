@@ -97,10 +97,10 @@ randFillArray:
 
         mov r13, 0                     ; initialize index
 
-.loop:
+loopp:
 ; Length check.
         cmp r13, r15
-        je .done
+        je done
 
 ; Generate random number using rdrand.
 ;         mov    rax, 0
@@ -118,9 +118,9 @@ randFillArray:
 
 ; Increment index and reloop.
         inc r13
-        jmp .loop
+        jmp loopp
 
-.done:
+done:
         mov rax, 0
         mov rdi, msg
         mov rsi, r13
