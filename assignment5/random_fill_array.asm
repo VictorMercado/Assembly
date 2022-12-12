@@ -83,7 +83,7 @@ section .text
 ; pop rbx
 ; pop rbp
 ; ret  ; return xmm0
-random_fill_array:
+randFillArray:
         push rbp
         mov  rbp, rsp
 
