@@ -42,7 +42,7 @@ call printf
 
 mov rax, 0
 mov rdi, integer_Format
-mov rsi, input
+mov rsi, rsp
 call scanf
 
 mov rax, 0
@@ -52,6 +52,6 @@ call printf
 
 mov rax, 0
 mov rdi, integer_Format
-mov rsi, input
+mov rsi, byte[input]
 call printf
 
