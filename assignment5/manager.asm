@@ -44,7 +44,7 @@ msgLen equ $ - msg
 aNumber equ 5
 
 section .bss 
-array resq 10000000
+array resq 100
 input resq 1
 
 section .text

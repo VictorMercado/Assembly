@@ -33,32 +33,32 @@ push r14
 push r15
 pushf
 
-mov r10, rdi ; r10 will be the array to fill
-mov r11, rsi ; r11 will be the number of random numbers to accept
-; this will be the counter
-mov r12, 0
+mov r10, rdi    ; r10 will be the array to fill
+mov r11, rsi    ; r11 will be the number of random numbers to accept
+
+mov r12, 0      ; this will be the counter
 
 loop:
-cmp r12, r11
-jge endLoop
+    cmp r12, r11
+    jge endLoop
 
-mov rax, 0
-rdrand rax
-cvtsi2sd xmm10, rax
+    mov rax, 0
+    rdrand rax
+    cvtsi2sd xmm10, rax
 
-ucomisd xmm0, xmm0
-jp loop
+    ucomisd xmm0, xmm0
+    jp loop
 
 
-; mov rax, 1
-; movsd xmm0, xmm10
-; call isnan
-; cmp rax, 1
-; je loop
+    ; mov rax, 1
+    ; movsd xmm0, xmm10
+    ; call isnan
+    ; cmp rax, 1
+    ; je loop
 
-movsd [r10 + r12 * 8], xmm10
-inc r12
-jmp loop
+    movsd [r10 + (r12 * 8)], xmm10
+    inc r12
+    jmp loop
 
 endLoop: 
 
