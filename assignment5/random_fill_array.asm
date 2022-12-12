@@ -96,7 +96,11 @@ randFillArray:
         mov r15, rsi                   ; arg2: array size
 
         mov r13, 0                     ; initialize index
-
+        
+        mov rax, 0
+        mov rdi, msg
+        mov rsi, r13
+        call printf
 loopp:
 ; Length check.
         cmp r13, r15
