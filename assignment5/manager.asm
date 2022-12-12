@@ -25,6 +25,7 @@ section .text
 
 timedArraySort: 
 
+mov rax, 0
 mov rdi, inputPrompt
 mov rsi, inputPromptLen
 call printf
