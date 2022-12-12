@@ -19,13 +19,10 @@ displayArrayMessage2Len equ $ - displayArrayMessage2
 displayArrayMessage3 db "Here are the third list values of the sorted array ", 0
 displayArrayMessage3Len equ $ - displayArrayMessage3
 
-displayFrequencyMessage db "Here is the frequency of the cpu: ", 0
+displayFrequencyMessage db "Here is the frequency of the cpu: %lf", 0
 displayFrequencyMessageLen equ $ - displayFrequencyMessage
 
-printLine db "\n", 0
-printLineLen equ $ - printLine
-
-msg2 db "Jumped Loop \n", 0
+msg2 db "Jumped Loop", 10, 0
 msg2Len equ $ - msg2
 
 double_Format db "%lf"
@@ -82,17 +79,14 @@ mov rdi, msg2
 mov rsi, msg2Len
 call printf
 
-mov rax, 0
-mov rdi, printLine
-mov rsi, printLineLen
-call printf
 
 mov rax, 0
 call clock_speed
 
 mov rax, 0
 mov rdi, displayFrequencyMessage
-mov rsi, displayFrequencyMessageLen
+mov rsi, 10
+
 call printf
 
 ; mov rax, 0
