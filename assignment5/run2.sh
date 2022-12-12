@@ -7,7 +7,7 @@ echo "Bash: This is program <Timed Array Sort>"
 
 echo "Bash: Assemble the asm files"
 nasm -f elf64 -l manager.lis -o manager.o manager.asm -gdwarf
-# nasm -f elf64 -l cosineCalc.lis -o cosineCalc.o cosineCalc.asm -gdwarf
+nasm -f elf64 -o get_frequency.o get_frequency.asm -gdwarf
 # nasm -f elf64 -l ltoa.lis -o ltoa.o ltoa.asm -gdwarf
 # nasm -f elf64 -l cosine.lis -o cosine.o cosine.asm
 # nasm -f elf64 -l atof.lis -o atof.o atof.asm -gdwarf
