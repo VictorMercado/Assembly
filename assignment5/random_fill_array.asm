@@ -99,6 +99,11 @@ randFillArray:
 
 .loop:
 ; Length check.
+        mov rax, 0
+        mov rdi, msg
+        mov rsi, msgLen
+        call printf
+        
         cmp r13, r15
         jge .done
 
