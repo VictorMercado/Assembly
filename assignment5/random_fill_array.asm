@@ -5,7 +5,7 @@ extern isnan
 extern printf
 
 section .data
-msg db "Here at 1", 10, 0
+msg db "Here at %i", 10, 0
 msgLen equ $ - msg
 
 section .bss
@@ -99,33 +99,34 @@ randFillArray:
 
 .loop:
 ; Length check.
-        mov rax, 0
-        mov rdi, msg
-        mov rsi, msgLen
-        call printf
-        
         cmp r13, r15
         jge .done
 
 ; Generate random number using rdrand.
-        mov    rax, 0
-        rdrand rax
+;         mov    rax, 0
+;         rdrand rax
 
-; Convert to double and store in xmm0.
-        cvtsi2sd xmm0, rax
+; ; Convert to double and store in xmm0.
+;         cvtsi2sd xmm0, rax
 
 ; Assert that it's not NaN, regenerate if it is.
-        ucomisd xmm0, xmm0             ; if NaN, then parity flag is set
-        jp      .loop                  ; (j)ump if (p)arity
+        ; ucomisd xmm0, xmm0             ; if NaN, then parity flag is set
+        ; jp      .loop                  ; (j)ump if (p)arity
 
 ; Store random float number in array.
-        movsd [r14 + (r13 * 8)], xmm0
+        ; movsd [r14 + (r13 * 8)], xmm0
 
 ; Increment index and reloop.
         inc r13
         jmp .loop
 
 .done:
+        mov rax, 0
+        mov rdi, msg
+        mov rsi, r13
+        call printf
+
+
         pop r15
         pop r14
         pop r13
