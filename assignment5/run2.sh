@@ -22,4 +22,4 @@ g++ -c -m64 -o driver.o driver.cpp -fno-pie -no-pie -std=c++17
 
 g++ -m64 -o TimedArraySort driver.o sort.o manager.o -fno-pie -no-pie -std=c++17
 
-./TimedArraySort
+gdb ./TimedArraySort
