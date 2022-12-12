@@ -31,7 +31,7 @@ msg3Len equ $ - msg3
 
 double_Format db "%lf"
 
-integer_Format db "%ld"
+integer_Format db "%d"
 
 timed_massage db "The time taken to sort the array is: ", 0
 timed_massageLen equ $ - timed_massage
