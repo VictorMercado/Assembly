@@ -38,10 +38,7 @@ mov r11, rsi ; r11 will be the number of random numbers to accept
 ; this will be the counter
 mov r12, 0
 
-mov rax, 0
-mov rdi, msg
-mov rsi, msgLen
-call printf
+
 
 loop:
 cmp r12, r11
@@ -49,6 +46,12 @@ je endLoop
 
 rdrand rax
 cvtsi2sd xmm10, rax
+
+mov rax, 0
+mov rdi, msg
+mov rsi, msgLen
+call printf
+
 mov rax, 1
 movsd xmm0, xmm12
 call isnan
