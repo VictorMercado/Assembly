@@ -26,6 +26,7 @@ timed_massageLen equ $ - timed_massage
 msg db "You entered: ", 0
 msgLen equ $ - msg
 
+aNumber equ 5
 
 section .bss 
 array resq 10000000
@@ -52,6 +53,6 @@ call printf
 
 mov rax, 0
 mov rdi, integer_Format
-mov rsi, qword [input]
+mov rsi, aNumber
 call printf
 
