@@ -3,6 +3,7 @@ extern printf
 extern scanf
 extern isnan
 extern fsort
+extern getfreq
 
 
 section .data
@@ -18,8 +19,14 @@ displayArrayMessage2Len equ $ - displayArrayMessage2
 displayArrayMessage3 db "Here are the third list values of the sorted array ", 0
 displayArrayMessage3Len equ $ - displayArrayMessage3
 
+displayFrequencyMessage db "Here are the frequency of the cpu: ", 0
+displayFrequencyMessageLen equ $ - displayFrequencyMessage
+
+
 msg2 db "Jumped Loop:  ", 0
 msg2Len equ $ - msg2
+
+double_Format db "%lf"
 
 integer_Format db "%lld"
 
@@ -72,3 +79,16 @@ mov rax, 0
 mov rdi, msg2
 mov rsi, msg2Len
 call printf
+
+
+mov rax, 0
+call getfreq
+
+mov rax, 0
+mov rdi, displayFrequencyMessage
+mov rsi, displayFrequencyMessageLen
+call printf
+
+; mov rax, 0
+; mov rdi, double_Format
+; movsd rsi, xmm0
