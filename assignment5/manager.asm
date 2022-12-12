@@ -19,7 +19,7 @@ displayArrayMessage2Len equ $ - displayArrayMessage2
 displayArrayMessage3 db "Here are the third list values of the sorted array ", 0
 displayArrayMessage3Len equ $ - displayArrayMessage3
 
-displayFrequencyMessage db "Here is the frequency of the cpu: %d", 10, 0
+displayFrequencyMessage db "Here is the frequency of the cpu: %lf", 10, 0
 displayFrequencyMessageLen equ $ - displayFrequencyMessage
 
 msg2 db "Jumped Loop", 10, 0
