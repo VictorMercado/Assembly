@@ -8,7 +8,7 @@
 #include <iostream>
 #include "sort.h"
 
-extern "C" void manager();
+extern "C" void timedArraySort();
 // Color codes
 // Yellow: driver
 // Gold: manager
@@ -23,7 +23,7 @@ int main()
     double* point = arr;
     printf("\e[1;33mWelcome to Timed Array Sort by Victor Mercado. \n\e[33m");
     printf("\e[1;33mThis program will generate non-deterministic floating numbers and save them in an array.\n\e[33m");
-    manager();
+    timedArraySort();
     fsort(point, size);
     printf("\e[1;33mThe driver function received an array whose first 3 numbers are: \n\e[0m");
     for (int i = 0; i < size; i++)
