@@ -19,15 +19,15 @@ Diana Ross          A
 Benny Goodman       D
 
 ## King of Hollywood
-Douglas Fairbanks   D
-clark Gable         D
+Douglas Fairbanks   Dead
+clark Gable         Dead
 
 ## King of Assembly
-Chris Sawyer        A
+Chris Sawyer        Alive
 created RollerCoaster Tycoon 2 100% in Assembly
 
 ## King of Linux
-Linus Toralds       A
+Linus Toralds       Alive
 from Finland
 hated minux so much he created Linux in the winter of 1991 - 1992
 
@@ -82,7 +82,10 @@ Ex: NASM Linux
 ## Dozen of License
 Lawyers
 GPL3
-LGPL3 
+Q: What is the LGPL3 license?
+A: 
+LGPL3
+
 
 
 ## First electrical computer

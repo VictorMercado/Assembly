@@ -13,7 +13,6 @@ nasm -f elf64 -l atof.lis -o atof.o atof.asm
 nasm -f elf64 -l itoa.lis -o itoa.o itoa.asm
 nasm -f elf64 -l ftoa.lis -o ftoa.o ftoa.asm
 
-
 ld -o cosineCalc cosineCalc.o ltoa.o atof.o ftoa.o itoa.o cosine.o  
 
 ./cosineCalc
