@@ -1,5 +1,5 @@
-; name: Victor Mercado
-; email: vmercado29@csu.fullerton.edu
+# ; name: Victor Mercado
+# ; email: vmercado29@csu.fullerton.edu
 rm *.o
 rm *.out
 
