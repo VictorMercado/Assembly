@@ -42,7 +42,7 @@ call printf
 
 mov rax, 0
 mov rdi, integer_Format
-mov rsi, rsp
+mov rsi, input
 call scanf
 
 mov rax, 0
