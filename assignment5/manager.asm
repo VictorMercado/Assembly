@@ -29,7 +29,7 @@ msgLen equ $ - msg
 
 section .bss 
 array resq 10000000
-input resb 1
+input resd 1
 
 section .text
 
@@ -52,6 +52,6 @@ call printf
 
 mov rax, 0
 mov rdi, integer_Format
-mov rsi, byte[input]
+mov rsi, dword [input]
 call printf
 
