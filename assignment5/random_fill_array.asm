@@ -53,12 +53,12 @@ mov rsi, msgLen
 call printf
 
 mov rax, 1
-movsd xmm0, xmm12
+movsd xmm0, xmm10
 call isnan
 cmp rax, 1
 je loop
 
-movsd [r10 + r12 * 8], xmm12
+movsd [r10 + r12 * 8], xmm10
 inc r12
 jmp loop
 
