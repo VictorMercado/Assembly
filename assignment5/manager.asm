@@ -43,7 +43,7 @@ msgLen equ $ - msg
 
 
 section .bss 
-array resq 100
+array resq 10
 input resq 1
 
 section .text
