@@ -2,8 +2,11 @@ global randFillArray
 
 extern scanf
 extern isnan
+extern printf
 
 section .data
+msg db "Here at 1", 10, 0
+msgLen equ $ - msg
 
 section .bss
 
@@ -34,6 +37,11 @@ mov r10, rdi ; r10 will be the array to fill
 mov r11, rsi ; r11 will be the number of random numbers to accept
 ; this will be the counter
 mov r12, 0
+
+mov rax, 0
+mov rdi, msg
+mov rsi, msgLen
+call printf
 
 loop:
 cmp r12, r11
