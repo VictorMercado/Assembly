@@ -1,6 +1,7 @@
 global randFillArray
 
 extern scanf
+extern isnan
 
 section .data
 
@@ -40,6 +41,12 @@ je endLoop
 
 rdrand rax
 cvtsi2sd xmm10, rax
+mov rax, 1
+movsd xmm0, xmm12
+call isnan
+cmp rax, 1
+je loop
+
 movsd [r10 + r12 * 8], xmm12
 inc r12
 jmp loop

@@ -23,8 +23,11 @@ displayArrayMessage3Len equ $ - displayArrayMessage3
 displayFrequencyMessage db "Here is the frequency of the cpu: %lf", 10, 0
 displayFrequencyMessageLen equ $ - displayFrequencyMessage
 
-msg2 db "Jumped Loop", 10, 0
+msg2 db "Here at 2", 10, 0
 msg2Len equ $ - msg2
+
+msg3 db "here at 3", 10, 0
+msg3Len equ $ - msg3
 
 double_Format db "%lf"
 
@@ -64,14 +67,19 @@ mov rsi, input
 call randFillArray
 
 mov rax, 0
+mov rdi, msg2
+mov rsi, msg2Len
+call printf
+
+mov rax, 0
 mov rdi, array
 mov rsi, 0
 mov rdx, input
 call display
 
 mov rax, 0
-mov rdi, msg2
-mov rsi, msg2Len
+mov rdi, msg3
+mov rsi, msg3Len
 call printf
 
 

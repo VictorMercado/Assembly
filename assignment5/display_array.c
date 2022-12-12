@@ -1,4 +1,5 @@
 #include <stdlib.h>
+#include <stdio.h>
 
 extern void display(double myarray[], unsigned long start, unsigned long how_many);
 
