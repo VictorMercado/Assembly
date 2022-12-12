@@ -85,8 +85,7 @@ call clock_speed
 
 mov rax, 0
 mov rdi, displayFrequencyMessage
-mov rsi, 10
-
+movq rsi, xmm0 
 call printf
 
 ; mov rax, 0
