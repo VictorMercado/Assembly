@@ -42,13 +42,13 @@ loop:
 cmp r12, r11
 jge endLoop
 
+mov rax, 0
 rdrand rax
 cvtsi2sd xmm10, rax
 
-; mov rax, 0
-; mov rdi, msg
-; mov rsi, msgLen
-; call printf
+ucomisd xmm0, xmm0
+jp loop
+
 
 ; mov rax, 1
 ; movsd xmm0, xmm10
@@ -61,6 +61,12 @@ inc r12
 jmp loop
 
 endLoop: 
+
+mov rax, 0
+mov rdi, msg
+mov rsi, msgLen
+call printf
+
 
 popf
 pop r15
