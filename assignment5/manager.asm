@@ -29,7 +29,7 @@ msgLen equ $ - msg
 
 section .bss 
 array resq 10000000
-input resq 1
+input resb 1
 
 section .text
 
