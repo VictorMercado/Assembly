@@ -3,10 +3,10 @@
 rm *.o
 rm *.out
 
-echo "Bash: This is program <Cosine Calc>"
+echo "Bash: This is program <Timed Array Sort>"
 
 echo "Bash: Assemble the asm files"
-# nasm -f elf64 -l cosineCalc.lis -o cosineCalc.o cosineCalc.asm
+nasm -f elf64 -l manager.lis -o manager.o manager.asm
 # nasm -f elf64 -l ltoa.lis -o ltoa.o ltoa.asm
 # nasm -f elf64 -l cosine.lis -o cosine.o cosine.asm
 # nasm -f elf64 -l atof.lis -o atof.o atof.asm
@@ -19,7 +19,7 @@ gcc -c -m64 -Wall -o sort.o sort.c -fno-pie -no-pie -std=c11
 
 g++ -c -m64 -o driver.o driver.cpp -fno-pie -no-pie -std=c++17
 
-g++ -m64 -o TimedArraySort driver.o sort.o -fno-pie -no-pie -std=c++17
+g++ -m64 -o TimedArraySort driver.o sort.o manager.o -fno-pie -no-pie -std=c++17
 
 ./TimedArraySort
 
