@@ -53,6 +53,6 @@ call printf
 
 mov rax, 0
 mov rdi, integer_Format
-mov rsi, byte [input]
+mov rsi, qword [input]
 call printf
 
