@@ -5,7 +5,7 @@ extern isnan
 extern printf
 
 section .data
-msg db "Here at %i", 10, 0
+msg db "Here at %d", 10, 0
 msgLen equ $ - msg
 
 section .bss
