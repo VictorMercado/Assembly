@@ -18,8 +18,7 @@ displayArrayMessage2Len equ $ - displayArrayMessage2
 displayArrayMessage3 db "Here are the third list values of the sorted array ", 0
 displayArrayMessage3Len equ $ - displayArrayMessage3
 
-integer_Format db "%lld" 
-int_print_Format db "%lld\n"
+integer_Format db "%lld" , 0
 
 timed_massage db "The time taken to sort the array is: ", 0
 timed_massageLen equ $ - timed_massage
@@ -53,7 +52,7 @@ mov rsi, msgLen
 call printf
 
 mov rax, 0
-mov rdi, int_print_Format
+mov rdi, integer_Format
 mov rsi, qword [input]
 call printf
 
