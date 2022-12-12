@@ -18,6 +18,9 @@ displayArrayMessage2Len equ $ - displayArrayMessage2
 displayArrayMessage3 db "Here are the third list values of the sorted array ", 0
 displayArrayMessage3Len equ $ - displayArrayMessage3
 
+msg2 db "Jumped Loop:  ", 0
+msg2Len equ $ - msg2
+
 integer_Format db "%lld"
 
 timed_massage db "The time taken to sort the array is: ", 0
@@ -46,13 +49,24 @@ mov rdi, integer_Format
 mov rsi, input
 call scanf
 
+
+; this will be the counter
+mov r14, 5
+
+loop:
+cmp input, r14
+je endLoop
 ; mov rax, 0
 ; mov rdi, msg
 ; mov rsi, msgLen
 ; call printf
-
 mov rax, 0
 mov rdi, msg
 mov rsi, qword [input]
 call printf
 
+endLoop: 
+mov rax, 0
+mov rdi, msg2
+mov rsi, msg2Len
+call printf
