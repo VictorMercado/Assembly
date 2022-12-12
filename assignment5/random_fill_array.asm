@@ -100,7 +100,7 @@ randFillArray:
 loopp:
 ; Length check.
         cmp r13, r15
-        je done
+        jge done
 
 ; Generate random number using rdrand.
 ;         mov    rax, 0
