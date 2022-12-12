@@ -54,9 +54,9 @@ call scanf
 
 ; this will be the counter
 mov r14, qword [anum]
-
+mov r15, qword [input]
 loop:
-cmp input, r14
+cmp r15, r14
 je endLoop
 ; mov rax, 0
 ; mov rdi, msg
