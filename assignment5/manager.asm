@@ -31,7 +31,7 @@ msg3Len equ $ - msg3
 
 double_Format db "%lf"
 
-integer_Format db "%lld"
+integer_Format db "%ld"
 
 timed_massage db "The time taken to sort the array is: ", 0
 timed_massageLen equ $ - timed_massage
@@ -41,7 +41,6 @@ anum dq 5
 msg db "You entered: %d", 10 , 0
 msgLen equ $ - msg
 
-aNumber equ 5
 
 section .bss 
 array resq 100
