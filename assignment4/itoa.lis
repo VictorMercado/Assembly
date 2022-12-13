@@ -1,0 +1,125 @@
+     1                                  ; name: Victor Mercado
+     2                                  ; email: vmercado29@csu.fullerton.edu
+     3                                  global itoa
+     4                                  
+     5                                  ; Copy-pasted from _lib.asm.
+     6                                  %macro @cdiv 2
+     7                                          mov  rax, %1                   ; idiv uses this
+     8                                          mov  rdx, 0                    ; idiv also uses this (for remainder)
+     9                                          mov  rdi, %2                   ; we use this on our own
+    10                                          idiv rdi                       ; rax, rdx is implicitly set;
+    11                                                                         ; div/idiv is very weird
+    12                                  %endmacro
+    13                                  
+    14                                  section .text
+    15                                  
+    16                                  ; long int itoa(long int n, char* buf, long int len)
+    17                                  itoa:
+    18 00000000 4150                            push r8
+    19 00000002 4151                            push r9
+    20 00000004 4152                            push r10
+    21 00000006 4153                            push r11
+    22 00000008 4154                            push r12
+    23 0000000A 4155                            push r13
+    24 0000000C 4156                            push r14
+    25 0000000E 4157                            push r15
+    26                                  
+    27                                  %define num r12    ; input number (long int)
+    28                                  %define numlen r13 ; length of the number (long int, def 0)
+    29                                  %define buf r10    ; buffer to write to (char*)
+    30                                  %define buflen r11 ; length of the buffer (long int)
+    31                                  %define isneg r8   ; is the number negative (bool)
+    32                                  
+    33 00000010 4989FC                          mov num, rdi                   ; input number (long int) into tmp
+    34 00000013 41BD00000000                    mov numlen, 0
+    35 00000019 4989F2                          mov buf, rsi                   ; buffer (char*)
+    36 0000001C 4989D3                          mov buflen, rdx                ; length (int64)
+    37 0000001F 41B800000000                    mov isneg, 0                   ; not negative by default
+    38                                  
+    39                                  %define tmp r9
+    40                                  .count:
+    41 00000025 4D89E1                          mov tmp, num                   ; borrow r14 for counting
+    42                                  
+    43                                  ; Check if negative.
+    44 00000028 4983FC00                        cmp num, 0
+    45 0000002C 7D0F                            jge .countmore                 ; skip if not
+    46                                  
+    47 0000002E 41B801000000                    mov isneg, 1                   ; mark as negative
+    48 00000034 49FFC5                          inc numlen                     ; increment for the - symbol
+    49 00000037 49F7DC                          neg num                        ; num = -num (absolute value)
+    50 0000003A 4D89E1                          mov tmp, num                   ; update tmp
+    51                                  
+    52                                  .countmore:
+    53 0000003D 49FFC5                          inc numlen                     ; always at least 1 digit, start counting
+    54                                  
+    55                                          @cdiv r9, 10                   ; rax = r9 / 10, rdx = rcx % 10
+    55 00000040 4C89C8              <1>  mov rax, %1
+    55 00000043 BA00000000          <1>  mov rdx, 0
+    55 00000048 BF0A000000          <1>  mov rdi, %2
+    55 0000004D 48F7FF              <1>  idiv rdi
+    55                              <1> 
+    56 00000050 4989C1                          mov   r9, rax                  ; r9 = rax
+    57                                  
+    58 00000053 4983F900                        cmp r9, 0                      ; if (r9 != 0)
+    59 00000057 75E4                            jne .countmore                 ;   keep counting
+    60                                  
+    61                                  ; Start preparing our parse loop.
+    62                                  %define idx r14
+    63 00000059 4D89EE                          mov idx, numlen                ; idx will be our index into the buffer
+    64                                  
+    65                                  ; Bound-check: ensure that we have enough in the buffer to write stuff into.
+    66                                  .boundcheck:
+    67 0000005C 4D39DD                          cmp numlen, buflen
+    68 0000005F 7351                            jae .overflow                  ; jump if numlen >= buflen
+    69                                  
+    70                                  ; Start parsing.
+    71 00000061 43C6043200                      mov byte [buf + idx], 0        ; null-terminate the string beforehand,
+    72                                                                         ; since we already know our tail
+    73                                  
+    74                                  ; Check if negative so we can print the sign bit.
+    75 00000066 4983F801                        cmp isneg, 1
+    76 0000006A 750A                            jne .parsemore
+    77                                  ; Print the sign bit.
+    78 0000006C 41C6022D                        mov byte [buf], '-'
+    79 00000070 49FFCE                          dec idx
+    80                                  ; Also increment buf so that we don't overwrite the sign bit.
+    81 00000073 49FFC2                          inc buf
+    82                                  
+    83                                  ; Start parsing from the end of the number into the end of the buffer. We can do
+    84                                  ; this because we know where the buffer ends.
+    85                                  .parsemore:
+    86                                          @cdiv num, 10                  ; rax = r12 / 10, rdx = r12 % 10
+    86 00000076 4C89E0              <1>  mov rax, %1
+    86 00000079 BA00000000          <1>  mov rdx, 0
+    86 0000007E BF0A000000          <1>  mov rdi, %2
+    86 00000083 48F7FF              <1>  idiv rdi
+    86                              <1> 
+    87 00000086 4989C4                          mov   num, rax                 ; num = rax
+    88 00000089 4989D7                          mov   r15, rdx                 ; r15 = rdx
+    89                                  
+    90 0000008C 4983C730                        add r15, '0'                   ; tmp += '0' (convert to ascii)
+    91 00000090 47887C32FF                      mov [buf + idx - 1], r15b      ; save the ascii to the buf
+    92                                                                         ; (r15b for the byte of r15)
+    93 00000095 49FFCE                          dec idx                        ; decrement the index
+    94                                  
+    95 00000098 4983FE00                        cmp idx, 0                     ; if (idx != 0)
+    96 0000009C 75D8                            jne .parsemore                 ;   keep parsing
+    97                                  
+    98 0000009E 4C89E8                          mov rax, numlen                ; return the length of the string
+    99                                  
+   100                                  .return:
+   101 000000A1 415F                            pop r15
+   102 000000A3 415E                            pop r14
+   103 000000A5 415D                            pop r13
+   104 000000A7 415C                            pop r12
+   105 000000A9 415B                            pop r11
+   106 000000AB 415A                            pop r10
+   107 000000AD 4159                            pop r9
+   108 000000AF 4158                            pop r8
+   109 000000B1 C3                              ret 
+   110                                  
+   111                                  .overflow:
+   112 000000B2 41C60200                        mov byte [buf], 0              ; null terminate the string
+   113 000000B6 B800000000                      mov rax, 0                     ; return 0
+   114 000000BB EBE4                            jmp .return
+   115                                  

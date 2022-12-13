@@ -1,0 +1,311 @@
+     1                                  ; name: Victor Mercado
+     2                                  ; email: vmercado29@csu.fullerton.edu
+     3                                  
+     4                                  ; cos(x).asm
+     5                                  ; atof.asm
+     6                                  ; ftoa.asm
+     7                                  ; ltoa.asm
+     8                                  ; consineCalc.asm
+     9                                  ; run.sh
+    10                                  global _start
+    11                                  global printString
+    12                                  extern ltoa
+    13                                  extern atof
+    14                                  extern ftoa
+    15                                  extern cosine
+    16                                  
+    17                                  section .data
+    18 00000000 57656C636F6D652074-     welcomeMsg db "Welcome to Cosine Calc!", 10, 0
+    18 00000009 6F20436F73696E6520-
+    18 00000012 43616C63210A00     
+    19                                  lenWelcomeMsg equ $-welcomeMsg
+    20                                  
+    21 00000019 34353637380A            aNumToPrint db 52, 53, 54, 55, 56, 0xA
+    22                                  lenANumToPrint equ $-aNumToPrint
+    23                                  
+    24 0000001F 546869732069732074-     timeNow db "This is the time now in ticks: ", 0
+    24 00000028 68652074696D65206E-
+    24 00000031 6F7720696E20746963-
+    24 0000003A 6B733A2000         
+    25                                  lenTimeNow equ $-timeNow
+    26                                  
+    27 0000003F 506C6561736520656E-     inputMsg db "Please enter an angle in degress and press enter: ", 0
+    27 00000048 74657220616E20616E-
+    27 00000051 676C6520696E206465-
+    27 0000005A 677265737320616E64-
+    27 00000063 20707265737320656E-
+    27 0000006C 7465723A2000       
+    28                                  lenInputMsg equ $-inputMsg
+    29                                  
+    30 00000072 596F7520656E746572-     outputAngleMsg db "You entered this angle: ", 0
+    30 0000007B 656420746869732061-
+    30 00000084 6E676C653A2000     
+    31                                  lenOutputMsg equ $-outputAngleMsg
+    32                                  
+    33 0000008B 596F7520656E746572-     outputInputMsg db "You entered: ", 0
+    33 00000094 65643A2000         
+    34                                  lenOutputInputMsg equ $-outputInputMsg
+    35                                  
+    36 00000099 54686520616E676C65-     outputRadiansMsg db "The angle in radians is: ", 0
+    36 000000A2 20696E207261646961-
+    36 000000AB 6E732069733A2000   
+    37                                  lenOutputRadiansMsg equ $-outputRadiansMsg
+    38                                  
+    39 000000B3 54686520636F73696E-     outputCosineMsg db "The cosine of the angle in radians is: ", 0
+    39 000000BC 65206F662074686520-
+    39 000000C5 616E676C6520696E20-
+    39 000000CE 72616469616E732069-
+    39 000000D7 733A2000           
+    40                                  lenOutputCosineMsg equ $-outputCosineMsg
+    41                                  
+    42 000000DB 496E7075743A2000        inputLabel db "Input: ", 0
+    43                                  lenInputLabel equ $-inputLabel
+    44                                  
+    45 000000E3 456E74657265642050-     enterPrintString db "Entered Print string call", 10, 0
+    45 000000EC 72696E742073747269-
+    45 000000F5 6E672063616C6C0A00 
+    46                                  lenEnterPrintString equ $-enterPrintString
+    47                                  
+    48 000000FE 476F6F64627965210A-     goodbyeMsg db "Goodbye!", 10, 0
+    48 00000107 00                 
+    49                                  lenGoodbyeMsg equ $-goodbyeMsg
+    50                                  
+    51 00000108 5F40D42247DF913F        radians dq 0.0174533
+    52                                  
+    53 00000110 3200000000000000        lenOfBuffer dq 50
+    54                                  
+    55 00000118 0A                      newLineData db 10
+    56                                  
+    57                                  
+    58                                  STRLEN equ 50                   ; max length of string for this program only
+    59                                  CHARLEN equ 1                   ; 1 byte per character
+    60                                  newLine equ 0xA                 ; newline character ascii code
+    61                                  
+    62                                  ;  system codes 
+    63                                  STDIN equ 0                     ; standard input
+    64                                  STDOUT equ 1                    ; standard output
+    65                                  
+    66                                  SYS_read equ 0                  ; system code to indicate read from file descriptor 
+    67                                  SYS_write equ 1                 ; system code to indicate write to file descriptor
+    68                                  SYS_exit equ 60                 ; system code to indicate exit
+    69                                  
+    70                                  SYS_time equ 201                ; system code to indicate get time
+    71                                  
+    72                                  EXIT_SUCCESS equ 0              ; exit code to indicate success
+    73                                  
+    74                                  ; reserve space for string 
+    75                                  section .bss
+    76 00000000 <res 00000001>          character resb 1                ; reserve space for character on low address stack
+    77 00000001 <res 00000034>          inputStr resb STRLEN+2          ; reserve space for input string on low address stack 50 + 2 for newline and null terminator
+    78 00000035 <res 00000032>          inputStr2 resb STRLEN
+    79 00000067 <res 00000008>          ticksStr resq 1
+    80 0000006F <res 00000008>          ticksStr2 resq 1
+    81                                  
+    82                                  section .text
+    83                                  
+    84                                  _start:
+    85                                  ; syscall calls write(int filedescriptor, const void *buf, size_t count)  since SYS_write is in rax 
+    86 00000000 B801000000              mov rax, SYS_write               
+    87 00000005 BF01000000              mov rdi, STDOUT                     ; file descriptor 1 is standard output
+    88 0000000A 48BE-                   mov rsi, welcomeMsg                 ; address of string to write
+    88 0000000C [0000000000000000] 
+    89 00000014 BA19000000              mov rdx, lenWelcomeMsg              ; length of string
+    90 00000019 0F05                    syscall
+    91                                  
+    92                                  
+    93 0000001B B801000000              mov rax, SYS_write
+    94 00000020 BF01000000              mov rdi, STDOUT
+    95 00000025 48BE-                   mov rsi, timeNow
+    95 00000027 [1F00000000000000] 
+    96 0000002F BA20000000              mov rdx, lenTimeNow
+    97 00000034 0F05                    syscall
+    98                                  
+    99 00000036 4831C0                  xor rax, rax
+   100 00000039 4831FF                  xor rdi, rdi
+   101 0000003C 4831D2                  xor rdx, rdx
+   102 0000003F 4831F6                  xor rsi, rsi
+   103                                  
+   104 00000042 0FA2                    cpuid
+   105 00000044 0F31                    rdtsc
+   106 00000046 48C1E220                shl rdx, 32
+   107 0000004A 4801C2                  add rdx, rax
+   108                                  
+   109 0000004D 4889D7                  mov rdi, rdx
+   110 00000050 48BE-                   mov rsi, ticksStr
+   110 00000052 [6700000000000000] 
+   111 0000005A E8(00000000)            call ltoa
+   112                                  
+   113 0000005F 4889C7                  mov rdi, rax
+   114 00000062 E8C2010000              call printString
+   115                                  
+   116 00000067 B801000000              mov rax, SYS_write
+   117 0000006C BF01000000              mov rdi, STDOUT
+   118 00000071 48BE-                   mov rsi, inputMsg
+   118 00000073 [3F00000000000000] 
+   119 0000007B BA33000000              mov rdx, lenInputMsg
+   120 00000080 0F05                    syscall
+   121                                  
+   122 00000082 41BE00000000            mov r14, 0                          ; our counter for the loop
+   123 00000088 48BB-                   mov rbx, inputStr                   ; pointer to input string storage buffer
+   123 0000008A [0100000000000000] 
+   124                                  
+   125                                  loop:
+   126                                      ; syscall calls read(int filedescriptor, void *buf, size_t count)  since SYS_read is in rax
+   127 00000092 B800000000                  mov rax, SYS_read
+   128 00000097 BF00000000                  mov rdi, STDIN
+   129 0000009C 48BE-                       mov rsi, character       ; pointer to character address
+   129 0000009E [0000000000000000] 
+   130 000000A6 BA01000000                  mov rdx, CHARLEN                ; read 1 byte
+   131 000000AB 0F05                        syscall
+   132                                  
+   133 000000AD 8A0425[00000000]            mov al, byte [character]       ; move the character into low byte of rax
+   134 000000B4 3C0A                        cmp al, newLine                     ; check if it is a new line
+   135 000000B6 7410                        je endLoop                      ; if it is a new line, jump to endLoop cause were done
+   136                                  
+   137 000000B8 4983FE32                    cmp r14, STRLEN                  ; check if we have reached the max length of the string
+   138 000000BC 73D4                        jae loop                        ; if we have reached STRLEN, jump to loop to cut off any input except for newLine
+   139                                  
+   140 000000BE 49FFC6                      inc r14                     ; increment counter
+   141 000000C1 8803                        mov byte [rbx], al          ; store character in string stack address
+   142 000000C3 48FFC3                      inc rbx                     ; increment pointer to next byte
+   143                                  
+   144 000000C6 EBCA                        jmp loop                    ; jump back to loop
+   145                                  endLoop:
+   146 000000C8 C60300                  mov byte [rbx], 0                   ; add null terminator to end of string
+   147 000000CB 48BF-                   mov rdi, inputStr                   ; pointer to the beginning of input string
+   147 000000CD [0100000000000000] 
+   148 000000D5 E8(00000000)            call atof
+   149 000000DA F2440F10F8              movsd xmm15, xmm0
+   150                                  
+   151 000000DF 48BF-                   mov rdi, inputStr2
+   151 000000E1 [3500000000000000] 
+   152 000000E9 BE32000000              mov rsi, 50
+   153 000000EE E8(00000000)            call ftoa
+   154                                  
+   155 000000F3 B801000000              mov rax, SYS_write               
+   156 000000F8 BF01000000              mov rdi, STDOUT                     ; file descriptor 1 is standard output
+   157 000000FD 48BE-                   mov rsi, outputInputMsg                 ; address of string to write
+   157 000000FF [8B00000000000000] 
+   158 00000107 BA0E000000              mov rdx, lenOutputInputMsg              ; length of string
+   159 0000010C 0F05                    syscall 
+   160                                  
+   161 0000010E 48BF-                   mov rdi, inputStr2
+   161 00000110 [3500000000000000] 
+   162 00000118 E80C010000              call printString
+   163                                  
+   164 0000011D B801000000              mov rax, SYS_write               
+   165 00000122 BF01000000              mov rdi, STDOUT                     ; file descriptor 1 is standard output
+   166 00000127 48BE-                   mov rsi, outputRadiansMsg                 ; address of string to write
+   166 00000129 [9900000000000000] 
+   167 00000131 BA1A000000              mov rdx, lenOutputRadiansMsg              ; length of string
+   168 00000136 0F05                    syscall
+   169                                  
+   170 00000138 F20F101425-             movsd xmm2, qword [radians]
+   170 0000013D [08010000]         
+   171 00000141 F2440F59FA              mulsd xmm15, xmm2
+   172                                  
+   173 00000146 F2410F10C7              movsd xmm0, xmm15
+   174 0000014B 48BF-                   mov rdi, inputStr2
+   174 0000014D [3500000000000000] 
+   175 00000155 BE32000000              mov rsi, 50
+   176 0000015A E8(00000000)            call ftoa
+   177                                  
+   178 0000015F 48BF-                   mov rdi, inputStr2
+   178 00000161 [3500000000000000] 
+   179 00000169 E8BB000000              call printString 
+   180                                  
+   181 0000016E B801000000              mov rax, SYS_write
+   182 00000173 BF01000000              mov rdi, STDOUT
+   183 00000178 48BE-                   mov rsi, outputCosineMsg
+   183 0000017A [B300000000000000] 
+   184 00000182 BA28000000              mov rdx, lenOutputCosineMsg
+   185 00000187 0F05                    syscall
+   186                                  
+   187 00000189 F2410F10C7              movsd xmm0, xmm15
+   188 0000018E E8(00000000)            call cosine
+   189                                  
+   190 00000193 48BF-                   mov rdi, inputStr2
+   190 00000195 [3500000000000000] 
+   191 0000019D BE32000000              mov rsi, 50
+   192 000001A2 E8(00000000)            call ftoa
+   193                                  
+   194                                  
+   195 000001A7 48BF-                   mov rdi, inputStr2
+   195 000001A9 [3500000000000000] 
+   196 000001B1 E873000000              call printString                    ; call printString to print the string/ print string will count the string and pass to syscall
+   197                                  
+   198                                  
+   199                                  exampleDone:
+   200                                  
+   201                                  
+   202 000001B6 B801000000                  mov rax, SYS_write
+   203 000001BB BF01000000                  mov rdi, STDOUT
+   204 000001C0 48BE-                       mov rsi, timeNow
+   204 000001C2 [1F00000000000000] 
+   205 000001CA BA20000000                  mov rdx, lenTimeNow
+   206 000001CF 0F05                        syscall
+   207                                  
+   208 000001D1 4831C0                      xor rax, rax
+   209 000001D4 4831D2                      xor rdx, rdx
+   210 000001D7 4831FF                      xor rdi, rdi
+   211 000001DA 4831F6                      xor rsi, rsi
+   212                                  
+   213 000001DD 0FA2                        cpuid
+   214 000001DF 0F31                        rdtsc
+   215 000001E1 48C1E220                    shl rdx, 32
+   216 000001E5 4801C2                      add rdx, rax
+   217                                  
+   218 000001E8 4889D7                      mov rdi, rdx
+   219 000001EB 48BE-                       mov rsi, ticksStr2
+   219 000001ED [6F00000000000000] 
+   220 000001F5 E8(00000000)                call ltoa
+   221                                  
+   222 000001FA 4889C7                      mov rdi, rax
+   223 000001FD E827000000                  call printString    
+   224                                      
+   225 00000202 B801000000                  mov rax, SYS_write
+   226 00000207 BF01000000                  mov rdi, STDOUT
+   227 0000020C 48BE-                       mov rsi, goodbyeMsg
+   227 0000020E [FE00000000000000] 
+   228 00000216 BA0A000000                  mov rdx, lenGoodbyeMsg
+   229 0000021B 0F05                        syscall
+   230                                  
+   231 0000021D B83C000000                  mov rax, SYS_exit
+   232 00000222 BF00000000                  mov rdi, EXIT_SUCCESS
+   233 00000227 0F05                        syscall
+   234                                  
+   235                                  printString:
+   236 00000229 53                          push rbx
+   237 0000022A 4889FB                      mov rbx, rdi                        ; move rdi pointer of input string to rbx
+   238                                      
+   239 0000022D 41BF00000000                mov r15, 0
+   240                                      loop2:
+   241 00000233 803B00                          cmp byte [rbx], 0               ; check if it is a null terminator
+   242 00000236 7408                            je endLoop2                     ; if it is a null terminator, jump to endLoop2 cause were done
+   243                                  
+   244 00000238 49FFC7                          inc r15                         ; increment counter
+   245 0000023B 48FFC3                          inc rbx                         ; increment pointer to next byte
+   246                                  
+   247 0000023E EBF3                            jmp loop2                       ; jump back to loop
+   248                                      endLoop2:
+   249                                  
+   250 00000240 4983FF00                    cmp r15, 0                          ; check if the string is empty
+   251 00000244 742D                        je printDone                        ; if it is empty, dont print anything
+   252                                  
+   253 00000246 B801000000                  mov rax, SYS_write
+   254 0000024B 4889FE                      mov rsi, rdi                
+   255 0000024E BF01000000                  mov rdi, STDOUT
+   256 00000253 4C89FA                      mov rdx, r15                            ; length of string
+   257 00000256 0F05                        syscall
+   258                                  
+   259 00000258 B801000000                  mov rax, SYS_write
+   260 0000025D BF01000000                  mov rdi, STDOUT
+   261 00000262 48BE-                       mov rsi, newLineData                 ; syscall needs an address to newline character
+   261 00000264 [1801000000000000] 
+   262 0000026C BA01000000                  mov rdx, 1 
+   263 00000271 0F05                        syscall
+   264                                  
+   265                                      printDone:
+   266 00000273 5B                          pop rbx
+   267 00000274 C3                          ret
+   268                                  

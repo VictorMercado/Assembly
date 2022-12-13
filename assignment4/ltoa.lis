@@ -1,0 +1,127 @@
+     1                                  ; name: Victor Mercado
+     2                                  ; email: vmercado29@csu.fullerton.edu
+     3                                  
+     4                                  
+     5                                  ;************************************************************************************************************************
+     6                                  ;Program name: "ltoa".  This program accepts a long integer and converts it to the corresponding string representation. *
+     7                                  ;This is a library function not specific to any one program.  Copyright (C) 2018  Floyd Holliday                        *
+     8                                  ;This program is free software: you can redistribute it and/or modify it under the terms of the GNU General Public      *
+     9                                  ;License version 3 as published by the Free Software Foundation.  This program is distributed in the hope that it will  *
+    10                                  ;be useful, but WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR  *
+    11                                  ;PURPOSE.  See the GNU General Public License for more details.  A copy of the GNU General Public License v3 is         *
+    12                                  ;available here:  <https://www.gnu.org/licenses/>.                                                                      *
+    13                                  ;************************************************************************************************************************
+    14                                  
+    15                                  
+    16                                  ;Declarations
+    17                                  global ltoa
+    18                                  Null equ 0
+    19                                  true equ -1
+    20                                  false equ 0
+    21                                  
+    22                                  segment .data
+    23                                  ;Empty
+    24                                  
+    25                                  segment .bss
+    26                                  ;Empty
+    27                                  
+    28                                  segment .text
+    29                                  
+    30                                  ltoa:
+    31                                  
+    32                                  ;Back up the GPRs
+    33 00000000 55                      push       rbp                          ;Save a copy of the stack base pointer
+    34 00000001 4889E5                  mov        rbp, rsp                     ;We do this in order to be fully compatible with C and C++.
+    35 00000004 53                      push       rbx                          ;Back up rbx
+    36 00000005 51                      push       rcx                          ;Back up rcx
+    37 00000006 52                      push       rdx                          ;Back up rdx
+    38 00000007 56                      push       rsi                          ;Back up rsi
+    39 00000008 57                      push       rdi                          ;Back up rdi
+    40 00000009 4150                    push       r8                           ;Back up r8
+    41 0000000B 4151                    push       r9                           ;Back up r9
+    42 0000000D 4152                    push       r10                          ;Back up r10
+    43 0000000F 4153                    push       r11                          ;Back up r11
+    44 00000011 4154                    push       r12                          ;Back up r12
+    45 00000013 4155                    push       r13                          ;Back up r13
+    46 00000015 4156                    push       r14                          ;Back up r14
+    47 00000017 4157                    push       r15                          ;Back up r15
+    48 00000019 9C                      pushf                                   ;Back up rflags
+    49                                  
+    50                                  
+    51                                  ;Passed parameters:
+    52                                  ;  rdi = 64-bit integer to be converted to string
+    53                                  ;  rsi = starting address of the string that will received the converted integer. 
+    54                                  
+    55                                  ;Initialize parameters for iteration
+    56 0000001A 4889F8                  mov rax,rdi    ;rax hold the 64-bit integer to be converted to string.
+    57 0000001D B900000000              mov rcx,0      ;rcx = counter of decimal digits
+    58 00000022 41BA0A000000            mov r10,10     ;Decimal 10 must be in a register for the division instruction
+    59                                  
+    60                                  ;Special case: if the user inputs an integer numerically less than the smallest 64-bit signed integer
+    61                                  ;then it will be upgraded to the smallest 64-bit integer.  The next block checks for this rather
+    62                                  ;rare case and refuses to process it as an integer, and simply processes a zero.
+    63                                  
+    64 00000028 49BE00000000000000-     mov r14,0x8000000000000000
+    64 00000031 80                 
+    65 00000032 4C39F0                  cmp rax,r14
+    66 00000035 7F05                        jg continue
+    67 00000037 B800000000                  mov rax,0
+    68                                  
+    69                                  continue:
+    70 0000003C 4883F800                cmp rax,0
+    71 00000040 7D0A                    jge main_loop
+    72 00000042 49C7C7FFFFFFFF              mov r15,true
+    73 00000049 48F7D8                      neg rax                   ;Replace rax with its absolute value
+    74                                  
+    75                                  main_loop:
+    76 0000004C 4899                        cqo
+    77 0000004E 49F7F2                      div r10                   ;rdx:rax/r10
+    78 00000051 52                          push rdx                  ;Put remainder on stack. The quotient is in rax
+    79 00000052 48FFC1                      inc rcx                   ;Count one push onto stack
+    80 00000055 4883F800                    cmp rax,0                 ;Is quotient equal to zero?
+    81 00000059 75F1                    jne main_loop                 ;Continue iteration if the quotient is not zero
+    82                                  
+    83                                  ;Initialize parameters for iteration that copies chars from stack to string
+    84                                      ;rsi is the destination array
+    85                                      ;rcx is the number of chars that will be placed into rsi
+    86 0000005B BF00000000                  mov rdi, 0                ;rdi will be the index of the array rsi
+    87                                  
+    88                                  ;If the original number was negative then place '-' in position 0 of the array.
+    89                                      ; cmp r15,0
+    90 00000060 EB09                        jmp begin_copy
+    91                                      ;if original number was positive skip to begin_copy
+    92 00000062 7407                        je begin_copy             
+    93 00000064 C6043E20                    mov byte [rsi+rdi],' '
+    94 00000068 48FFC7                      inc rdi
+    95                                  
+    96                                  begin_copy:
+    97 0000006B 58                          pop rax
+    98 0000006C 0430                        add al, "0"               ;Add to the numeric value in rax the ascii value of zero
+    99 0000006E 88043E                      mov byte [rsi+rdi], al    ;Copy the ascii value of the digit to the array
+   100 00000071 48FFC7                      inc rdi
+   101 00000074 E2F5                    loop begin_copy               ;loop instruction performs: {dec rcx followed by if(rcx>0) then goto begin_copy}
+   102                                  
+   103                                  
+   104 00000076 C6043E00                mov byte [rsi+rdi],Null       ;Append null to the end of the string.
+   105                                  
+   106 0000007A 4889F0                  mov rax, rsi          ;Place the array into the return register
+   107                                  
+   108                                  ;Restore the GPRs to their original values
+   109 0000007D 9D                      popf                                    ;Restore rflags
+   110 0000007E 415F                    pop        r15                          ;Restore r15
+   111 00000080 415E                    pop        r14                          ;Restore r14
+   112 00000082 415D                    pop        r13                          ;Restore r13
+   113 00000084 415C                    pop        r12                          ;Restore r12
+   114 00000086 415B                    pop        r11                          ;Restore r11
+   115 00000088 415A                    pop        r10                          ;Restore r10
+   116 0000008A 4159                    pop        r9                           ;Restore r9
+   117 0000008C 4158                    pop        r8                           ;Restore r8
+   118 0000008E 5F                      pop        rdi                          ;Restore rdi
+   119 0000008F 5E                      pop        rsi                          ;Restore rsi
+   120 00000090 5A                      pop        rdx                          ;Restore rdx
+   121 00000091 59                      pop        rcx                          ;Restore rcx
+   122 00000092 5B                      pop        rbx                          ;Restore rbx
+   123 00000093 5D                      pop        rbp                          ;Restore rbp
+   124                                  ;Notice that rax is not restored because it holds the value to be returned to the caller.
+   125                                  
+   126 00000094 C3                      ret

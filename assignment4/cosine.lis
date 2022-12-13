@@ -1,0 +1,117 @@
+     1                                  ; name: Victor Mercado
+     2                                  ; email: vmercado29@csu.fullerton.edu
+     3                                  global cosine
+     4                                  segment .data
+     5                                  
+     6                                  segment .bss
+     7                                  
+     8                                  segment .text
+     9                                  
+    10                                  cosine:
+    11                                  
+    12 00000000 55                      push rbp
+    13 00000001 4889E5                  mov  rbp,rsp
+    14 00000004 57                      push rdi                                                    ;Backup rdi
+    15 00000005 56                      push rsi                                                    ;Backup rsi
+    16 00000006 52                      push rdx                                                    ;Backup rdx
+    17 00000007 51                      push rcx                                                    ;Backup rcx
+    18 00000008 4150                    push r8                                                     ;Backup r8
+    19 0000000A 4151                    push r9                                                     ;Backup r9
+    20 0000000C 4152                    push r10                                                    ;Backup r10
+    21 0000000E 4153                    push r11                                                    ;Backup r11
+    22 00000010 4154                    push r12                                                    ;Backup r12
+    23 00000012 4155                    push r13                                                    ;Backup r13
+    24 00000014 4156                    push r14                                                    ;Backup r14
+    25 00000016 4157                    push r15                                                    ;Backup r15
+    26 00000018 53                      push rbx                                                    ;Backup rbx
+    27 00000019 9C                      pushf                                                       ;Backup rflags
+    28                                  
+    29                                  ; double cosine(double)
+    30                                  ; save the user input into a less volatile register ( this is X in the summation )
+    31 0000001A F2440F10F8              movsd xmm15, xmm0
+    32                                  ; The relation between every term k, k+1 is:
+    33                                  ; -1 * x^2
+    34                                  ;-------------
+    35                                  ;(2k+2)(2k+1)
+    36                                  ; Start the term from 1.0 and multiply the recurrance relation against it until terminal
+    37                                  
+    38                                  ; Remember k is what iteration we are on
+    39                                  ; x is the user inputted number
+    40                                  
+    41                                  ; Current (first) term of maclaurin series is 1.0 ( plug in k = 0 )
+    42 0000001F B801000000              mov rax, 1
+    43 00000024 F24C0F2AF0              cvtsi2sd xmm14, rax
+    44                                  ; we'll need the numbers 2.0, -1.0, and 1.0 to multiply floats
+    45                                  ; (from 2k+1 and 2k+2)
+    46 00000029 B801000000              mov rax, 1
+    47 0000002E F24C0F2AE8              cvtsi2sd xmm13, rax
+    48 00000033 B802000000              mov rax, 2
+    49 00000038 F24C0F2AE0              cvtsi2sd xmm12, rax
+    50 0000003D 48C7C0FFFFFFFF          mov rax, -1
+    51 00000044 F2480F2AE8              cvtsi2sd xmm5, rax
+    52                                  ; start k at 0, since we already have the first term of the sequence
+    53 00000049 41BF00000000            mov r15, 0
+    54 0000004F F24D0F2ADF              cvtsi2sd xmm11, r15
+    55                                  ; stop at 10,000,000
+    56 00000054 41BE80969800            mov r14, 10000000
+    57                                  ; Total sum so far
+    58 0000005A 66450F57D2              xorpd xmm10, xmm10
+    59                                  beginloop:
+    60                                  ; Check if r15 (k) has hit r14 (10000000)
+    61 0000005F 4D39F7                  cmp r15, r14
+    62 00000062 7449                    je end
+    63                                  ; Otherwise, add the current term of the sequence
+    64 00000064 F2450F58D6              addsd xmm10, xmm14
+    65                                  ; Then, compute the next term of the sequence (place into xmm14)
+    66                                  ; 2k+1 - xmm12 * xmm11 + xmm13
+    67                                  ; creating temporary register for calculations xmm9
+    68 00000069 F2450F10CC              movsd xmm9, xmm12
+    69 0000006E F2450F59CB              mulsd xmm9, xmm11
+    70 00000073 F2450F58CD              addsd xmm9, xmm13
+    71                                  
+    72                                  ; 2k+2 - xmm12 * xmm11 + xmm12
+    73                                  ; creating temporary register for calculations xmm8
+    74 00000078 F2450F10C4              movsd xmm8, xmm12
+    75 0000007D F2450F59C3              mulsd xmm8, xmm11
+    76 00000082 F2450F58C4              addsd xmm8, xmm12
+    77                                  
+    78                                  ; (2k+1) * (2k+2) - xmm8 * xmm9
+    79 00000087 F2450F59C1              mulsd xmm8, xmm9
+    80                                  
+    81                                  ; X^2 - user input at xmm15
+    82                                  ; creating temporary register for calculations xmm7
+    83 0000008C F2410F10FF              movsd xmm7, xmm15
+    84 00000091 F20F59FF                mulsd xmm7, xmm7
+    85                                  
+    86                                  ; X^2
+    87                                  ; ----
+    88                                  ; (2k+1) (2k+2) - result will be in xmm7
+    89 00000095 F2410F5EF8              divsd xmm7, xmm8
+    90                                  ; multiply -1 against this relation
+    91 0000009A F20F59FD                mulsd xmm7, xmm5
+    92                                  ; multiply the recurrance relation against the current term and set the current term to result
+    93 0000009E F2440F59F7              mulsd xmm14, xmm7
+    94 000000A3 49FFC7                  inc r15
+    95 000000A6 F24D0F2ADF              cvtsi2sd xmm11, r15
+    96 000000AB EBB2                    jmp beginloop
+    97                                  end:
+    98 000000AD F2410F10C2              movsd xmm0, xmm10
+    99                                  
+   100                                  
+   101 000000B2 9D                      popf                                                        ;Restore rflags
+   102 000000B3 5B                      pop rbx                                                     ;Restore rbx
+   103 000000B4 415F                    pop r15                                                     ;Restore r15
+   104 000000B6 415E                    pop r14                                                     ;Restore r14
+   105 000000B8 415D                    pop r13                                                     ;Restore r13
+   106 000000BA 415C                    pop r12                                                     ;Restore r12
+   107 000000BC 415B                    pop r11                                                     ;Restore r11
+   108 000000BE 415A                    pop r10                                                     ;Restore r10
+   109 000000C0 4159                    pop r9                                                      ;Restore r9
+   110 000000C2 4158                    pop r8                                                      ;Restore r8
+   111 000000C4 59                      pop rcx                                                     ;Restore rcx
+   112 000000C5 5A                      pop rdx                                                     ;Restore rdx
+   113 000000C6 5E                      pop rsi                                                     ;Restore rsi
+   114 000000C7 5F                      pop rdi                                                     ;Restore rdi
+   115 000000C8 5D                      pop rbp                                                     ;Restore rbp
+   116                                  
+   117 000000C9 C3                      ret

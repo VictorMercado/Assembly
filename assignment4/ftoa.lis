@@ -1,0 +1,161 @@
+     1                                  ; name: Victor Mercado
+     2                                  ; email: vmercado29@csu.fullerton.edu
+     3                                  global ftoa
+     4                                  
+     5                                  extern itoa
+     6                                  
+     7                                  section .text
+     8                                  
+     9                                  ftoa:
+    10                                  
+    11 00000000 4885F6                          test    rsi, rsi
+    12 00000003 0F844B010000                    je      .014
+    13 00000009 55                              push    rbp
+    14 0000000A 4889F2                          mov     rdx, rsi
+    15 0000000D 4889E5                          mov     rbp, rsp
+    16 00000010 4157                            push    r15
+    17 00000012 4156                            push    r14
+    18 00000014 4155                            push    r13
+    19 00000016 4154                            push    r12
+    20 00000018 53                              push    rbx
+    21 00000019 4889FB                          mov     rbx, rdi
+    22 0000001C 4883EC28                        sub     rsp, 40
+    23 00000020 660F2EC0                        ucomisd xmm0, xmm0
+    24 00000024 7B1D                            jpo     .003
+    25 00000026 4883FE03                        cmp     rsi, 3
+    26 0000002A 7F07                            jg      .002
+    27                                  .001:
+    28 0000002C 31C0                            xor eax, eax
+    29 0000002E E912010000                      jmp .013
+    30                                  
+    31                                  .002:
+    32 00000033 C7074E614E00                    mov dword [rdi], 5136718
+    33 00000039 B803000000                      mov eax, 3
+    34 0000003E E902010000                      jmp .013
+    35                                  
+    36                                  .003:
+    37 00000043 F20F2CC0                        cvttsd2si eax, xmm0
+    38 00000047 4889DE                          mov       rsi, rbx
+    39 0000004A F20F1145B8                      movsd     qword [rbp-48H], xmm0
+    40 0000004F 4863F8                          movsxd    rdi, eax
+    41 00000052 4189C7                          mov       r15d, eax
+    42 00000055 E8(00000000)                    call      itoa
+    43 0000005A 4885C0                          test      rax, rax
+    44 0000005D 74CD                            jz        .001
+    45 0000005F F2410F2ACF                      cvtsi2sd  xmm1, r15d
+    46 00000064 F20F1045B8                      movsd     xmm0, qword [rbp-48H]
+    47 00000069 F20F5CC1                        subsd     xmm0, xmm1
+    48 0000006D 0F57C9                          xorps     xmm1, xmm1
+    49 00000070 660F2FC8                        comisd    xmm1, xmm0
+    50 00000074 7607                            jbe       .004
+    51 00000076 0F5705(00000000)                xorps     xmm0, oword [rel .LC1]
+    52                                  .004:
+    53 0000007D 0F57C9                          xorps     xmm1, xmm1
+    54 00000080 660F2FC1                        comisd    xmm0, xmm1
+    55 00000084 0F86BB000000                    jbe       .013
+    56 0000008A C604032E                        mov       byte [rbx+rax], 46
+    57 0000008E 4C8D6DC9                        lea       r13, [rbp-37H]
+    58 00000092 48FFC0                          inc       rax
+    59 00000095 BA07000000                      mov       edx, 7
+    60 0000009A F20F5905(10000000)              mulsd     xmm0, [rel .LC2]
+    61 000000A2 4C89EE                          mov       rsi, r13
+    62 000000A5 4989E4                          mov       r12, rsp
+    63 000000A8 4989C7                          mov       r15, rax
+    64 000000AB F24C0F2CF0                      cvttsd2si r14, xmm0
+    65 000000B0 4C89F7                          mov       rdi, r14
+    66 000000B3 E8(00000000)                    call      itoa
+    67 000000B8 4885C0                          test      rax, rax
+    68 000000BB 0F8484000000                    je        .013
+    69 000000C1 31C9                            xor       ecx, ecx
+    70 000000C3 4D85F6                          test      r14, r14
+    71 000000C6 7E42                            jle       .009
+    72                                  .005:
+    73 000000C8 4981FE9F860100                  cmp  r14, 99999
+    74 000000CF 7F09                            jg   .006
+    75 000000D1 4D6BF60A                        imul r14, r14, 10
+    76 000000D5 48FFC1                          inc  rcx
+    77 000000D8 EBEE                            jmp  .005
+    78                                  
+    79                                  .006:
+    80 000000DA 48FFC8                          dec rax
+    81 000000DD 498D540D00                      lea rdx, [r13+rcx]
+    82                                  .007:
+    83 000000E2 4885C0                          test rax, rax
+    84 000000E5 780E                            js   .008
+    85 000000E7 418A740500                      mov  sil, byte [r13+rax]
+    86 000000EC 40883402                        mov  byte [rdx+rax], sil
+    87 000000F0 48FFC8                          dec  rax
+    88 000000F3 EBED                            jmp  .007
+    89                                  
+    90                                  .008:
+    91 000000F5 31C0                            xor   eax, eax
+    92 000000F7 4885C9                          test  rcx, rcx
+    93 000000FA 4C89EF                          mov   rdi, r13
+    94 000000FD 480F48C8                        cmovs rcx, rax
+    95 00000101 B030                            mov   al, 48
+    96 00000103 F3AA                            rep   stosb
+    97 00000105 B806000000                      mov   eax, 6
+    98                                  .009:
+    99 0000010A 4889C2                          mov rdx, rax
+   100 0000010D 4883F801                        cmp rax, 1
+   101 00000111 7E0C                            jle .010
+   102 00000113 41807C15FF30                    cmp byte [r13+rdx-1H], 48
+   103 00000119 488D40FF                        lea rax, [rax-1H]
+   104 0000011D 74EB                            jz  .009
+   105                                  .010:
+   106 0000011F 4C89F8                          mov rax, r15
+   107                                  .011:
+   108 00000122 89C1                            mov    ecx, eax
+   109 00000124 488D3403                        lea    rsi, [rbx+rax]
+   110 00000128 4429F9                          sub    ecx, r15d
+   111 0000012B 4863C9                          movsxd rcx, ecx
+   112 0000012E 4839D1                          cmp    rcx, rdx
+   113 00000131 7D0C                            jge    .012
+   114 00000133 8A4C0DC9                        mov    cl, byte [rbp+rcx-37H]
+   115 00000137 880C03                          mov    byte [rbx+rax], cl
+   116 0000013A 48FFC0                          inc    rax
+   117 0000013D EBE3                            jmp    .011
+   118                                  
+   119                                  .012:
+   120 0000013F C60600                          mov byte [rsi], 0
+   121 00000142 4C89E4                          mov rsp, r12
+   122                                  .013:
+   123 00000145 488D65D8                        lea rsp, [rbp-28H]
+   124 00000149 5B                              pop rbx
+   125 0000014A 415C                            pop r12
+   126 0000014C 415D                            pop r13
+   127 0000014E 415E                            pop r14
+   128 00000150 415F                            pop r15
+   129 00000152 5D                              pop rbp
+   130 00000153 C3                              ret 
+   131                                  
+   132                                  .014:
+   133                                  
+   134 00000154 31C0                            xor eax, eax
+   135 00000156 C3                              ret 
+   136                                  
+   137                                  section .data
+   138                                  
+   139                                  section .bss
+   140                                  
+   141                                  section .rodata
+   142                                  
+   143                                          ALIGN 16
+   144                                  .LC1:
+   145                                  
+   146 00000000 0000000000000080         dd 00000000H, 80000000H
+   147 00000008 0000000000000000         dd 00000000H, 00000000H
+   148                                  
+   149                                  section .rodata
+   150                                  
+   151                                  .LC2:
+   152 00000010 0000000080842E41         dq 412E848000000000H
+   153                                  
+   154                                  section .note
+   155                                  
+   156 00000000 0400000020000000         db 04H, 00H, 00H, 00H, 20H, 00H, 00H, 00H
+   157 00000008 05000000474E5500         db 05H, 00H, 00H, 00H, 47H, 4EH, 55H, 00H
+   158 00000010 020001C004000000         db 02H, 00H, 01H, 0C0H, 04H, 00H, 00H, 00H
+   159 00000018 0100000000000000         db 01H, 00H, 00H, 00H, 00H, 00H, 00H, 00H
+   160 00000020 010001C004000000         db 01H, 00H, 01H, 0C0H, 04H, 00H, 00H, 00H
+   161 00000028 0900000000000000         db 09H, 00H, 00H, 00H, 00H, 00H, 00H, 00H
