@@ -12,7 +12,7 @@ nasm -f elf64 -l loadArray.lis -o loadArray.o loadArray.asm
 
 
 echo "compile driver.cpp using g++ compiler"
-g++ -c -Wall -m64 -o driver.o driver.cpp -fno-pie -no-pie -std=c++17
+gcc -c -Wall -m64 -o driver.o driver.cpp -fno-pie -no-pie -std=c++17
 
 echo "Link object files using the g++ Linker"
 g++ -m64 -o finalElectricity manager.o driver.o getResistance.o loadArray.o -fno-pie -no-pie -std=c++17
