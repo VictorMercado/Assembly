@@ -53,7 +53,7 @@ pushf
 ;                 %.15lf ,  i want to place here
 ; mov r15, 0
 push qword 0
-; mov r8, rdi
+mov r15, rdi
 
 
 push qword 0
@@ -64,10 +64,10 @@ call printf
 pop rax
 
 
-push rax
+push qword 0
 mov rax, 0
 mov rdi, single_float_format
-mov rsi, rdi
+mov rsi, r15
 call scanf
 pop rax
 
