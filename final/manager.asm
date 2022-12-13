@@ -9,7 +9,7 @@ extern scanf
 
 
 segment .data
-single_float_format db "%f", 0
+singleF db "%f", 0
 
 inputprompt db "Enter the resistance numbers of the two subcircuits separated by ws and press enter: ",0
 
