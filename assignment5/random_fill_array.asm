@@ -5,7 +5,7 @@ extern isnan
 extern printf
 
 section .data
-msg db "Here at %d", 10, 0
+msg db " data %lf ", 10, 0
 msgLen equ $ - msg
 
 section .bss
@@ -40,13 +40,18 @@ mov r11, rsi    ; r11 will be the number of random numbers to accept
 mov r12, 0      ; this will be the counter
 
 loopp:
-    cmp r12, r11
+    cmp r11, r12
     jge endLoop
 
-    rdrand r8
-    movq xmm0, r8
+    rdrand r9
 
-    ucomisd xmm0, xmm0
+    ; mov rax, 0
+    ; mov rdi, msg
+    ; mov rsi, r8
+    ; call printf
+
+    movq xmm2, r9
+    ucomisd xmm2, xmm2
     jp loopp
 
     ; mov rax, 1
@@ -59,8 +64,9 @@ loopp:
     ; mov rsi, xmm0 
     ; call printf
 
-    movsd [r10 + (r12 * 8)], xmm0
+    movsd [r10 + (r12 * 8)], xmm2
     inc r12
+    mov r9, 0
     jmp loopp
 
 endLoop: 

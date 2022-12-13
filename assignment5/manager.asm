@@ -21,8 +21,17 @@ displayArrayMessage2Len equ $ - displayArrayMessage2
 displayArrayMessage3 db "Here are the third list values of the sorted array ", 0
 displayArrayMessage3Len equ $ - displayArrayMessage3
 
-displayFrequencyMessage db "Here is the frequency of the cpu: %lf", 10, 0
+displayFrequencyMessage db "Here is the frequency of the cpu: %f", 10, 0
 displayFrequencyMessageLen equ $ - displayFrequencyMessage
+
+startingTics db "Starting tics: %lu", 10, 0
+startingTicsLen equ $ - startingTics
+
+endingTics db "Ending tics: %lu", 10, 0
+endingTicsLen equ $ - endingTics
+
+differenceTics db "Difference tics: %lu", 10, 0
+differenceTicsLen equ $ - differenceTics
 
 msg2 db "Here at 2", 10, 0
 msg2Len equ $ - msg2
@@ -42,12 +51,25 @@ msgLen equ $ - msg
 
 
 section .bss 
-array resq 10000000
+array resq 10
 input resq 1
 
 section .text
 
 timedArraySort: 
+
+mov rax, 0
+mov rdx, 0
+cpuid
+rdtsc
+shl rdx, 32
+add rdx, rax
+mov r11, rdx
+
+mov rax, 0
+mov rdi, startingTics
+mov rsi, r11
+call printf
 
 mov rax, 0
 mov rdi, inputPrompt
@@ -61,11 +83,12 @@ mov rsi, input
 call scanf
 pop rax
 
+push rax
 mov rax, 0
 mov rdi, array
 mov rsi, [input]
 call randFillArray
-
+pop rax
 
 mov rax, 0
 mov rdi, array
@@ -79,14 +102,18 @@ call display
 ; mov rsi, msg3Len
 ; call printf
 
+push rax
+mov rax, 1
+call clock_speed
+movsd xmm11, xmm0
+pop rax
 
-; mov rax, 0
-; call clock_speed 
-
-; mov rax, 0
-; mov rdi, displayFrequencyMessage
-; movq rsi, xmm0 
-; call printf
+push rax
+mov rax, 1
+mov rdi, displayFrequencyMessage
+movsd xmm0, xmm11
+call printf
+pop rax
 
 ; mov rax, 0
 ; mov rdi, double_Format

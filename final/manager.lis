@@ -1,0 +1,179 @@
+     1                                  global resistance
+     2                                  
+     3                                  extern printf
+     4                                  extern scanf
+     5                                  extern getResistance
+     6                                  extern loadArray
+     7                                  
+     8                                  
+     9                                  
+    10                                  segment .data
+    11 00000000 256C6600                single_float_format db "%lf", 0
+    12                                  
+    13 00000004 456E74657220746865-     inputprompt db "Enter the resistance numbers of the two subcircuits separated by ws and press enter: ",0
+    13 0000000D 20726573697374616E-
+    13 00000016 6365206E756D626572-
+    13 0000001F 73206F662074686520-
+    13 00000028 74776F207375626369-
+    13 00000031 726375697473207365-
+    13 0000003A 706172617465642062-
+    13 00000043 7920777320616E6420-
+    13 0000004C 707265737320656E74-
+    13 00000055 65723A2000         
+    14                                  
+    15 0000005A 256C66256C66256C66-     three_float_format db "%lf%lf%lf",0
+    15 00000063 00                 
+    16                                  
+    17 00000064 546865736520726573-     outputResistances db "These resistances were received: %.15lf Ω, %.15lf Ω, %.15lf Ω.",10,0
+    17 0000006D 697374616E63657320-
+    17 00000076 776572652072656365-
+    17 0000007F 697665643A20252E31-
+    17 00000088 356C6620CEA92C2025-
+    17 00000091 2E31356C6620CEA92C-
+    17 0000009A 20252E31356C6620CE-
+    17 000000A3 A92E0A00           
+    18 000000A7 546865207265736973-     outputTotalR db "The resistance of the entire circuit is %.15lf Ω.", 10, 0
+    18 000000B0 74616E6365206F6620-
+    18 000000B9 74686520656E746972-
+    18 000000C2 652063697263756974-
+    18 000000CB 20697320252E31356C-
+    18 000000D4 6620CEA92E0A00     
+    19                                  
+    20 000000DB 54686520746F74616C-     goodbye db "The total resistance will be returned to the caller module.",10,0
+    20 000000E4 20726573697374616E-
+    20 000000ED 63652077696C6C2062-
+    20 000000F6 652072657475726E65-
+    20 000000FF 6420746F2074686520-
+    20 00000108 63616C6C6572206D6F-
+    20 00000111 64756C652E0A00     
+    21                                  
+    22 00000118 686572656565656565-     msg db "hereeeeeeeeeeeeeeeeeeeeeeeeeee:", 0
+    22 00000121 656565656565656565-
+    22 0000012A 656565656565656565-
+    22 00000133 6565653A00         
+    23                                  msgLen equ $ - msg
+    24                                  
+    25                                  ; one dq 1.0
+    26                                  
+    27                                  segment .bss
+    28 00000000 <res 00000018>          array resq 3
+    29                                  
+    30                                  segment .text
+    31                                  
+    32                                  resistance:
+    33                                  
+    34                                  ;=========begin inputs for the 3 resistances===================
+    35 00000000 50                      push rax
+    36 00000001 B800000000              mov rax, 0
+    37 00000006 48BF-                   mov rdi, msg
+    37 00000008 [1801000000000000] 
+    38 00000010 BE20000000              mov rsi, msgLen
+    39 00000015 E8(00000000)            call printf
+    40 0000001A 58                      pop rax
+    41                                  
+    42                                  ; push rax
+    43                                  ; mov rax, 0
+    44                                  ; mov rdi, single_float_format
+    45                                  ; mov rsi, array
+    46                                  ; call scanf
+    47                                  ; pop rax
+    48                                  
+    49                                  ; push qword 0
+    50                                  ; ;Display a prompt message asking for the inputs
+    51                                  ; mov rax, 0
+    52                                  ; mov rdi, inputprompt         ;"Enter the resistance numbers of the two subcircuits separated by ws and press enter: "
+    53                                  ; call printf
+    54                                  ; pop rax
+    55                                  
+    56                                  ; void loadArray(array)
+    57 0000001B 50                      push rax
+    58 0000001C 48BF-                   mov rdi, array
+    58 0000001E [0000000000000000] 
+    59 00000026 E8(00000000)            call loadArray
+    60 0000002B 58                      pop rax
+    61                                  
+    62                                  ;Input the 3 resistances
+    63                                  ; push qword -1
+    64                                  ; push qword -2
+    65                                  ; push qword -3
+    66                                  ; mov rax, 0
+    67                                  ; mov rdi, three_float_format
+    68                                  ; mov rsi, array
+    69                                  ; mov rdx, array
+    70                                  ; add rdx, 8
+    71                                  ; mov rcx, array
+    72                                  ; add rcx, 16
+    73                                  ; call scanf
+    74                                  ; ; movsd xmm5, [rsp]
+    75                                  ; ; movsd xmm6, [rsp + 8]
+    76                                  ; ; movsd xmm7, [rsp + 16]
+    77                                  ; pop rax
+    78                                  ; pop rax
+    79                                  ; pop rax
+    80                                  ; for int i = 0, i < 3, i++
+    81                                  ; =============End input of 3 resistances===========
+    82                                  
+    83                                  ; ========== output the 3 resistances received =======
+    84 0000002C 6A00                    push qword 0
+    85 0000002E B803000000              mov rax, 3
+    86 00000033 48BF-                   mov rdi, outputResistances        ;"These resistances were received %.15lf, %.15lf, %.15lf..."
+    86 00000035 [6400000000000000] 
+    87 0000003D F20F100425-             movsd xmm0, [array]
+    87 00000042 [00000000]         
+    88 00000046 F20F100C25-             movsd xmm1, [array + 8]
+    88 0000004B [08000000]         
+    89 0000004F F20F101425-             movsd xmm2, [array + 16]
+    89 00000054 [10000000]         
+    90 00000058 E8(00000000)            call printf
+    91 0000005D 58                      pop rax
+    92                                  
+    93                                  ; double getResistance(array) -> xmm0
+    94 0000005E 48BF-                   mov rdi, array
+    94 00000060 [0000000000000000] 
+    95 00000068 E8(00000000)            call getResistance
+    96 0000006D F2440F10D8              movsd xmm11, xmm0
+    97                                  ; ===========End output of 3 resistances==========
+    98                                  
+    99                                  ; =====Time to calculate the total resistance=======
+   100                                  ; 1/r = 1/R1 + 1/R2 + 1/R3
+   101                                  ; r = 1/(1/R1 + 1/R2 + 1/R3)
+   102                                  ; first we need to add the resistances (each divided by 1.0)
+   103                                  ; one declared in segment.data
+   104                                  ; movsd xmm8, [one]
+   105                                  ; movsd xmm9, [one]
+   106                                  ; movsd xmm10, [one]
+   107                                  ; ; doing 1/R1, 1/R2, 1/R3 and adding them, registers xmm5-7 contain our resistances
+   108                                  ; divsd xmm8, xmm5
+   109                                  ; divsd xmm9, xmm6
+   110                                  ; divsd xmm10, xmm7
+   111                                  ; ; adding them together, total will now be stored in xmm8
+   112                                  ; addsd xmm8, xmm9
+   113                                  ; addsd xmm8, xmm10
+   114                                  ; ; doing 1/rTotal (stored in xmm11)
+   115                                  ; movsd xmm11, [one]
+   116                                  ; divsd xmm11, xmm8
+   117                                  ; ============End of calculations==============
+   118                                  
+   119                                  ; =========== Output total resistance ===========
+   120 00000072 6A00                    push qword 0
+   121 00000074 B801000000              mov rax, 1
+   122 00000079 48BF-                   mov rdi, outputTotalR
+   122 0000007B [A700000000000000] 
+   123 00000083 F2410F10C3              movsd xmm0, xmm11
+   124 00000088 E8(00000000)            call printf
+   125 0000008D 58                      pop rax
+   126                                  ; ========== end output total resistance =========
+   127                                  
+   128                                  ; =========== goodbyes ===============
+   129 0000008E 6A00                    push qword 0
+   130 00000090 B800000000              mov rax, 0
+   131 00000095 48BF-                   mov rdi, goodbye
+   131 00000097 [DB00000000000000] 
+   132 0000009F E8(00000000)            call printf
+   133 000000A4 58                      pop rax
+   134                                  ; =========== really goodbye now ============
+   135                                  
+   136 000000A5 58                      pop rax     ;counteract push at beginning of code
+   137                                  
+   138 000000A6 F2410F10C3              movsd xmm0, xmm11
+   139                                  ;===== Restore original values to integer registers ===================================================================

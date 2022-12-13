@@ -1,0 +1,172 @@
+     1                                  global loadArray
+     2                                  
+     3                                  extern scanf
+     4                                  extern printf
+     5                                  
+     6                                  
+     7                                  
+     8                                  segment .data
+     9 00000000 256600                  single_float_format db "%f", 0
+    10                                  
+    11 00000003 456E74657220726573-     enterResistance1 db "Enter resistance on circuit 1: ", 0
+    11 0000000C 697374616E6365206F-
+    11 00000015 6E2063697263756974-
+    11 0000001E 20313A2000         
+    12                                  enterResistanceLen equ $ - enterResistance1
+    13                                  
+    14 00000023 456E74657220726573-     enterResistance2 db "Enter resistance on circuit 2: ", 0
+    14 0000002C 697374616E6365206F-
+    14 00000035 6E2063697263756974-
+    14 0000003E 20323A2000         
+    15                                  enterResistanceLen2 equ $ - enterResistance2
+    16                                  
+    17 00000043 456E74657220726573-     enterResistance3 db "Enter resistance on circuit 3: ", 0
+    17 0000004C 697374616E6365206F-
+    17 00000055 6E2063697263756974-
+    17 0000005E 20333A2000         
+    18                                  enterResistanceLen3 equ $ - enterResistance3
+    19                                  
+    20                                  
+    21 00000063 686572653A00            msg db "here:", 0
+    22                                  msgLen equ $ - msg
+    23                                  
+    24                                  segment .bss
+    25                                  ; array resq 3
+    26                                  
+    27                                  segment .text
+    28                                  
+    29                                  loadArray:
+    30                                  ;Prolog ===== Insurance for any caller of this assembly module ========================================================
+    31                                  ;Any future program calling this module that the data in the caller's GPRs will not be modified.
+    32 00000000 55                      push rbp
+    33 00000001 4889E5                  mov rbp, rsp
+    34 00000004 53                      push rbx
+    35 00000005 51                      push rcx
+    36 00000006 52                      push rdx
+    37 00000007 57                      push rdi
+    38 00000008 56                      push rsi
+    39 00000009 4150                    push r8
+    40 0000000B 4151                    push r9
+    41 0000000D 4152                    push r10
+    42 0000000F 4153                    push r11
+    43 00000011 4154                    push r12
+    44 00000013 4155                    push r13
+    45 00000015 4156                    push r14
+    46 00000017 4157                    push r15
+    47 00000019 9C                      pushf 
+    48                                  
+    49                                  
+    50                                  ; for int i = 0, i < 3, i++
+    51                                  ;   array[i] = scanf()
+    52                                  ;   scanf(single_float_format, array[i])
+    53                                  ;                 %.15lf ,  i want to place here
+    54                                  ; mov r15, 0
+    55 0000001A 6A00                    push qword 0
+    56                                  ; mov r8, rdi
+    57                                  
+    58                                  
+    59 0000001C 6A00                    push qword 0
+    60 0000001E B800000000              mov rax, 0
+    61 00000023 48BF-                   mov rdi, enterResistance1
+    61 00000025 [0300000000000000] 
+    62 0000002D BE20000000              mov rsi, enterResistanceLen
+    63 00000032 E8(00000000)            call printf
+    64 00000037 58                      pop rax
+    65                                  
+    66                                  
+    67 00000038 50                      push rax
+    68 00000039 B800000000              mov rax, 0
+    69 0000003E 48BF-                   mov rdi, single_float_format
+    69 00000040 [0000000000000000] 
+    70 00000048 4889FE                  mov rsi, rdi
+    71 0000004B E8(00000000)            call scanf
+    72 00000050 58                      pop rax
+    73                                  
+    74 00000051 50                      push rax
+    75 00000052 B800000000              mov rax, 0
+    76 00000057 48BF-                   mov rdi, msg
+    76 00000059 [6300000000000000] 
+    77 00000061 BE06000000              mov rsi, msgLen
+    78 00000066 E8(00000000)            call printf
+    79 0000006B 58                      pop rax
+    80                                  
+    81 0000006C B800000000              mov rax,0
+    82 00000071 48BF-                   mov rdi, enterResistance2
+    82 00000073 [2300000000000000] 
+    83 0000007B BE20000000              mov rsi, enterResistanceLen2
+    84 00000080 E8(00000000)            call printf
+    85                                  
+    86 00000085 6A00                    push qword 0
+    87 00000087 B800000000              mov rax, 0
+    88 0000008C 48BF-                   mov rdi, single_float_format
+    88 0000008E [0000000000000000] 
+    89 00000096 498B7008                mov rsi, [r8 + 8]
+    90 0000009A E8(00000000)            call scanf
+    91 0000009F 58                      pop rax
+    92                                  
+    93 000000A0 B800000000              mov rax,0
+    94 000000A5 48BF-                   mov rdi, enterResistance3
+    94 000000A7 [4300000000000000] 
+    95 000000AF BE20000000              mov rsi, enterResistanceLen3
+    96 000000B4 E8(00000000)            call printf
+    97                                  
+    98 000000B9 6A00                    push qword 0
+    99 000000BB B800000000              mov rax, 0
+   100 000000C0 48BF-                   mov rdi, single_float_format
+   100 000000C2 [0000000000000000] 
+   101 000000CA 498B7010                mov rsi, [r8 + 16]
+   102 000000CE E8(00000000)            call scanf
+   103 000000D3 58                      pop rax
+   104                                  
+   105                                  
+   106 000000D4 58                      pop rax
+   107                                  ; beginLoop:
+   108                                  ;     cmp r15, 3
+   109                                  ;     je endLoop
+   110                                  
+   111                                  ;     push qword 0
+   112                                  ;     mov rax, 0
+   113                                  ;     mov rdi, single_float_format
+   114                                  ;     mov rsi, [r8 + 8*r15];array[i]
+   115                                  ;     call scanf
+   116                                  ;     inc r15
+   117                                  ;     pop rax
+   118                                  ;     ; when r15 == 3
+   119                                  
+   120                                      
+   121                                  ;     jmp beginLoop
+   122                                  ; endLoop:
+   123                                  ; push qword -1
+   124                                  ; push qword -2
+   125                                  ; push qword -3
+   126                                  ; mov rax, 0
+   127                                  ; mov rdi, three_float_format
+   128                                  ; mov rsi, array
+   129                                  ; mov rdx, array
+   130                                  ; add rdx, 8
+   131                                  ; mov rcx, array
+   132                                  ; add rcx, 16
+   133                                  ; call scanf
+   134                                  ; ; movsd xmm5, [rsp]
+   135                                  ; ; movsd xmm6, [rsp + 8]
+   136                                  ; ; movsd xmm7, [rsp + 16]
+   137                                  ; pop rax
+   138                                  ; pop rax
+   139                                  ; pop rax
+   140                                  
+   141 000000D5 9D                      popf
+   142 000000D6 415F                    pop r15
+   143 000000D8 415E                    pop r14
+   144 000000DA 415D                    pop r13
+   145 000000DC 415C                    pop r12
+   146 000000DE 415B                    pop r11
+   147 000000E0 415A                    pop r10
+   148 000000E2 4159                    pop r9
+   149 000000E4 4158                    pop r8
+   150 000000E6 5E                      pop rsi
+   151 000000E7 5F                      pop rdi
+   152 000000E8 5A                      pop rdx
+   153 000000E9 59                      pop rcx
+   154 000000EA 5B                      pop rbx
+   155 000000EB 5D                      pop rbp
+   156 000000EC C3                      ret 
