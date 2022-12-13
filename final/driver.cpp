@@ -12,6 +12,6 @@ int main()
     printf("Welcome to Electric Circuits programmed by Victor Mercado \n");
     totalResistance = manager();
 
-    // printf("The Resistance module received this number: %.15lf and will keep it. \n", totalResistance);
+    printf("The Resistance module received this number: %lf and will keep it. \n", totalResistance);
     // printf("The total resistance of the circuit is: %f \n", totalResistance);
 }
