@@ -1,14 +1,15 @@
-global resistance
+global manager
 
 extern printf
 extern scanf
-extern getResistance
-extern loadArray
+
+; extern getResistance
+; extern loadArray
 
 
 
 segment .data
-single_float_format db "%lf", 0
+single_float_format db "%f", 0
 
 inputprompt db "Enter the resistance numbers of the two subcircuits separated by ws and press enter: ",0
 
@@ -19,19 +20,32 @@ outputTotalR db "The resistance of the entire circuit is %.15lf Ω.", 10, 0
 
 goodbye db "The total resistance will be returned to the caller module.",10,0
 
-msg db "hereeeeeeeeeeeeeeeeeeeeeeeeeee:", 0
+
+
+enterResistance1 db "Enter resistance on circuit 1: ", 0
+enterResistanceLen equ $ - enterResistance1
+
+enterResistance2 db "Enter resistance on circuit 2: ", 0
+enterResistanceLen2 equ $ - enterResistance2
+
+enterResistance3 db "Enter resistance on circuit 3: ", 0
+enterResistanceLen3 equ $ - enterResistance3
+
+
+
+msg db "hereeeeeeeeeeeeeeeeeeeeeeeeeee:",10, 0
 msgLen equ $ - msg
 
 ; one dq 1.0
 
 segment .bss
-array resq 3
+array resq 4
 
 segment .text
 
-resistance:
-
+manager:
 ;=========begin inputs for the 3 resistances===================
+
 push rax
 mov rax, 0
 mov rdi, msg
@@ -53,11 +67,64 @@ pop rax
 ; call printf
 ; pop rax
 
-; void loadArray(array)
-push rax
-mov rdi, array
-call loadArray
+
+
+
+push qword 0
+mov rax, 0
+mov rdi, enterResistance1
+mov rsi, enterResistanceLen
+call printf
 pop rax
+
+
+push qword 0
+mov rax, 0
+mov rdi, single_float_format
+mov rsi, array
+call scanf
+pop rax
+
+push rax
+mov rax, 0
+mov rdi, msg
+mov rsi, msgLen
+call printf
+pop rax
+
+; mov rax,0
+; mov rdi, enterResistance2
+; mov rsi, enterResistanceLen2
+; call printf
+
+; push qword 0
+; mov rax, 0
+; mov rdi, single_float_format
+; mov rsi, [r8 + 8]
+; call scanf
+; pop rax
+
+; mov rax,0
+; mov rdi, enterResistance3
+; mov rsi, enterResistanceLen3
+; call printf
+
+; push qword 0
+; mov rax, 0
+; mov rdi, single_float_format
+; mov rsi, [r8 + 16]
+; call scanf
+; pop rax
+
+
+
+
+; void loadArray(array)
+; push rax
+; mov rax, 0
+; mov rdi, array
+; call loadArray
+; pop rax
 
 ;Input the 3 resistances
 ; push qword -1
@@ -81,19 +148,38 @@ pop rax
 ; =============End input of 3 resistances===========
 
 ; ========== output the 3 resistances received =======
-push qword 0
-mov rax, 3
-mov rdi, outputResistances        ;"These resistances were received %.15lf, %.15lf, %.15lf..."
-movsd xmm0, [array]
-movsd xmm1, [array + 8]
-movsd xmm2, [array + 16]
-call printf
-pop rax
+
+
+
+
+
+
+
+
+
+
+; push qword 0
+; mov rax, 3
+; mov rdi, outputResistances        ;"These resistances were received %.15lf, %.15lf, %.15lf..."
+; movsd xmm0, [array]
+; movsd xmm1, [array + 8]
+; movsd xmm2, [array + 16]
+; call printf
+; pop rax
 
 ; double getResistance(array) -> xmm0
-mov rdi, array
-call getResistance
-movsd xmm11, xmm0
+
+
+
+; mov rdi, array
+; call getResistance
+; movsd xmm11, xmm0
+
+
+
+
+
+
 ; ===========End output of 3 resistances==========
 
 ; =====Time to calculate the total resistance=======
@@ -116,24 +202,24 @@ movsd xmm11, xmm0
 ; divsd xmm11, xmm8
 ; ============End of calculations==============
 
-; =========== Output total resistance ===========
-push qword 0
-mov rax, 1
-mov rdi, outputTotalR
-movsd xmm0, xmm11
-call printf
-pop rax
-; ========== end output total resistance =========
+; ; =========== Output total resistance ===========
+; push qword 0
+; mov rax, 1
+; mov rdi, outputTotalR
+; movsd xmm0, xmm11
+; call printf
+; pop rax
+; ; ========== end output total resistance =========
 
-; =========== goodbyes ===============
-push qword 0
-mov rax, 0
-mov rdi, goodbye
-call printf
-pop rax
-; =========== really goodbye now ============
+; ; =========== goodbyes ===============
+; push qword 0
+; mov rax, 0
+; mov rdi, goodbye
+; call printf
+; pop rax
+; ; =========== really goodbye now ============
 
-pop rax     ;counteract push at beginning of code
+; pop rax     ;counteract push at beginning of code
 
-movsd xmm0, xmm11
+; movsd xmm0, xmm11
 ;===== Restore original values to integer registers ===================================================================
