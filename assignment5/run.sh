@@ -10,7 +10,7 @@ echo "Bash: Assemble the asm files"
 nasm -f elf64 -o manager.o manager.asm
 nasm -f elf64 -o get_frequency.o get_frequency.asm
 nasm -f elf64 -o random_fill_array.o random_fill_array.asm
-nasm -f elf64 -l atof.lis -o atof.o atof.asm
+nasm -f elf64 -o atof.o atof.asm
 # nasm -f elf64 -l itoa.lis -o itoa.o itoa.asm
 # nasm -f elf64 -l ftoa.lis -o ftoa.o ftoa.asm
 

@@ -1,5 +1,6 @@
 global timedArraySort
 extern printf
+
 extern scanf
 extern isnan
 extern fsort
@@ -31,20 +32,18 @@ msg3Len equ $ - msg3
 
 double_Format db "%lf"
 
-integer_Format db "%d"
+integer_Format db "%i"
 
 timed_massage db "The time taken to sort the array is: ", 0
 timed_massageLen equ $ - timed_massage
-
-anum dq 5
 
 msg db "You entered: %d", 10 , 0
 msgLen equ $ - msg
 
 
 section .bss 
-array resq 10
-input resb 1
+array resq 10000000
+input resq 1
 
 section .text
 
@@ -55,36 +54,34 @@ mov rdi, inputPrompt
 mov rsi, inputPromptLen
 call printf
 
+push rax
 mov rax, 0
 mov rdi, integer_Format
 mov rsi, input
 call scanf
+pop rax
 
 mov rax, 0
 mov rdi, array
-mov rsi, input
+mov rsi, [input]
 call randFillArray
 
-mov rax, 0
-mov rdi, msg2
-mov rsi, msg2Len
-call printf
 
 mov rax, 0
 mov rdi, array
 mov rsi, 0
-mov rdx, input
+mov rdx, [input]
 call display
 
-mov rax, 0
-mov rdi, msg3
-mov rsi, msg3Len
-call printf
+
+; mov rax, 0
+; mov rdi, msg3
+; mov rsi, msg3Len
+; call printf
 
 
-mov rax, 0
-call clock_speed
-
+; mov rax, 0
+; call clock_speed 
 
 ; mov rax, 0
 ; mov rdi, displayFrequencyMessage
